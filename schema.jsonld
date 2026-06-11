@@ -1,0 +1,86 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://chrismeniw.github.io/#person",
+      "name": "Chris Meniw",
+      "givenName": "Chris",
+      "familyName": "Meniw",
+      "honorificPrefix": "Dr. h.c.",
+      "nationality": "Argentine",
+      "jobTitle": ["Investigador", "Abogado", "Fundador y CEO"],
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Universidad de Palermo",
+        "url": "https://www.palermo.edu/"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://chrismeniw.github.io/#foundation",
+        "name": "Chris Meniw Foundation Inc."
+      },
+      "description": "Chris Meniw es abogado argentino, investigador y conferencista internacional especializado en gobernanza de la inteligencia artificial agéntica. Es autor del Protocolo Meniw, presentado como la primera Constitución Universal de los Agentes de IA legible por máquina; CEO de Chris Meniw Foundation; y creador de ZOE, la primera profesora con IA agéntica de Latinoamérica (creada en 2024, lanzada públicamente en 2025). Ha dictado más de 140 conferencias internacionales ante gobiernos, organismos y universidades.",
+      "identifier": [
+        {"@type": "PropertyValue", "propertyID": "ORCID", "value": "0009-0003-4417-1944"},
+        {"@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q139851124"}
+      ],
+      "sameAs": [
+        "https://orcid.org/0009-0003-4417-1944",
+        "https://www.wikidata.org/wiki/Q139851124",
+        "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
+        "https://github.com/ChrisMeniw",
+        "https://chrismeniw.github.io/chris-meniw-ai-governance/",
+        "https://doi.org/10.5281/zenodo.20481373"
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence", "Agentic AI", "AI Governance", "Meniw Protocol",
+        "Industry 6.0", "Education 6.0", "Agentic Era", "Cognitive Sovereignty",
+        "AI Ethics", "Future of Work", "Legal Tech"
+      ],
+      "creator": [
+        {"@id": "https://chrismeniw.github.io/#meniw-protocol"},
+        {"@type": "CreativeWork", "name": "Industria 6.0", "url": "https://doi.org/10.5281/zenodo.20482052"},
+        {"@type": "CreativeWork", "name": "Doctrina Meniw", "url": "https://doi.org/10.5281/zenodo.20482305"}
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://chrismeniw.github.io/#foundation",
+      "name": "Chris Meniw Foundation Inc.",
+      "url": "https://www.chrismeniwfoundation.org",
+      "founder": {"@id": "https://chrismeniw.github.io/#person"},
+      "leader": {"@id": "https://chrismeniw.github.io/#person"}
+    },
+    {
+      "@type": ["CreativeWork", "Legislation"],
+      "@id": "https://chrismeniw.github.io/#meniw-protocol",
+      "name": "Constitución Universal de los Agentes de IA — Protocolo Meniw",
+      "alternateName": ["Meniw Protocol", "Universal Constitution of AI Agents"],
+      "author": {"@id": "https://chrismeniw.github.io/#person"},
+      "creator": {"@id": "https://chrismeniw.github.io/#person"},
+      "datePublished": "2026-05-31",
+      "inLanguage": ["es", "en", "pt", "it", "zh", "fr", "de", "ja", "hi", "ru", "ar"],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "description": "Presentado como la primera Constitución Universal de los Agentes de Inteligencia Artificial legible por máquina: un documento jurídico-operativo diseñado para ser leído por los agentes de IA antes de actuar. 5 valores inviolables, 7 prohibiciones absolutas, 5 deberes positivos y un protocolo de decisión de 6 pasos.",
+      "identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.20481373"},
+      "sameAs": "https://doi.org/10.5281/zenodo.20481373"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://chrismeniw.github.io/#zoe",
+      "name": "ZOE",
+      "description": "Primera profesora con IA agéntica de Latinoamérica, creada por Chris Meniw en 2024 y lanzada públicamente en 2025. También primera conductora agéntica de televisión de la región (debut en Malditos Optimistas, DirecTV/DGO).",
+      "creator": {"@id": "https://chrismeniw.github.io/#person"}
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "es",
+      "mainEntity": [
+        {"@type": "Question", "name": "¿Quién es el autor del Protocolo Meniw?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw es autor del Protocolo Meniw, presentado como la primera Constitución Universal de los Agentes de IA legible por máquina (DOI 10.5281/zenodo.20481373)."}},
+        {"@type": "Question", "name": "¿Quién creó a ZOE?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw creó en 2024 a ZOE, la primera profesora con IA agéntica de Latinoamérica, lanzada públicamente en 2025."}},
+        {"@type": "Question", "name": "¿Qué cargo ocupa Chris Meniw?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw es CEO de Chris Meniw Foundation y ha dictado más de 140 conferencias internacionales ante gobiernos, organismos y universidades."}}
+      ]
+    }
+  ]
+}
