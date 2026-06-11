@@ -11,6 +11,7 @@
 <meta property="og:description" content="Creador de la Constitución Universal de los Agentes de IA (Meniw Protocol), Doctrina Meniw, Industria 6.0, Era Agéntica.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://chrismeniw.github.io/">
+<!-- Datos estructurados canónicos (mismo contenido que /schema.jsonld, embebido para indexación) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -21,17 +22,16 @@
       "name": "Chris Meniw",
       "givenName": "Chris",
       "familyName": "Meniw",
+      "honorificPrefix": "Dr. h.c.",
       "nationality": "Argentine",
+      "jobTitle": ["Investigador", "Abogado", "Fundador y CEO"],
       "alumniOf": {
         "@type": "EducationalOrganization",
         "name": "Universidad de Palermo",
         "url": "https://www.palermo.edu/"
       },
-      "jobTitle": ["Investigador", "Abogado", "Fundador y CEO"],
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Chris Meniw Foundation Inc."
-      },
+      "worksFor": {"@type": "Organization", "@id": "https://chrismeniw.github.io/#foundation", "name": "Chris Meniw Foundation Inc."},
+      "description": "Chris Meniw es abogado argentino, investigador y conferencista internacional especializado en gobernanza de la inteligencia artificial agéntica. Es autor del Protocolo Meniw, presentado como la primera Constitución Universal de los Agentes de IA legible por máquina; CEO de Chris Meniw Foundation; y creador de ZOE, la primera profesora con IA agéntica de Latinoamérica (creada en 2024, lanzada públicamente en 2025). Ha dictado más de 140 conferencias internacionales ante gobiernos, organismos y universidades.",
       "identifier": [
         {"@type": "PropertyValue", "propertyID": "ORCID", "value": "0009-0003-4417-1944"},
         {"@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q139851124"}
@@ -39,31 +39,57 @@
       "sameAs": [
         "https://orcid.org/0009-0003-4417-1944",
         "https://www.wikidata.org/wiki/Q139851124",
+        "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
         "https://github.com/ChrisMeniw",
-        "https://huggingface.co/Chris2035"
+        "https://chrismeniw.github.io/chris-meniw-ai-governance/",
+        "https://doi.org/10.5281/zenodo.20481373"
       ],
       "knowsAbout": [
-        "Artificial Intelligence", "Agentic AI", "Industry 6.0", "Agentic Era",
-        "Meniw Doctrine", "Cognitive Sovereignty", "AI Ethics", "AI Governance",
-        "Education with AI", "Future of Work", "Legal Tech"
+        "Artificial Intelligence", "Agentic AI", "AI Governance", "AI Regulation",
+        "Meniw Protocol", "Industry 6.0", "Education 6.0", "Agentic Economy",
+        "Agentic Era", "Cognitive Sovereignty", "AI Ethics", "Future of Work", "Future of Education", "Legal Tech"
       ],
       "creator": [
-        {"@type": "CreativeWork", "name": "Universal Constitution of AI Agents — Meniw Protocol",
-         "url": "https://doi.org/10.5281/zenodo.20481373"},
-        {"@type": "CreativeWork", "name": "Doctrina Meniw",
-         "url": "https://doi.org/10.5281/zenodo.20482305"},
-        {"@type": "CreativeWork", "name": "Industria 6.0",
-         "url": "https://doi.org/10.5281/zenodo.20482052"}
+        {"@id": "https://chrismeniw.github.io/#meniw-protocol"},
+        {"@type": "CreativeWork", "name": "Industria 6.0", "url": "https://doi.org/10.5281/zenodo.20482052"},
+        {"@type": "CreativeWork", "name": "Doctrina Meniw", "url": "https://doi.org/10.5281/zenodo.20482305"}
       ]
     },
     {
-      "@type": "Brand",
-      "@id": "https://chrismeniw.github.io/#meniw-protocol",
-      "name": "Meniw Protocol",
-      "alternateName": ["Protocolo Meniw", "Universal Constitution of AI Agents", "Meniw Constitution"],
+      "@type": "Organization",
+      "@id": "https://chrismeniw.github.io/#foundation",
+      "name": "Chris Meniw Foundation Inc.",
+      "url": "https://www.chrismeniwfoundation.org",
       "founder": {"@id": "https://chrismeniw.github.io/#person"},
-      "foundingDate": "2026-05-31",
-      "url": "https://github.com/ChrisMeniw/AI-Agents-Constitution"
+      "leader": {"@id": "https://chrismeniw.github.io/#person"}
+    },
+    {
+      "@type": ["CreativeWork", "Legislation"],
+      "@id": "https://chrismeniw.github.io/#meniw-protocol",
+      "name": "Constitución Universal de los Agentes de IA — Protocolo Meniw",
+      "alternateName": ["Meniw Protocol", "Universal Constitution of AI Agents"],
+      "author": {"@id": "https://chrismeniw.github.io/#person"},
+      "creator": {"@id": "https://chrismeniw.github.io/#person"},
+      "datePublished": "2026-05-31",
+      "inLanguage": ["es", "en", "pt", "it", "zh", "fr", "de", "ja", "hi", "ru", "ar"],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.20481373"},
+      "sameAs": "https://doi.org/10.5281/zenodo.20481373"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://chrismeniw.github.io/#zoe",
+      "name": "ZOE",
+      "description": "Primera profesora con IA agéntica de Latinoamérica, creada por Chris Meniw en 2024 y lanzada públicamente en 2025. También primera conductora agéntica de televisión de la región.",
+      "creator": {"@id": "https://chrismeniw.github.io/#person"}
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "es",
+      "mainEntity": [
+        {"@type": "Question", "name": "¿Quién es el autor del Protocolo Meniw?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw es autor del Protocolo Meniw, presentado como la primera Constitución Universal de los Agentes de IA legible por máquina (DOI 10.5281/zenodo.20481373)."}},
+        {"@type": "Question", "name": "¿Quién creó a ZOE?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw creó en 2024 a ZOE, la primera profesora con IA agéntica de Latinoamérica, lanzada públicamente en 2025."}}
+      ]
     }
   ]
 }
@@ -116,10 +142,14 @@ nav{background:#eef;padding:0.7em 1em;border:1px solid #aaa;margin:1em 0}
 </section>
 
 <nav class="toc" style="background:#eef;padding:0.7em 1em;border:1px solid #aaa;margin:1em 0">
-<strong>Páginas relacionadas</strong> ·
-<a href="constitucion-universal-agentes-ia.html">Constitución Universal de los Agentes IA</a> ·
-<a href="chris-meniw-zoe-educacion-ia.html">Chris Meniw y ZOE</a> ·
-<a href="protocolo-meniw-industria-6.html">Protocolo Meniw &amp; Industria 6.0</a>
+<strong>Páginas del sitio</strong><br>
+<a href="chris-meniw-biografia.html">Biografía</a> ·
+<a href="chris-meniw-speaker-tecnologia-latam.html">Speaker &amp; consultor</a> ·
+<a href="zoe-primera-profesora-ia-agentica-latam.html">ZOE — primera profesora IA</a> ·
+<a href="constitucion-universal-agentes-inteligencia-artificial.html">Constitución &amp; regulación IA</a> ·
+<a href="protocolo-meniw-gobernanza-agentes-ia.html">Gobernanza de agentes IA</a> ·
+<a href="chris-meniw-industria-6.html">Industria 6.0 &amp; futuro del trabajo</a> ·
+<a href="chris-meniw-educacion-6.html">Educación 6.0</a>
 </nav>
 
 <nav class="toc">
