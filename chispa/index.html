@@ -137,16 +137,19 @@ h1:focus-visible,h2:focus-visible{outline:none}
 
 const DIMS = ['crear', 'ayudar', 'explorar', 'construir', 'expresar', 'naturaleza'];
 
+const LANGS = ['es', 'en', 'pt'];
+
 const MIN_ISLANDS = 4; // islas mínimas para encender la constelación
 
 /* ---------- Textos de interfaz ---------- */
 const STR = {
   es: {
     title: 'Chispa',
+    titleAlt: '· Spark',
     subtitle: 'Un viaje para descubrir para qué brillas',
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
-    langBtn: 'English',
+    langBtn: 'English', // idioma siguiente en el ciclo es→en→pt
     privacy: 'Juego 100% sin internet. No guarda ni envía nada.',
     mapTitle: 'El mar de las islas',
     mapHint: 'Elige una isla para visitar. Tú decides el camino.',
@@ -156,6 +159,7 @@ const STR = {
     next: 'Seguir',
     backToMap: 'Volver al mapa',
     constTitle: 'Tu constelación',
+    constAria: 'Constelación con seis estrellas',
     sparkIs: 'Tu chispa brilla fuerte en',
     withTouch: 'con un toque de',
     superpower: 'Tu superpoder',
@@ -165,7 +169,9 @@ const STR = {
     letterTitle: 'Carta a tu yo del futuro',
     letterHint: 'Puedes cambiar lo que quieras. Es tuya.',
     downloadLetter: 'Guardar carta (.txt)',
+    letterFile: 'mi-carta-al-futuro.txt',
     downloadPng: 'Guardar constelación (imagen)',
+    pngFile: 'mi-constelacion.png',
     playAgain: 'Jugar otra vez',
     familyGuide: 'Guía para familias',
     familyTitle: 'Para conversar en familia',
@@ -177,16 +183,17 @@ const STR = {
     chooseHint: 'Elige lo que harías tú:',
     feedback: ['¡Buena elección! ✨', 'La Chispa brilla más fuerte ✨', '¡Eso suena genial! ✨', 'Tu estrella se enciende ✨'],
     of: 'de',
-    defaultName: 'yo del futuro',
+    defaultName: 'yo',
     pngSaved: 'Imagen guardada',
     pngFail: 'Tu navegador no pudo crear la imagen, pero puedes sacar una captura de pantalla.',
   },
   en: {
     title: 'Spark',
+    titleAlt: '· Chispa',
     subtitle: 'A journey to discover what makes you shine',
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
-    langBtn: 'Español',
+    langBtn: 'Português',
     privacy: '100% offline game. Nothing is saved or sent anywhere.',
     mapTitle: 'The sea of islands',
     mapHint: 'Pick an island to visit. You choose the path.',
@@ -196,6 +203,7 @@ const STR = {
     next: 'Continue',
     backToMap: 'Back to the map',
     constTitle: 'Your constellation',
+    constAria: 'Constellation with six stars',
     sparkIs: 'Your spark shines bright in',
     withTouch: 'with a touch of',
     superpower: 'Your superpower',
@@ -205,7 +213,9 @@ const STR = {
     letterTitle: 'Letter to your future self',
     letterHint: 'Change anything you like. It is yours.',
     downloadLetter: 'Save letter (.txt)',
+    letterFile: 'my-letter-to-the-future.txt',
     downloadPng: 'Save constellation (image)',
+    pngFile: 'my-constellation.png',
     playAgain: 'Play again',
     familyGuide: 'Family guide',
     familyTitle: 'To talk about together',
@@ -217,73 +227,123 @@ const STR = {
     chooseHint: 'Choose what YOU would do:',
     feedback: ['Great choice! ✨', 'The Spark glows brighter ✨', 'That sounds amazing! ✨', 'Your star lights up ✨'],
     of: 'of',
-    defaultName: 'future me',
+    defaultName: 'me',
     pngSaved: 'Image saved',
     pngFail: 'Your browser could not create the image, but you can take a screenshot.',
+  },
+  pt: {
+    title: 'Faísca',
+    titleAlt: '· Chispa / Spark',
+    subtitle: 'Uma viagem para descobrir o que faz você brilhar',
+    yourName: 'Seu nome (se quiser)',
+    play: 'Começar a viagem!',
+    langBtn: 'Español',
+    privacy: 'Jogo 100% sem internet. Nada é salvo nem enviado.',
+    mapTitle: 'O mar das ilhas',
+    mapHint: 'Escolha uma ilha para visitar. Você decide o caminho.',
+    visited: 'visitada',
+    constellationReady: '✨ Suas estrelas já brilham! Ver minha constelação',
+    islandsLeft: n => `Visite mais ${n} ilha${n === 1 ? '' : 's'} para acender sua constelação`,
+    next: 'Continuar',
+    backToMap: 'Voltar ao mapa',
+    constTitle: 'Sua constelação',
+    constAria: 'Constelação com seis estrelas',
+    sparkIs: 'Sua faísca brilha forte em',
+    withTouch: 'com um toque de',
+    superpower: 'Seu superpoder',
+    readAloud: 'Ler em voz alta',
+    stopReading: 'Parar de ler',
+    writeLetter: 'Escrever minha carta para o futuro',
+    letterTitle: 'Carta para o seu eu do futuro',
+    letterHint: 'Você pode mudar o que quiser. Ela é sua.',
+    downloadLetter: 'Salvar carta (.txt)',
+    letterFile: 'minha-carta-para-o-futuro.txt',
+    downloadPng: 'Salvar constelação (imagem)',
+    pngFile: 'minha-constelacao.png',
+    playAgain: 'Jogar de novo',
+    familyGuide: 'Guia para famílias',
+    familyTitle: 'Para conversar em família',
+    familyIntro: 'A constelação não é um diagnóstico nem um rótulo: é uma foto do que anima a criança hoje. Pode mudar, e tudo bem. Três perguntas para conversar:',
+    familyQ1: '1. Qual ilha você mais gostou e por quê?',
+    familyQ2: '2. Em que momentos da sua semana aparece a sua estrela mais brilhante?',
+    familyQ3: '3. O que você gostaria de experimentar este mês usando a sua faísca?',
+    close: 'Fechar',
+    chooseHint: 'Escolha o que VOCÊ faria:',
+    feedback: ['Boa escolha! ✨', 'A Faísca brilha mais forte ✨', 'Isso parece incrível! ✨', 'Sua estrela se acende ✨'],
+    of: 'de',
+    defaultName: 'eu',
+    pngSaved: 'Imagem salva',
+    pngFail: 'Seu navegador não conseguiu criar a imagem, mas você pode tirar um print da tela.',
   },
 };
 
 /* ---------- Perfiles por dimensión ---------- */
 const PROFILES = {
   crear: {
-    label: { es: 'CREAR', en: 'CREATE' },
+    label: { es: 'CREAR', en: 'CREATE', pt: 'CRIAR' },
     desc: {
       es: 'Se te ocurren ideas que nadie más vio. Tu imaginación convierte lo común en algo mágico.',
       en: 'You come up with ideas nobody else has seen. Your imagination turns ordinary things into magic.',
+      pt: 'Você tem ideias que ninguém mais viu. Sua imaginação transforma o comum em algo mágico.',
     },
-    power: { es: 'Inventar cosas nuevas', en: 'Inventing new things' },
-    doing: { es: 'inventar y crear cosas nuevas', en: 'invent and create new things' },
-    reminder: { es: 'el mundo necesita mis ideas', en: 'the world needs my ideas' },
+    power: { es: 'Inventar cosas nuevas', en: 'Inventing new things', pt: 'Inventar coisas novas' },
+    doing: { es: 'inventar y crear cosas nuevas', en: 'invent and create new things', pt: 'inventar e criar coisas novas' },
+    reminder: { es: 'el mundo necesita mis ideas', en: 'the world needs my ideas', pt: 'o mundo precisa das minhas ideias' },
   },
   ayudar: {
-    label: { es: 'AYUDAR', en: 'HELP' },
+    label: { es: 'AYUDAR', en: 'HELP', pt: 'AJUDAR' },
     desc: {
       es: 'Tu corazón nota cuando alguien necesita una mano. Haces que los demás se sientan mejor.',
       en: 'Your heart notices when someone needs a hand. You make other people feel better.',
+      pt: 'Seu coração percebe quando alguém precisa de uma mão. Você faz os outros se sentirem melhor.',
     },
-    power: { es: 'Cuidar a los demás', en: 'Caring for others' },
-    doing: { es: 'ayudar y cuidar a los demás', en: 'help and take care of others' },
-    reminder: { es: 'una mano amiga cambia el día de alguien', en: 'a helping hand can change someone’s day' },
+    power: { es: 'Cuidar a los demás', en: 'Caring for others', pt: 'Cuidar dos outros' },
+    doing: { es: 'ayudar y cuidar a los demás', en: 'help and take care of others', pt: 'ajudar e cuidar dos outros' },
+    reminder: { es: 'una mano amiga cambia el día de alguien', en: 'a helping hand can change someone’s day', pt: 'uma mão amiga muda o dia de alguém' },
   },
   explorar: {
-    label: { es: 'EXPLORAR', en: 'EXPLORE' },
+    label: { es: 'EXPLORAR', en: 'EXPLORE', pt: 'EXPLORAR' },
     desc: {
       es: 'Las preguntas te llevan lejos. Donde otros ven una puerta cerrada, tú ves un misterio por descubrir.',
       en: 'Questions take you far. Where others see a closed door, you see a mystery waiting to be solved.',
+      pt: 'As perguntas levam você longe. Onde os outros veem uma porta fechada, você vê um mistério para descobrir.',
     },
-    power: { es: 'Descubrir secretos', en: 'Discovering secrets' },
-    doing: { es: 'explorar y descubrir misterios', en: 'explore and discover mysteries' },
-    reminder: { es: 'las preguntas abren puertas', en: 'questions open doors' },
+    power: { es: 'Descubrir secretos', en: 'Discovering secrets', pt: 'Descobrir segredos' },
+    doing: { es: 'explorar y descubrir misterios', en: 'explore and discover mysteries', pt: 'explorar e descobrir mistérios' },
+    reminder: { es: 'las preguntas abren puertas', en: 'questions open doors', pt: 'as perguntas abrem portas' },
   },
   construir: {
-    label: { es: 'CONSTRUIR', en: 'BUILD' },
+    label: { es: 'CONSTRUIR', en: 'BUILD', pt: 'CONSTRUIR' },
     desc: {
       es: 'Te encanta entender cómo funcionan las cosas y armarlas con tus manos. Para ti, los problemas son rompecabezas.',
       en: 'You love figuring out how things work and putting them together with your hands. To you, problems are puzzles.',
+      pt: 'Você adora entender como as coisas funcionam e montá-las com as próprias mãos. Para você, problemas são quebra-cabeças.',
     },
-    power: { es: 'Resolver problemas', en: 'Solving problems' },
-    doing: { es: 'construir y resolver problemas', en: 'build things and solve problems' },
-    reminder: { es: 'no hay problema sin solución', en: 'every problem has a solution' },
+    power: { es: 'Resolver problemas', en: 'Solving problems', pt: 'Resolver problemas' },
+    doing: { es: 'construir y resolver problemas', en: 'build things and solve problems', pt: 'construir coisas e resolver problemas' },
+    reminder: { es: 'no hay problema sin solución', en: 'every problem has a solution', pt: 'todo problema tem solução' },
   },
   expresar: {
-    label: { es: 'EXPRESAR', en: 'EXPRESS' },
+    label: { es: 'EXPRESAR', en: 'EXPRESS', pt: 'EXPRESSAR' },
     desc: {
       es: 'Tienes historias, palabras y voces que hacen sentir cosas a los demás. Cuando compartes, todos escuchan.',
       en: 'You have stories, words and voices that make other people feel things. When you share, everyone listens.',
+      pt: 'Você tem histórias, palavras e vozes que fazem os outros sentirem coisas. Quando você compartilha, todos escutam.',
     },
-    power: { es: 'Contar y compartir', en: 'Telling and sharing' },
-    doing: { es: 'contar historias y compartir ideas', en: 'tell stories and share ideas' },
-    reminder: { es: 'mi voz importa', en: 'my voice matters' },
+    power: { es: 'Contar y compartir', en: 'Telling and sharing', pt: 'Contar e compartilhar' },
+    doing: { es: 'contar historias y compartir ideas', en: 'tell stories and share ideas', pt: 'contar histórias e compartilhar ideias' },
+    reminder: { es: 'mi voz importa', en: 'my voice matters', pt: 'minha voz importa' },
   },
   naturaleza: {
-    label: { es: 'NATURALEZA', en: 'NATURE' },
+    label: { es: 'NATURALEZA', en: 'NATURE', pt: 'NATUREZA' },
     desc: {
       es: 'Los animales y las plantas confían en ti. Entiendes que el planeta es la casa de todos.',
       en: 'Animals and plants trust you. You understand that the planet is everyone’s home.',
+      pt: 'Os animais e as plantas confiam em você. Você entende que o planeta é a casa de todos.',
     },
-    power: { es: 'Cuidar el mundo', en: 'Caring for the world' },
-    doing: { es: 'cuidar a los animales y a la naturaleza', en: 'care for animals and nature' },
-    reminder: { es: 'el planeta es la casa de todos', en: 'the planet is everyone’s home' },
+    power: { es: 'Cuidar el mundo', en: 'Caring for the world', pt: 'Cuidar do mundo' },
+    doing: { es: 'cuidar a los animales y a la naturaleza', en: 'care for animals and nature', pt: 'cuidar dos animais e da natureza' },
+    reminder: { es: 'el planeta es la casa de todos', en: 'the planet is everyone’s home', pt: 'o planeta é a casa de todos' },
   },
 };
 
@@ -292,192 +352,210 @@ const PROFILES = {
 const ISLANDS = [
   {
     id: 'colores',
-    name: { es: 'Isla de los Colores', en: 'Color Island' },
+    name: { es: 'Isla de los Colores', en: 'Color Island', pt: 'Ilha das Cores' },
     intro: {
       es: 'Una isla pintada a medias. ¡Alguien dejó los pinceles y se fue!',
       en: 'A half-painted island. Someone left their brushes behind and disappeared!',
+      pt: 'Uma ilha pintada pela metade. Alguém deixou os pincéis e sumiu!',
     },
     scenes: [
       {
         prompt: {
           es: 'Encuentras una pared gigante en blanco.',
           en: 'You find a giant blank wall.',
+          pt: 'Você encontra uma parede gigante em branco.',
         },
         options: [
-          { text: { es: 'Pinto un mundo que nadie vio nunca', en: 'I paint a world nobody has ever seen' }, w: { crear: 2, expresar: 1 } },
-          { text: { es: 'Pinto a mis amigos ayudándose entre todos', en: 'I paint my friends helping each other' }, w: { ayudar: 2, crear: 1 } },
-          { text: { es: 'Pinto un mapa secreto de la isla', en: 'I paint a secret map of the island' }, w: { explorar: 2, construir: 1 } },
+          { text: { es: 'Pinto un mundo que nadie vio nunca', en: 'I paint a world nobody has ever seen', pt: 'Pinto um mundo que ninguém nunca viu' }, w: { crear: 2, expresar: 1 } },
+          { text: { es: 'Pinto a mis amigos ayudándose entre todos', en: 'I paint my friends helping each other', pt: 'Pinto meus amigos ajudando uns aos outros' }, w: { ayudar: 2, crear: 1 } },
+          { text: { es: 'Pinto un mapa secreto de la isla', en: 'I paint a secret map of the island', pt: 'Pinto um mapa secreto da ilha' }, w: { explorar: 2, construir: 1 } },
         ],
       },
       {
         prompt: {
           es: 'Un cangrejo te pide ayuda para decorar su casa.',
           en: 'A crab asks you to help decorate its house.',
+          pt: 'Um caranguejo pede sua ajuda para decorar a casa dele.',
         },
         options: [
-          { text: { es: 'Hago tintes nuevos con flores y hojas', en: 'I make new dyes from flowers and leaves' }, w: { naturaleza: 2, crear: 1 } },
-          { text: { es: 'Le pregunto qué le gusta y lo hacemos juntos', en: 'I ask what it likes and we do it together' }, w: { ayudar: 2, expresar: 1 } },
-          { text: { es: 'Le construyo estantes para sus caracoles', en: 'I build shelves for its seashells' }, w: { construir: 2, ayudar: 1 } },
+          { text: { es: 'Hago tintes nuevos con flores y hojas', en: 'I make new dyes from flowers and leaves', pt: 'Faço tintas novas com flores e folhas' }, w: { naturaleza: 2, crear: 1 } },
+          { text: { es: 'Le pregunto qué le gusta y lo hacemos juntos', en: 'I ask what it likes and we do it together', pt: 'Pergunto do que ele gosta e fazemos juntos' }, w: { ayudar: 2, expresar: 1 } },
+          { text: { es: 'Le construyo estantes para sus caracoles', en: 'I build shelves for its seashells', pt: 'Construo prateleiras para as conchas dele' }, w: { construir: 2, ayudar: 1 } },
         ],
       },
     ],
   },
   {
     id: 'faro',
-    name: { es: 'Isla del Faro', en: 'Lighthouse Island' },
+    name: { es: 'Isla del Faro', en: 'Lighthouse Island', pt: 'Ilha do Farol' },
     intro: {
       es: 'El faro se apagó y los barcos no encuentran el puerto.',
       en: 'The lighthouse went dark and the ships can’t find the harbor.',
+      pt: 'O farol apagou e os barcos não encontram o porto.',
     },
     scenes: [
       {
         prompt: {
           es: '¿Cómo encendemos el faro esta noche?',
           en: 'How do we light the lighthouse tonight?',
+          pt: 'Como acendemos o farol esta noite?',
         },
         options: [
-          { text: { es: 'Armo un sistema de espejos con la luz de la luna', en: 'I build a mirror system using moonlight' }, w: { construir: 2, crear: 1 } },
-          { text: { es: 'Organizo a todos con antorchas en la playa', en: 'I organize everyone with torches on the beach' }, w: { ayudar: 2, expresar: 1 } },
-          { text: { es: 'Busco el interruptor secreto en el sótano', en: 'I search for the secret switch in the basement' }, w: { explorar: 2, construir: 1 } },
+          { text: { es: 'Armo un sistema de espejos con la luz de la luna', en: 'I build a mirror system using moonlight', pt: 'Monto um sistema de espelhos com a luz da lua' }, w: { construir: 2, crear: 1 } },
+          { text: { es: 'Organizo a todos con antorchas en la playa', en: 'I organize everyone with torches on the beach', pt: 'Organizo todo mundo com tochas na praia' }, w: { ayudar: 2, expresar: 1 } },
+          { text: { es: 'Busco el interruptor secreto en el sótano', en: 'I search for the secret switch in the basement', pt: 'Procuro o interruptor secreto no porão' }, w: { explorar: 2, construir: 1 } },
         ],
       },
       {
         prompt: {
           es: 'Un barquito perdido llega a la costa. El capitán está triste.',
           en: 'A lost little boat reaches the shore. The captain is sad.',
+          pt: 'Um barquinho perdido chega à costa. O capitão está triste.',
         },
         options: [
-          { text: { es: 'Le canto una canción para animarlo', en: 'I sing him a song to cheer him up' }, w: { expresar: 2, crear: 1 } },
-          { text: { es: 'Le preparo comida caliente y lo escucho', en: 'I make him warm food and listen to him' }, w: { ayudar: 2, naturaleza: 1 } },
-          { text: { es: 'Le dibujo un mapa nuevo para volver a casa', en: 'I draw him a new map to get back home' }, w: { crear: 2, explorar: 1 } },
+          { text: { es: 'Le canto una canción para animarlo', en: 'I sing him a song to cheer him up', pt: 'Canto uma música para animá-lo' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Le preparo comida caliente y lo escucho', en: 'I make him warm food and listen to him', pt: 'Preparo comida quente e escuto a história dele' }, w: { ayudar: 2, naturaleza: 1 } },
+          { text: { es: 'Le dibujo un mapa nuevo para volver a casa', en: 'I draw him a new map to get back home', pt: 'Desenho um mapa novo para ele voltar para casa' }, w: { crear: 2, explorar: 1 } },
         ],
       },
     ],
   },
   {
     id: 'bosque',
-    name: { es: 'Isla del Bosque', en: 'Forest Island' },
+    name: { es: 'Isla del Bosque', en: 'Forest Island', pt: 'Ilha da Floresta' },
     intro: {
       es: 'Un bosque donde los árboles susurran y los animales te miran con curiosidad.',
       en: 'A forest where the trees whisper and the animals watch you with curious eyes.',
+      pt: 'Uma floresta onde as árvores sussurram e os animais observam você com curiosidade.',
     },
     scenes: [
       {
         prompt: {
           es: 'Encuentras un pichón que se cayó del nido.',
           en: 'You find a baby bird that fell from its nest.',
+          pt: 'Você encontra um filhote de passarinho que caiu do ninho.',
         },
         options: [
-          { text: { es: 'Lo abrigo y le busco agua y semillas', en: 'I keep it warm and find it water and seeds' }, w: { naturaleza: 2, ayudar: 1 } },
-          { text: { es: 'Construyo una escalerita hasta el nido', en: 'I build a little ladder up to the nest' }, w: { construir: 2, ayudar: 1 } },
-          { text: { es: 'Observo a su familia para aprender dónde vive', en: 'I watch its family to learn where it lives' }, w: { explorar: 2, naturaleza: 1 } },
+          { text: { es: 'Lo abrigo y le busco agua y semillas', en: 'I keep it warm and find it water and seeds', pt: 'Deixo ele aquecido e busco água e sementes' }, w: { naturaleza: 2, ayudar: 1 } },
+          { text: { es: 'Construyo una escalerita hasta el nido', en: 'I build a little ladder up to the nest', pt: 'Construo uma escadinha até o ninho' }, w: { construir: 2, ayudar: 1 } },
+          { text: { es: 'Observo a su familia para aprender dónde vive', en: 'I watch its family to learn where it lives', pt: 'Observo a família dele para aprender onde ele mora' }, w: { explorar: 2, naturaleza: 1 } },
         ],
       },
       {
         prompt: {
           es: 'El arroyo del bosque está lleno de basura.',
           en: 'The forest stream is full of trash.',
+          pt: 'O riacho da floresta está cheio de lixo.',
         },
         options: [
-          { text: { es: 'Organizo una patrulla de limpieza con los animales', en: 'I organize a cleanup patrol with the animals' }, w: { naturaleza: 2, ayudar: 1 } },
-          { text: { es: 'Invento una máquina que junta la basura', en: 'I invent a machine that collects the trash' }, w: { construir: 2, crear: 1 } },
-          { text: { es: 'Hago carteles para que nadie ensucie más', en: 'I make signs so nobody litters again' }, w: { expresar: 2, naturaleza: 1 } },
+          { text: { es: 'Organizo una patrulla de limpieza con los animales', en: 'I organize a cleanup patrol with the animals', pt: 'Organizo uma patrulha de limpeza com os animais' }, w: { naturaleza: 2, ayudar: 1 } },
+          { text: { es: 'Invento una máquina que junta la basura', en: 'I invent a machine that collects the trash', pt: 'Invento uma máquina que recolhe o lixo' }, w: { construir: 2, crear: 1 } },
+          { text: { es: 'Hago carteles para que nadie ensucie más', en: 'I make signs so nobody litters again', pt: 'Faço cartazes para ninguém sujar mais' }, w: { expresar: 2, naturaleza: 1 } },
         ],
       },
     ],
   },
   {
     id: 'taller',
-    name: { es: 'Isla del Taller', en: 'Tinker Island' },
+    name: { es: 'Isla del Taller', en: 'Tinker Island', pt: 'Ilha da Oficina' },
     intro: {
       es: 'Una isla llena de engranajes, tuercas y máquinas dormidas.',
       en: 'An island full of gears, bolts and sleeping machines.',
+      pt: 'Uma ilha cheia de engrenagens, parafusos e máquinas adormecidas.',
     },
     scenes: [
       {
         prompt: {
           es: 'Hay un robot desarmado con un cartel: «ÁRMAME».',
           en: 'There is a robot in pieces with a sign: “BUILD ME”.',
+          pt: 'Tem um robô desmontado com uma placa: «MONTE-ME».',
         },
         options: [
-          { text: { es: 'Sigo el plano paso a paso hasta terminarlo', en: 'I follow the blueprint step by step until it’s done' }, w: { construir: 2, explorar: 1 } },
-          { text: { es: 'Lo armo a mi manera… ¡y le agrego alas!', en: 'I build it my own way… and add wings!' }, w: { crear: 2, construir: 1 } },
-          { text: { es: 'Invito a otros chicos para armarlo en equipo', en: 'I invite other kids to build it as a team' }, w: { ayudar: 2, expresar: 1 } },
+          { text: { es: 'Sigo el plano paso a paso hasta terminarlo', en: 'I follow the blueprint step by step until it’s done', pt: 'Sigo o manual passo a passo até terminar' }, w: { construir: 2, explorar: 1 } },
+          { text: { es: 'Lo armo a mi manera… ¡y le agrego alas!', en: 'I build it my own way… and add wings!', pt: 'Monto do meu jeito… e coloco asas nele!' }, w: { crear: 2, construir: 1 } },
+          { text: { es: 'Invito a otros chicos para armarlo en equipo', en: 'I invite other kids to build it as a team', pt: 'Chamo outras crianças para montar em equipe' }, w: { ayudar: 2, expresar: 1 } },
         ],
       },
       {
         prompt: {
           es: 'El puente de la isla está roto y nadie puede cruzar.',
           en: 'The island’s bridge is broken and nobody can cross.',
+          pt: 'A ponte da ilha está quebrada e ninguém consegue atravessar.',
         },
         options: [
-          { text: { es: 'Diseño un puente nuevo, más fuerte que antes', en: 'I design a new bridge, stronger than before' }, w: { construir: 2, crear: 1 } },
-          { text: { es: 'Busco otro camino cruzando la montaña', en: 'I look for another path across the mountain' }, w: { explorar: 2, naturaleza: 1 } },
-          { text: { es: 'Aviso a todos y organizo la reparación juntos', en: 'I warn everyone and organize the repair together' }, w: { ayudar: 2, construir: 1 } },
+          { text: { es: 'Diseño un puente nuevo, más fuerte que antes', en: 'I design a new bridge, stronger than before', pt: 'Projeto uma ponte nova, mais forte que antes' }, w: { construir: 2, crear: 1 } },
+          { text: { es: 'Busco otro camino cruzando la montaña', en: 'I look for another path across the mountain', pt: 'Procuro outro caminho atravessando a montanha' }, w: { explorar: 2, naturaleza: 1 } },
+          { text: { es: 'Aviso a todos y organizo la reparación juntos', en: 'I warn everyone and organize the repair together', pt: 'Aviso todo mundo e organizo o conserto juntos' }, w: { ayudar: 2, construir: 1 } },
         ],
       },
     ],
   },
   {
     id: 'historias',
-    name: { es: 'Isla de las Historias', en: 'Story Island' },
+    name: { es: 'Isla de las Historias', en: 'Story Island', pt: 'Ilha das Histórias' },
     intro: {
       es: 'En esta isla, las palabras flotan en el aire como burbujas de colores.',
       en: 'On this island, words float in the air like colorful bubbles.',
+      pt: 'Nesta ilha, as palavras flutuam no ar como bolhas coloridas.',
     },
     scenes: [
       {
         prompt: {
           es: 'La biblioteca perdió el final de su cuento favorito.',
           en: 'The library lost the ending of its favorite story.',
+          pt: 'A biblioteca perdeu o final da sua história favorita.',
         },
         options: [
-          { text: { es: 'Escribo un final nuevo y emocionante', en: 'I write a new, exciting ending' }, w: { expresar: 2, crear: 1 } },
-          { text: { es: 'Dibujo el final como una historieta', en: 'I draw the ending as a comic' }, w: { crear: 2, expresar: 1 } },
-          { text: { es: 'Inventamos el final entre todos, en voz alta', en: 'We make up the ending together, out loud' }, w: { expresar: 2, ayudar: 1 } },
+          { text: { es: 'Escribo un final nuevo y emocionante', en: 'I write a new, exciting ending', pt: 'Escrevo um final novo e emocionante' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Dibujo el final como una historieta', en: 'I draw the ending as a comic', pt: 'Desenho o final como uma história em quadrinhos' }, w: { crear: 2, expresar: 1 } },
+          { text: { es: 'Inventamos el final entre todos, en voz alta', en: 'We make up the ending together, out loud', pt: 'Inventamos o final todos juntos, em voz alta' }, w: { expresar: 2, ayudar: 1 } },
         ],
       },
       {
         prompt: {
           es: 'Te invitan a compartir algo en la plaza de la isla.',
           en: 'You are invited to share something in the island square.',
+          pt: 'Convidam você para compartilhar algo na praça da ilha.',
         },
         options: [
-          { text: { es: 'Cuento una historia que invento en el momento', en: 'I tell a story I make up on the spot' }, w: { expresar: 2, crear: 1 } },
-          { text: { es: 'Enseño cómo cuidar a los animales de la isla', en: 'I show everyone how to care for the island animals' }, w: { naturaleza: 2, expresar: 1 } },
-          { text: { es: 'Le enseño a otros un truco que sé hacer', en: 'I teach others a trick I know' }, w: { expresar: 2, ayudar: 1 } },
+          { text: { es: 'Cuento una historia que invento en el momento', en: 'I tell a story I make up on the spot', pt: 'Conto uma história que invento na hora' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Enseño cómo cuidar a los animales de la isla', en: 'I show everyone how to care for the island animals', pt: 'Ensino como cuidar dos animais da ilha' }, w: { naturaleza: 2, expresar: 1 } },
+          { text: { es: 'Le enseño a otros un truco que sé hacer', en: 'I teach others a trick I know', pt: 'Ensino aos outros um truque que eu sei' }, w: { expresar: 2, ayudar: 1 } },
         ],
       },
     ],
   },
   {
     id: 'mapa',
-    name: { es: 'Isla del Mapa', en: 'Compass Island' },
+    name: { es: 'Isla del Mapa', en: 'Compass Island', pt: 'Ilha do Mapa' },
     intro: {
       es: 'Una isla con puertas misteriosas y un mapa que cambia solo.',
       en: 'An island with mysterious doors and a map that changes on its own.',
+      pt: 'Uma ilha com portas misteriosas e um mapa que muda sozinho.',
     },
     scenes: [
       {
         prompt: {
           es: 'Hay tres puertas: una brilla, una suena y una está escondida.',
           en: 'There are three doors: one glows, one makes sounds, one is hidden.',
+          pt: 'Há três portas: uma brilha, uma faz sons e uma está escondida.',
         },
         options: [
-          { text: { es: 'Abro la escondida: ¡lo secreto es lo mejor!', en: 'I open the hidden one: secrets are the best!' }, w: { explorar: 2, crear: 1 } },
-          { text: { es: 'Imagino qué hay detrás y dibujo mis ideas', en: 'I imagine what’s behind them and draw my ideas' }, w: { crear: 2, explorar: 1 } },
-          { text: { es: 'Examino las pistas de cada puerta antes de elegir', en: 'I examine the clues on each door before choosing' }, w: { explorar: 2, construir: 1 } },
+          { text: { es: 'Abro la escondida: ¡lo secreto es lo mejor!', en: 'I open the hidden one: secrets are the best!', pt: 'Abro a escondida: segredos são o melhor!' }, w: { explorar: 2, crear: 1 } },
+          { text: { es: 'Imagino qué hay detrás y dibujo mis ideas', en: 'I imagine what’s behind them and draw my ideas', pt: 'Imagino o que tem atrás delas e desenho minhas ideias' }, w: { crear: 2, explorar: 1 } },
+          { text: { es: 'Examino las pistas de cada puerta antes de elegir', en: 'I examine the clues on each door before choosing', pt: 'Examino as pistas de cada porta antes de escolher' }, w: { explorar: 2, construir: 1 } },
         ],
       },
       {
         prompt: {
           es: 'El mapa muestra un tesoro en el fondo del mar.',
           en: 'The map shows a treasure at the bottom of the sea.',
+          pt: 'O mapa mostra um tesouro no fundo do mar.',
         },
         options: [
-          { text: { es: 'Invento un submarino de burbujas para bajar', en: 'I invent a bubble submarine to go down' }, w: { crear: 2, construir: 1 } },
-          { text: { es: 'Les pido ayuda a los delfines', en: 'I ask the dolphins for help' }, w: { naturaleza: 2, ayudar: 1 } },
-          { text: { es: 'Buceo despacio, cuidando los corales', en: 'I dive down slowly, protecting the corals' }, w: { naturaleza: 2, explorar: 1 } },
+          { text: { es: 'Invento un submarino de burbujas para bajar', en: 'I invent a bubble submarine to go down', pt: 'Invento um submarino de bolhas para descer' }, w: { crear: 2, construir: 1 } },
+          { text: { es: 'Les pido ayuda a los delfines', en: 'I ask the dolphins for help', pt: 'Peço ajuda aos golfinhos' }, w: { naturaleza: 2, ayudar: 1 } },
+          { text: { es: 'Buceo despacio, cuidando los corales', en: 'I dive down slowly, protecting the corals', pt: 'Mergulho devagar, cuidando dos corais' }, w: { naturaleza: 2, explorar: 1 } },
         ],
       },
     ],
@@ -531,6 +609,17 @@ Cuando leas esta carta, espero que sigas haciendo brillar tu chispa. Y si cambi�
 
 — ${who} de hoy ✨`;
   }
+  if (lang === 'pt') {
+    return `Olá, ${who} do futuro:
+
+Hoje eu viajei pelas ilhas da Faísca e descobri algo sobre mim: minha faísca brilha forte quando eu posso ${t.doing.pt}. Também gosto de ${s.doing.pt}.
+
+Quero lembrar disto: ${t.reminder.pt}.
+
+Quando você ler esta carta, espero que ainda esteja fazendo sua faísca brilhar. E se mudou, tudo bem também! As estrelas se movem.
+
+— ${who} de hoje ✨`;
+  }
   return `Hello, future ${who}:
 
 Today I traveled through the Spark islands and discovered something about myself: my spark shines bright when I can ${t.doing.en}. I also like to ${s.doing.en}.
@@ -556,7 +645,7 @@ function constellationData(scores) {
 }
 
 const ChispaLogic = {
-  DIMS, MIN_ISLANDS, STR, PROFILES, ISLANDS, STAR_POS,
+  DIMS, LANGS, MIN_ISLANDS, STR, PROFILES, ISLANDS, STAR_POS,
   newScores, applyChoice, computePurpose, buildLetter, constellationData,
 };
 
@@ -661,7 +750,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     if (!canSpeak()) return;
     if (state.speaking) { window.speechSynthesis.cancel(); state.speaking = false; syncSpeakBtns(); return; }
     const u = new window.SpeechSynthesisUtterance(text);
-    u.lang = state.lang === 'es' ? 'es-ES' : 'en-US';
+    u.lang = { es: 'es-ES', en: 'en-US', pt: 'pt-BR' }[state.lang];
     u.rate = 0.95;
     u.onend = () => { state.speaking = false; syncSpeakBtns(); };
     state.speaking = true; syncSpeakBtns();
@@ -717,12 +806,12 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     render(`
       <div class="card center">
         <div class="spark-hero float">${sparkArt('happy', 130)}</div>
-        <h1 class="game-title">${t('title')} <span class="title-alt">· ${state.lang === 'es' ? 'Spark' : 'Chispa'}</span></h1>
+        <h1 class="game-title">${t('title')} <span class="title-alt">${t('titleAlt')}</span></h1>
         <p class="subtitle">${t('subtitle')}</p>
         <label class="name-label" for="name-input">${t('yourName')}</label>
         <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
         <button type="button" id="btn-start" class="btn btn-big">${t('play')}</button>
-        <button type="button" id="btn-lang" class="btn btn-soft" aria-label="${state.lang === 'es' ? 'Switch to English' : 'Cambiar a español'}">🌐 ${t('langBtn')}</button>
+        <button type="button" id="btn-lang" class="btn btn-soft" lang="${{ es: 'en', en: 'pt', pt: 'es' }[state.lang]}">🌐 ${t('langBtn')}</button>
         <p class="privacy">${t('privacy')}</p>
       </div>`, 'title');
 
@@ -732,7 +821,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     });
     document.getElementById('btn-lang').addEventListener('click', () => {
       state.name = document.getElementById('name-input').value.trim();
-      state.lang = state.lang === 'es' ? 'en' : 'es';
+      // Ciclo es → en → pt → es
+      state.lang = L.LANGS[(L.LANGS.indexOf(state.lang) + 1) % L.LANGS.length];
       document.documentElement.lang = state.lang;
       screenTitle();
     });
@@ -848,7 +938,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     }).join('');
     const bg = forExport ? '<rect width="100" height="70" fill="#1b1740"/>' : '';
     return `<svg id="const-svg" viewBox="0 0 100 70" class="constellation" role="img"
-      aria-label="${state.lang === 'es' ? 'Constelación con seis estrellas' : 'Constellation with six stars'}">${bg}${lines.join('')}${stars}</svg>`;
+      aria-label="${t('constAria')}">${bg}${lines.join('')}${stars}</svg>`;
   }
 
   function exportPNG(purpose) {
@@ -870,7 +960,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         ctx.fillText(`${who}${t('sparkIs')} ${L.PROFILES[purpose.top].label[state.lang]} ✨`, 500, 738);
         URL.revokeObjectURL(url);
         const a = document.createElement('a');
-        a.download = state.lang === 'es' ? 'mi-constelacion.png' : 'my-constellation.png';
+        a.download = t('pngFile');
         a.href = canvas.toDataURL('image/png');
         document.body.appendChild(a); a.click(); a.remove();
         announce(t('pngSaved'));
@@ -946,8 +1036,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
     wireSpeak();
     document.getElementById('btn-dl-letter').addEventListener('click', () => {
-      download(state.lang === 'es' ? 'mi-carta-al-futuro.txt' : 'my-letter-to-the-future.txt',
-        document.getElementById('letter-text').value);
+      download(t('letterFile'), document.getElementById('letter-text').value);
     });
     document.getElementById('btn-replay').addEventListener('click', () => {
       state.visited = []; state.scores = L.newScores(); state.current = null; state.scene = 0;
