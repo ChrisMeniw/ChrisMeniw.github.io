@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Chispa / Spark / Faísca — un juego para descubrir para qué brillas. 100% offline.">
-<title>Chispa · Spark · Faísca</title>
+<meta name="description" content="Spark — un juego para descubrir para qué brillas · a game to discover what makes you shine. 100% offline.">
+<title>Spark</title>
 <style>
 /* ====== Tema "Cielo de Chispa" (Midnight Galaxy + Golden Hour, custom) ====== */
 :root{
@@ -254,6 +254,52 @@ h1,h2{font-size:1.6rem; line-height:1.25; margin-bottom:8px; outline:none; lette
 
 #live{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
 
+/* ---------- Botón de sonido flotante ---------- */
+.sound-btn{
+  position:fixed; top:14px; right:14px; z-index:10;
+  width:52px; height:52px; border-radius:50%; border:1px solid #5647ab88;
+  background:linear-gradient(180deg,#3a3078,#2b2360);
+  font-size:1.35rem; cursor:pointer; color:var(--text);
+  box-shadow:0 6px 16px -6px #000b;
+  transition:transform .15s, filter .15s;
+}
+.sound-btn:hover{filter:brightness(1.15); transform:scale(1.06)}
+.sound-btn:active{transform:scale(.96)}
+
+/* ---------- Pistas de teclado (solo escritorio con mouse) ---------- */
+.key-hint{
+  display:none; flex:0 0 auto;
+  width:26px; height:26px; margin-right:12px; border-radius:8px;
+  background:#241d52; border:1px solid #6c5ce766; color:var(--gold1);
+  font-size:.85rem; font-weight:bold;
+  align-items:center; justify-content:center;
+}
+@media (hover:hover) and (pointer:fine){
+  .key-hint{display:inline-flex}
+  .option-btn{display:flex; align-items:center}
+}
+
+/* ---------- Escritorio ---------- */
+@media (min-width:900px){
+  body{padding:34px 24px 44px}
+  #app{max-width:920px}
+  .card{padding:36px 42px; border-radius:32px}
+  h1,h2{font-size:1.9rem}
+  .game-title{font-size:4rem}
+  .subtitle{font-size:1.25rem}
+  .island-grid{grid-template-columns:repeat(3,1fr); gap:18px}
+  .island-btn{min-height:186px}
+  .island-bubble{width:108px; height:108px}
+  .scene-art{width:110px; height:110px}
+  .prompt{font-size:1.45rem}
+  .option-btn{font-size:1.18rem; padding:17px 20px}
+  .island-intro{font-size:1.16rem}
+  .constellation{max-height:430px}
+  .profile-line{font-size:1.28rem}
+  .dim-top{font-size:1.5rem}
+  .letter{font-size:1.14rem}
+}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none !important; transition:none !important}
   body::after{opacity:.7}
@@ -285,8 +331,7 @@ const MIN_ISLANDS = 4; // islas mínimas para encender la constelación
 /* ---------- Textos de interfaz ---------- */
 const STR = {
   es: {
-    title: 'Chispa',
-    titleAlt: 'Spark',
+    title: 'Spark',
     subtitle: 'Un viaje para descubrir para qué brillas',
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
@@ -322,15 +367,17 @@ const STR = {
     familyQ3: '3. ¿Qué te gustaría probar este mes usando tu chispa?',
     close: 'Cerrar',
     chooseHint: 'Elige lo que harías tú:',
-    feedback: ['¡Buena elección! ✨', 'La Chispa brilla más fuerte ✨', '¡Eso suena genial! ✨', 'Tu estrella se enciende ✨'],
+    feedback: ['¡Buena elección! ✨', 'Spark brilla más fuerte ✨', '¡Eso suena genial! ✨', 'Tu estrella se enciende ✨'],
     of: 'de',
+    soundOn: 'Sonido: encendido',
+    soundOff: 'Sonido: apagado',
+    keyHintAria: 'También puedes elegir con las teclas 1, 2 y 3',
     defaultName: 'yo',
     pngSaved: 'Imagen guardada',
     pngFail: 'Tu navegador no pudo crear la imagen, pero puedes sacar una captura de pantalla.',
   },
   en: {
     title: 'Spark',
-    titleAlt: 'Chispa',
     subtitle: 'A journey to discover what makes you shine',
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
@@ -366,15 +413,17 @@ const STR = {
     familyQ3: '3. What would you like to try this month using your spark?',
     close: 'Close',
     chooseHint: 'Choose what YOU would do:',
-    feedback: ['Great choice! ✨', 'The Spark glows brighter ✨', 'That sounds amazing! ✨', 'Your star lights up ✨'],
+    feedback: ['Great choice! ✨', 'Spark glows brighter ✨', 'That sounds amazing! ✨', 'Your star lights up ✨'],
     of: 'of',
+    soundOn: 'Sound: on',
+    soundOff: 'Sound: off',
+    keyHintAria: 'You can also choose with keys 1, 2 and 3',
     defaultName: 'me',
     pngSaved: 'Image saved',
     pngFail: 'Your browser could not create the image, but you can take a screenshot.',
   },
   pt: {
-    title: 'Faísca',
-    titleAlt: 'Chispa · Spark',
+    title: 'Spark',
     subtitle: 'Uma viagem para descobrir o que faz você brilhar',
     yourName: 'Seu nome (se quiser)',
     play: 'Começar a viagem!',
@@ -410,8 +459,11 @@ const STR = {
     familyQ3: '3. O que você gostaria de experimentar este mês usando a sua faísca?',
     close: 'Fechar',
     chooseHint: 'Escolha o que VOCÊ faria:',
-    feedback: ['Boa escolha! ✨', 'A Faísca brilha mais forte ✨', 'Isso parece incrível! ✨', 'Sua estrela se acende ✨'],
+    feedback: ['Boa escolha! ✨', 'Spark brilha mais forte ✨', 'Isso parece incrível! ✨', 'Sua estrela se acende ✨'],
     of: 'de',
+    soundOn: 'Som: ligado',
+    soundOff: 'Som: desligado',
+    keyHintAria: 'Você também pode escolher com as teclas 1, 2 e 3',
     defaultName: 'eu',
     pngSaved: 'Imagem salva',
     pngFail: 'Seu navegador não conseguiu criar a imagem, mas você pode tirar um print da tela.',
@@ -742,7 +794,7 @@ function buildLetter(name, lang, top, second) {
   if (lang === 'es') {
     return `Hola, ${who} del futuro:
 
-Hoy viajé por las islas de la Chispa y descubrí algo sobre mí: mi chispa brilla fuerte cuando puedo ${t.doing.es}. También me gusta ${s.doing.es}.
+Hoy viajé por las islas de Spark y descubrí algo sobre mí: mi chispa brilla fuerte cuando puedo ${t.doing.es}. También me gusta ${s.doing.es}.
 
 Quiero acordarme de esto: ${t.reminder.es}.
 
@@ -753,7 +805,7 @@ Cuando leas esta carta, espero que sigas haciendo brillar tu chispa. Y si cambi�
   if (lang === 'pt') {
     return `Olá, ${who} do futuro:
 
-Hoje eu viajei pelas ilhas da Faísca e descobri algo sobre mim: minha faísca brilha forte quando eu posso ${t.doing.pt}. Também gosto de ${s.doing.pt}.
+Hoje eu viajei pelas ilhas de Spark e descobri algo sobre mim: minha faísca brilha forte quando eu posso ${t.doing.pt}. Também gosto de ${s.doing.pt}.
 
 Quero lembrar disto: ${t.reminder.pt}.
 
@@ -890,6 +942,80 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     taller: '#a5b4ff', historias: '#c9a2ff', mapa: '#ffce4f',
   };
 
+  /* ---------- Sonido (WebAudio, 100% sintetizado, sin archivos) ---------- */
+  const Sound = (function () {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    let ctx = null, master = null, musicGain = null, enabled = false, musicNodes = [];
+    // Acorde suave por pantalla/isla (tríadas graves, timbre triángulo)
+    const CHORDS = {
+      title: [220, 277.18, 329.63], colores: [233.08, 293.66, 349.23],
+      faro: [196, 246.94, 293.66], bosque: [174.61, 220, 261.63],
+      taller: [207.65, 261.63, 311.13], historias: [246.94, 311.13, 369.99],
+      mapa: [220, 261.63, 329.63], constellation: [261.63, 329.63, 392],
+    };
+    let currentKey = 'title';
+    function ensure() {
+      if (!AC) return false;
+      try {
+        if (!ctx) {
+          ctx = new AC();
+          master = ctx.createGain(); master.gain.value = 0.5; master.connect(ctx.destination);
+          musicGain = ctx.createGain(); musicGain.gain.value = 0.14; musicGain.connect(master);
+        }
+        if (ctx.state === 'suspended') ctx.resume();
+        return true;
+      } catch (e) { return false; }
+    }
+    function stopMusic() {
+      for (const n of musicNodes) { try { n.stop ? n.stop() : n.disconnect(); } catch (e) { /* ya detenido */ } }
+      musicNodes = [];
+    }
+    function startMusic(key) {
+      if (key) currentKey = key;
+      if (!enabled || !ensure()) return;
+      stopMusic();
+      const freqs = CHORDS[currentKey] || CHORDS.title;
+      freqs.forEach((f, i) => {
+        const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = f / 2;
+        o.detune.value = i * 3;
+        const g = ctx.createGain(); g.gain.value = 0;
+        g.gain.linearRampToValueAtTime(0.5 / (i + 1), ctx.currentTime + 2.2);
+        o.connect(g); g.connect(musicGain); o.start();
+        musicNodes.push(o, g);
+      });
+    }
+    function blip(freq, dur, type, vol) {
+      if (!enabled || !ensure()) return;
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type || 'sine'; o.frequency.value = freq;
+      g.gain.setValueAtTime(vol || 0.22, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+      o.connect(g); g.connect(master); o.start(); o.stop(ctx.currentTime + dur);
+    }
+    return {
+      toggle() {
+        enabled = !enabled;
+        if (enabled && !ensure()) { enabled = false; return false; }
+        if (enabled) startMusic(); else stopMusic();
+        return enabled;
+      },
+      startMusic,
+      chime() { blip(659.25, 0.18); setTimeout(() => blip(880, 0.22), 90); },
+      star() { [523.25, 659.25, 783.99].forEach((f, i) => setTimeout(() => blip(f, 0.28, 'triangle', 0.2), i * 110)); },
+      arpeggio() { [392, 493.88, 587.33, 783.99, 987.77].forEach((f, i) => setTimeout(() => blip(f, 0.5, 'sine', 0.16), i * 160)); },
+      get on() { return enabled; },
+    };
+  })();
+
+  function syncSoundBtn() {
+    const b = document.getElementById('btn-sound');
+    if (!b) return;
+    b.textContent = Sound.on ? '🔊' : '🔇';
+    b.setAttribute('aria-pressed', Sound.on ? 'true' : 'false');
+    b.setAttribute('aria-label', Sound.on ? t('soundOn') : t('soundOff'));
+    b.title = Sound.on ? t('soundOn') : t('soundOff');
+  }
+
   /* ---------- Lectura en voz alta ---------- */
   function canSpeak() { return typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined'; }
 
@@ -927,6 +1053,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     state.speaking = false;
     app.innerHTML = html;
     app.dataset.screen = screenName;
+    syncSoundBtn();
     const h = app.querySelector('h1, h2');
     if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
   }
@@ -950,10 +1077,11 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   /* ---------- Pantallas ---------- */
 
   function screenTitle() {
+    Sound.startMusic('title');
     render(`
       <div class="card center">
         <div class="spark-hero burst float">${sparkArt('happy', 130)}</div>
-        <h1 class="game-title">${t('title')} <span class="title-alt">${t('titleAlt')}</span></h1>
+        <h1 class="game-title">${t('title')}</h1>
         <p class="subtitle">${t('subtitle')}</p>
         <label class="name-label" for="name-input">${t('yourName')}</label>
         <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
@@ -976,6 +1104,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   }
 
   function screenMap() {
+    Sound.startMusic('mapa');
     const left = Math.max(0, L.MIN_ISLANDS - state.visited.length);
     const allDone = state.visited.length === L.ISLANDS.length;
     const islands = L.ISLANDS.map((isl, i) => {
@@ -1019,10 +1148,12 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
   function screenIsland(showIntro) {
     const isl = L.ISLANDS[state.current];
+    if (showIntro) Sound.startMusic(isl.id);
     const scene = isl.scenes[state.scene];
     const total = isl.scenes.length;
     const options = scene.options.map((o, i) =>
-      `<li><button type="button" class="btn option-btn" data-opt="${i}">${esc(o.text[state.lang])}</button></li>`).join('');
+      `<li><button type="button" class="btn option-btn" data-opt="${i}" aria-keyshortcuts="${i + 1}">
+        <span class="key-hint" aria-hidden="true">${i + 1}</span>${esc(o.text[state.lang])}</button></li>`).join('');
 
     const introBlock = showIntro ? `<p class="island-intro">${esc(isl.intro[state.lang])}</p>` : '';
     const readText = `${showIntro ? isl.intro[state.lang] + '. ' : ''}${scene.prompt[state.lang]} ${t('chooseHint')} ${scene.options.map(o => o.text[state.lang]).join('. ')}`;
@@ -1055,9 +1186,11 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         const msg = pool[(state.visited.length * 3 + state.scene * 2 + Number(b.dataset.opt)) % pool.length];
         announce(msg);
         if (state.scene + 1 < total) {
+          Sound.chime();
           state.scene += 1;
           screenFeedback(msg, () => screenIsland(false));
         } else {
+          Sound.star();
           if (!state.visited.includes(isl.id)) state.visited.push(isl.id);
           screenFeedback(msg, screenMap, true);
         }
@@ -1145,6 +1278,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   }
 
   function screenConstellation() {
+    Sound.startMusic('constellation');
+    Sound.arpeggio();
     const purpose = L.computePurpose(state.scores);
     const data = L.constellationData(state.scores);
     const topP = L.PROFILES[purpose.top], secP = L.PROFILES[purpose.second];
@@ -1227,9 +1362,32 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     }
   }
 
+  /* ---------- Botón de sonido flotante (persiste entre pantallas) ---------- */
+  (function () {
+    const b = document.createElement('button');
+    b.type = 'button'; b.id = 'btn-sound'; b.className = 'sound-btn';
+    b.addEventListener('click', () => { Sound.toggle(); Sound.startMusic(); syncSoundBtn(); });
+    document.body.appendChild(b);
+  })();
+
+  /* ---------- Atajos de teclado (escritorio): 1/2/3 eligen opción, Enter/Espacio sigue ---------- */
+  document.addEventListener('keydown', e => {
+    const tag = (e.target && e.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    const screen = app.dataset.screen;
+    if (screen === 'island' && /^(Digit|Numpad)[123]$/.test(e.code)) {
+      const opt = app.querySelectorAll('[data-opt]')[Number(e.code.slice(-1)) - 1];
+      if (opt) { e.preventDefault(); opt.click(); }
+    } else if (screen === 'feedback' && (e.code === 'Enter' || e.code === 'Space') && tag !== 'BUTTON') {
+      const next = document.getElementById('btn-next');
+      if (next) { e.preventDefault(); next.click(); }
+    }
+  });
+
   /* ---------- Inicio ---------- */
   document.documentElement.lang = state.lang;
   screenTitle();
+  syncSoundBtn();
 })();
 
 </script>
