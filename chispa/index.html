@@ -277,6 +277,29 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 .profile-desc{margin-bottom:9px}
 .profile-power{color:var(--gold1)}
 
+/* ---------- Propósito, caminos y primera misión ---------- */
+.purpose-card{
+  background:linear-gradient(135deg,#3a2c14 0%,#2d2410 100%);
+  border:1.5px solid #ffce4f66; border-radius:20px; padding:18px; margin-bottom:6px;
+  box-shadow:0 10px 24px -12px #000a, 0 0 30px -14px #ffce4f55;
+}
+.purpose-name{
+  font-family:var(--display); font-size:1.5rem; color:var(--gold2);
+  text-shadow:0 0 18px #ffce4f55; margin-bottom:6px;
+}
+.purpose-sentence{font-size:1.14rem; line-height:1.5; color:#ffe9c9}
+.paths{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:6px}
+.path-chip{
+  background:linear-gradient(180deg,#3b3178,#312968); border:1px solid #6c5ce755;
+  border-radius:999px; padding:8px 15px; font-size:.98rem; color:var(--text);
+  box-shadow:0 4px 10px -6px #000a;
+}
+.week-mission{
+  background:linear-gradient(180deg,#2a224f,#231c48); border:1px dashed #ffce4f55;
+  border-radius:16px; padding:15px 17px; font-size:1.08rem; line-height:1.5;
+  margin-bottom:14px; box-shadow:0 6px 14px -8px #000a;
+}
+
 /* ---------- Carta ---------- */
 .letter{
   width:100%; font-family:Georgia,'Times New Roman',serif; font-size:1.08rem; line-height:1.62;
@@ -505,16 +528,16 @@ const MIN_ISLANDS = 4; // islas mínimas para encender la constelación
 const STR = {
   es: {
     title: 'Spark',
-    subtitle: 'Un viaje para descubrir para qué brillas',
+    subtitle: 'Un viaje para descubrir tu propósito',
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
     skipIntro: 'Saltar intro ›',
     introLine1: 'Hay seis islas que guardan un secreto…',
     introLine2: 'Cada elección tuya enciende una estrella',
-    introLine3: 'Descubre para qué brillas',
+    introLine3: 'Descubre tu propósito',
     missionTitle: 'Cómo jugar',
     goalLabel: 'El objetivo',
-    goalText: 'Descubrir para qué brillas: tu chispa.',
+    goalText: 'Descubrir tu propósito: eso que amas hacer… y que el mundo necesita.',
     howLabel: 'Cómo se juega',
     missionSteps: [
       'Elige una isla del mapa y vive su aventura',
@@ -522,10 +545,13 @@ const STR = {
       'Visita 4 islas o más y tu constelación se enciende',
     ],
     winLabel: 'Qué ganas',
-    winText: 'Tu constelación única ✨, tu superpoder ⚡ y una carta a tu yo del futuro ✉.',
+    winText: 'Tu propósito con nombre propio 🧭, tu constelación ✨, tu superpoder ⚡ y una carta a tu yo del futuro ✉.',
     learnText: 'Aquí no hay puntos ni perdedores: lo que te llevas es conocerte mejor.',
     helpBtn: 'Cómo jugar',
     resultLabel: 'Tu resultado',
+    purposeLabel: 'Tu propósito',
+    pathsLabel: 'Caminos donde tu propósito brilla',
+    weekLabel: 'Tu primera misión',
     missionGo: '¡A las islas!',
     privacy: 'Sin internet · Sin publicidad · Sin datos personales',
     mapTitle: 'El mar de las islas',
@@ -570,16 +596,16 @@ const STR = {
   },
   en: {
     title: 'Spark',
-    subtitle: 'A journey to discover what makes you shine',
+    subtitle: 'A journey to discover your purpose',
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
     skipIntro: 'Skip intro ›',
     introLine1: 'Six islands hold a secret…',
     introLine2: 'Every choice you make lights up a star',
-    introLine3: 'Discover what makes you shine',
+    introLine3: 'Discover your purpose',
     missionTitle: 'How to play',
     goalLabel: 'The goal',
-    goalText: 'Discover what makes you shine: your spark.',
+    goalText: 'Discover your purpose: what you love to do… and what the world needs.',
     howLabel: 'How to play',
     missionSteps: [
       'Pick an island on the map and live its adventure',
@@ -587,10 +613,13 @@ const STR = {
       'Visit 4 or more islands and your constellation lights up',
     ],
     winLabel: 'What you win',
-    winText: 'Your unique constellation ✨, your superpower ⚡ and a letter to your future self ✉.',
+    winText: 'Your purpose with its own name 🧭, your constellation ✨, your superpower ⚡ and a letter to your future self ✉.',
     learnText: 'There are no points and no losers here: what you take home is knowing yourself better.',
     helpBtn: 'How to play',
     resultLabel: 'Your result',
+    purposeLabel: 'Your purpose',
+    pathsLabel: 'Paths where your purpose shines',
+    weekLabel: 'Your first mission',
     missionGo: 'To the islands!',
     privacy: 'No internet · No ads · No personal data',
     mapTitle: 'The sea of islands',
@@ -635,16 +664,16 @@ const STR = {
   },
   pt: {
     title: 'Spark',
-    subtitle: 'Uma viagem para descobrir o que faz você brilhar',
+    subtitle: 'Uma viagem para descobrir o seu propósito',
     yourName: 'Seu nome (se quiser)',
     play: 'Começar a viagem!',
     skipIntro: 'Pular intro ›',
     introLine1: 'Seis ilhas guardam um segredo…',
     introLine2: 'Cada escolha sua acende uma estrela',
-    introLine3: 'Descubra o que faz você brilhar',
+    introLine3: 'Descubra o seu propósito',
     missionTitle: 'Como jogar',
     goalLabel: 'O objetivo',
-    goalText: 'Descobrir o que faz você brilhar: a sua faísca.',
+    goalText: 'Descobrir o seu propósito: o que você ama fazer… e que o mundo precisa.',
     howLabel: 'Como se joga',
     missionSteps: [
       'Escolha uma ilha do mapa e viva a aventura dela',
@@ -652,10 +681,13 @@ const STR = {
       'Visite 4 ilhas ou mais e a sua constelação se acende',
     ],
     winLabel: 'O que você ganha',
-    winText: 'Sua constelação única ✨, seu superpoder ⚡ e uma carta para o seu eu do futuro ✉.',
+    winText: 'Seu propósito com nome próprio 🧭, sua constelação ✨, seu superpoder ⚡ e uma carta para o seu eu do futuro ✉.',
     learnText: 'Aqui não há pontos nem perdedores: o que você leva é se conhecer melhor.',
     helpBtn: 'Como jogar',
     resultLabel: 'Seu resultado',
+    purposeLabel: 'Seu propósito',
+    pathsLabel: 'Caminhos onde o seu propósito brilha',
+    weekLabel: 'Sua primeira missão',
     missionGo: 'Para as ilhas!',
     privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
     mapTitle: 'O mar das ilhas',
@@ -703,6 +735,18 @@ const STR = {
 /* ---------- Perfiles por dimensión ---------- */
 const PROFILES = {
   crear: {
+    starName: { es: 'Estrella Creadora', en: 'Creator Star', pt: 'Estrela Criadora' },
+    service: { es: 'para llenar el mundo de ideas nuevas', en: 'to fill the world with new ideas', pt: 'para encher o mundo de ideias novas' },
+    paths: {
+      es: ['Artista', 'Inventor/a', 'Diseñador/a', 'Chef', 'Arquitecto/a'],
+      en: ['Artist', 'Inventor', 'Designer', 'Chef', 'Architect'],
+      pt: ['Artista', 'Inventor(a)', 'Designer', 'Chef', 'Arquiteto(a)'],
+    },
+    week: {
+      es: 'Inventa algo nuevo con cosas de tu casa y regálaselo a alguien.',
+      en: 'Invent something new from things at home and give it to someone.',
+      pt: 'Invente algo novo com coisas da sua casa e dê de presente a alguém.',
+    },
     label: { es: 'CREAR', en: 'CREATE', pt: 'CRIAR' },
     desc: {
       es: 'Se te ocurren ideas que nadie más vio. Tu imaginación convierte lo común en algo mágico.',
@@ -714,6 +758,18 @@ const PROFILES = {
     reminder: { es: 'el mundo necesita mis ideas', en: 'the world needs my ideas', pt: 'o mundo precisa das minhas ideias' },
   },
   ayudar: {
+    starName: { es: 'Estrella Guardiana', en: 'Guardian Star', pt: 'Estrela Guardiã' },
+    service: { es: 'para hacer mejor la vida de los demás', en: 'to make other people’s lives better', pt: 'para tornar melhor a vida dos outros' },
+    paths: {
+      es: ['Médico/a', 'Maestro/a', 'Veterinario/a', 'Bombero/a', 'Psicólogo/a'],
+      en: ['Doctor', 'Teacher', 'Vet', 'Firefighter', 'Psychologist'],
+      pt: ['Médico(a)', 'Professor(a)', 'Veterinário(a)', 'Bombeiro(a)', 'Psicólogo(a)'],
+    },
+    week: {
+      es: 'Ayuda a alguien sin que te lo pida y mira cómo cambia su día.',
+      en: 'Help someone without being asked and watch it change their day.',
+      pt: 'Ajude alguém sem que peçam e veja como o dia da pessoa muda.',
+    },
     label: { es: 'AYUDAR', en: 'HELP', pt: 'AJUDAR' },
     desc: {
       es: 'Tu corazón nota cuando alguien necesita una mano. Haces que los demás se sientan mejor.',
@@ -725,6 +781,18 @@ const PROFILES = {
     reminder: { es: 'una mano amiga cambia el día de alguien', en: 'a helping hand can change someone’s day', pt: 'uma mão amiga muda o dia de alguém' },
   },
   explorar: {
+    starName: { es: 'Estrella Exploradora', en: 'Explorer Star', pt: 'Estrela Exploradora' },
+    service: { es: 'para descubrir lo que nadie encontró todavía', en: 'to discover what nobody has found yet', pt: 'para descobrir o que ninguém encontrou ainda' },
+    paths: {
+      es: ['Científico/a', 'Astronauta', 'Arqueólogo/a', 'Periodista', 'Explorador/a del mar'],
+      en: ['Scientist', 'Astronaut', 'Archaeologist', 'Journalist', 'Ocean explorer'],
+      pt: ['Cientista', 'Astronauta', 'Arqueólogo(a)', 'Jornalista', 'Explorador(a) do mar'],
+    },
+    week: {
+      es: 'Haz 3 preguntas que nadie se anime a hacer y busca sus respuestas.',
+      en: 'Ask 3 questions nobody dares to ask and hunt for the answers.',
+      pt: 'Faça 3 perguntas que ninguém ousa fazer e procure as respostas.',
+    },
     label: { es: 'EXPLORAR', en: 'EXPLORE', pt: 'EXPLORAR' },
     desc: {
       es: 'Las preguntas te llevan lejos. Donde otros ven una puerta cerrada, tú ves un misterio por descubrir.',
@@ -736,6 +804,18 @@ const PROFILES = {
     reminder: { es: 'las preguntas abren puertas', en: 'questions open doors', pt: 'as perguntas abrem portas' },
   },
   construir: {
+    starName: { es: 'Estrella Constructora', en: 'Builder Star', pt: 'Estrela Construtora' },
+    service: { es: 'para resolver los problemas que nadie sabe arreglar', en: 'to solve the problems nobody knows how to fix', pt: 'para resolver os problemas que ninguém sabe consertar' },
+    paths: {
+      es: ['Ingeniero/a', 'Programador/a', 'Mecánico/a', 'Creador/a de robots', 'Constructor/a'],
+      en: ['Engineer', 'Programmer', 'Mechanic', 'Robot maker', 'Builder'],
+      pt: ['Engenheiro(a)', 'Programador(a)', 'Mecânico(a)', 'Criador(a) de robôs', 'Construtor(a)'],
+    },
+    week: {
+      es: 'Elige algo roto en tu casa e intenta arreglarlo con ayuda.',
+      en: 'Pick something broken at home and try to fix it with help.',
+      pt: 'Escolha algo quebrado na sua casa e tente consertar com ajuda.',
+    },
     label: { es: 'CONSTRUIR', en: 'BUILD', pt: 'CONSTRUIR' },
     desc: {
       es: 'Te encanta entender cómo funcionan las cosas y armarlas con tus manos. Para ti, los problemas son rompecabezas.',
@@ -747,6 +827,18 @@ const PROFILES = {
     reminder: { es: 'no hay problema sin solución', en: 'every problem has a solution', pt: 'todo problema tem solução' },
   },
   expresar: {
+    starName: { es: 'Estrella Narradora', en: 'Storyteller Star', pt: 'Estrela Contadora de Histórias' },
+    service: { es: 'para que las historias y las voces lleguen a todos', en: 'so stories and voices can reach everyone', pt: 'para que as histórias e as vozes cheguem a todos' },
+    paths: {
+      es: ['Escritor/a', 'Músico/a', 'Actor/Actriz', 'Creador/a de contenido', 'Locutor/a'],
+      en: ['Writer', 'Musician', 'Actor', 'Content creator', 'Radio host'],
+      pt: ['Escritor(a)', 'Músico(a)', 'Ator/Atriz', 'Criador(a) de conteúdo', 'Locutor(a)'],
+    },
+    week: {
+      es: 'Cuéntale a tu familia una historia inventada por ti, con final sorpresa.',
+      en: 'Tell your family a story you made up, with a surprise ending.',
+      pt: 'Conte à sua família uma história inventada por você, com final surpresa.',
+    },
     label: { es: 'EXPRESAR', en: 'EXPRESS', pt: 'EXPRESSAR' },
     desc: {
       es: 'Tienes historias, palabras y voces que hacen sentir cosas a los demás. Cuando compartes, todos escuchan.',
@@ -758,6 +850,18 @@ const PROFILES = {
     reminder: { es: 'mi voz importa', en: 'my voice matters', pt: 'minha voz importa' },
   },
   naturaleza: {
+    starName: { es: 'Estrella de la Naturaleza', en: 'Nature Star', pt: 'Estrela da Natureza' },
+    service: { es: 'para cuidar el planeta y a sus criaturas', en: 'to care for the planet and its creatures', pt: 'para cuidar do planeta e das suas criaturas' },
+    paths: {
+      es: ['Biólogo/a', 'Guardaparques', 'Oceanógrafo/a', 'Agricultor/a', 'Rescatista de animales'],
+      en: ['Biologist', 'Park ranger', 'Oceanographer', 'Farmer', 'Animal rescuer'],
+      pt: ['Biólogo(a)', 'Guarda-parques', 'Oceanógrafo(a)', 'Agricultor(a)', 'Resgatista de animais'],
+    },
+    week: {
+      es: 'Adopta una planta o un rincón verde y cuídalo todos los días.',
+      en: 'Adopt a plant or a green corner and care for it every day.',
+      pt: 'Adote uma planta ou um cantinho verde e cuide dele todos os dias.',
+    },
     label: { es: 'NATURALEZA', en: 'NATURE', pt: 'NATUREZA' },
     desc: {
       es: 'Los animales y las plantas confían en ti. Entiendes que el planeta es la casa de todos.',
@@ -1026,6 +1130,8 @@ function buildLetter(name, lang, top, second) {
 
 Hoy viajé por las islas de Spark y descubrí algo sobre mí: mi chispa brilla fuerte cuando puedo ${t.doing.es}. También me gusta ${s.doing.es}.
 
+Descubrí mi propósito: usar mi don de ${t.doing.es} ${s.service.es}.
+
 Quiero acordarme de esto: ${t.reminder.es}.
 
 Cuando leas esta carta, espero que sigas haciendo brillar tu chispa. Y si cambió, ¡también está bien! Las estrellas se mueven.
@@ -1037,6 +1143,8 @@ Cuando leas esta carta, espero que sigas haciendo brillar tu chispa. Y si cambi�
 
 Hoje eu viajei pelas ilhas de Spark e descobri algo sobre mim: minha faísca brilha forte quando eu posso ${t.doing.pt}. Também gosto de ${s.doing.pt}.
 
+Descobri o meu propósito: usar o meu dom de ${t.doing.pt} ${s.service.pt}.
+
 Quero lembrar disto: ${t.reminder.pt}.
 
 Quando você ler esta carta, espero que ainda esteja fazendo sua faísca brilhar. E se mudou, tudo bem também! As estrelas se movem.
@@ -1047,11 +1155,24 @@ Quando você ler esta carta, espero que ainda esteja fazendo sua faísca brilhar
 
 Today I traveled through the Spark islands and discovered something about myself: my spark shines bright when I can ${t.doing.en}. I also like to ${s.doing.en}.
 
+I discovered my purpose: to use my gift — ${t.doing.en} — ${s.service.en}.
+
 I want to remember this: ${t.reminder.en}.
 
 When you read this letter, I hope you are still making your spark shine. And if it changed, that is okay too! Stars move.
 
 — today's ${who} ✨`;
+}
+
+/* Frase de propósito: tu don (dimensión principal) al servicio del mundo (secundaria).
+   person: 'tu' (pantalla) o 'mi' (carta). */
+function purposeSentence(lang, top, second, person) {
+  const gift = PROFILES[top].doing[lang];
+  const service = PROFILES[second].service[lang];
+  const mine = person === 'mi';
+  if (lang === 'es') return `${mine ? 'Usar mi don' : 'Usar tu don'} de ${gift} ${service}.`;
+  if (lang === 'pt') return `${mine ? 'Usar o meu dom' : 'Usar o seu dom'} de ${gift} ${service}.`;
+  return `${mine ? 'To use my gift' : 'To use your gift'} — ${gift} — ${service}.`;
 }
 
 /* Datos listos para dibujar la constelación: posición, radio y brillo por estrella. */
@@ -1069,7 +1190,7 @@ function constellationData(scores) {
 
 const ChispaLogic = {
   DIMS, LANGS, MIN_ISLANDS, STR, PROFILES, ISLANDS, STAR_POS,
-  newScores, applyChoice, computePurpose, buildLetter, constellationData,
+  newScores, applyChoice, computePurpose, purposeSentence, buildLetter, constellationData,
 };
 
 if (typeof module !== 'undefined' && module.exports) module.exports = ChispaLogic;
@@ -1573,18 +1694,36 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const rawTitle = t('constTitle');
     const title = state.name ? rawTitle.charAt(0).toLowerCase() + rawTitle.slice(1) : rawTitle;
     const who = state.name ? `${esc(state.name)}, ` : '';
-    const readText = `${state.name ? state.name + '. ' : ''}${t('sparkIs')} ${topP.label[state.lang]}, ${t('withTouch')} ${secP.label[state.lang]}. ${topP.desc[state.lang]} ${t('superpower')}: ${topP.power[state.lang]}.`;
+    const sentence = L.purposeSentence(state.lang, purpose.top, purpose.second, 'tu');
+    const paths = topP.paths[state.lang];
+    const week = topP.week[state.lang];
+    const readText = `${state.name ? state.name + '. ' : ''}${t('purposeLabel')}: ${topP.starName[state.lang]}. ${sentence} ${topP.desc[state.lang]} ${t('superpower')}: ${topP.power[state.lang]}. ${t('pathsLabel')}: ${paths.join(', ')}. ${t('weekLabel')}: ${week}`;
 
     render(`
       <div class="card">
         <h1>${who}${title} ✨</h1>
         ${constellationSVG(data, purpose, false)}
+
+        <p class="mission-label">🧭 ${t('purposeLabel')}</p>
+        <div class="purpose-card">
+          <p class="purpose-name">${topP.starName[state.lang]}</p>
+          <p class="purpose-sentence">${sentence}</p>
+        </div>
+
         <p class="mission-label">🏆 ${t('resultLabel')}</p>
         <div class="profile-card">
           <p class="profile-line">${t('sparkIs')} <strong class="dim-top">${topP.label[state.lang]}</strong> ${t('withTouch')} <strong class="dim-second">${secP.label[state.lang]}</strong></p>
           <p class="profile-desc">${topP.desc[state.lang]}</p>
           <p class="profile-power">⚡ ${t('superpower')}: <strong>${topP.power[state.lang]}</strong></p>
         </div>
+
+        <p class="mission-label">🛤️ ${t('pathsLabel')}</p>
+        <div class="paths" role="list">
+          ${paths.map(pp => `<span class="path-chip" role="listitem">${pp}</span>`).join('')}
+        </div>
+
+        <p class="mission-label">⭐ ${t('weekLabel')}</p>
+        <div class="week-mission">${week}</div>
         <div class="toolbar">
           ${speakBtn(() => readText)}
           <button type="button" id="btn-png" class="btn btn-soft">🖼 ${t('downloadPng')}</button>
