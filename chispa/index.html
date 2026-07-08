@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Chispa / Spark — un juego para descubrir para qué brillas. 100% offline.">
+<title>Chispa · Spark</title>
+<style>
+:root{
+  --sky1:#241d52; --sky2:#12102e; --card:#2e2760; --card-edge:#4a3f96;
+  --text:#f3efff; --muted:#c9c0f0; --accent:#ffd447; --accent-dark:#e07b00;
+  --btn:#5a4bd6; --btn-hover:#6d5ef0; --soft:#3b3378; --soft-hover:#4a4192;
+  --focus:#8ef0ff;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{height:100%}
+body{
+  font-family:"Avenir Next","Trebuchet MS",Verdana,system-ui,sans-serif;
+  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 100%);
+  color:var(--text); min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; padding:16px; line-height:1.5;
+}
+/* estrellitas de fondo, puro CSS */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 20%,#fff8 50%,transparent 51%),
+    radial-gradient(1px 1px at 30% 8%,#fff6 50%,transparent 51%),
+    radial-gradient(2px 2px at 48% 28%,#ffd44766 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 66% 12%,#fff7 50%,transparent 51%),
+    radial-gradient(1px 1px at 84% 24%,#fff5 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 92% 60%,#fff6 50%,transparent 51%),
+    radial-gradient(1px 1px at 8% 70%,#fff5 50%,transparent 51%),
+    radial-gradient(2px 2px at 74% 82%,#ffd44755 50%,transparent 51%);
+}
+#app{position:relative; z-index:1; width:100%; max-width:640px}
+.card{
+  background:var(--card); border:2px solid var(--card-edge); border-radius:22px;
+  padding:24px 20px; box-shadow:0 8px 30px #0006;
+}
+.center{text-align:center}
+h1,h2{font-size:1.55rem; line-height:1.25; margin-bottom:8px; outline:none}
+h1:focus-visible,h2:focus-visible{outline:none}
+.game-title{font-size:2.4rem; color:var(--accent); letter-spacing:1px}
+.title-alt{font-size:1.2rem; color:var(--muted); font-weight:normal}
+.subtitle{color:var(--muted); font-size:1.1rem; margin-bottom:20px}
+.hint{color:var(--muted); font-size:1rem; margin-bottom:10px}
+.privacy{color:var(--muted); font-size:.85rem; margin-top:18px; opacity:.85}
+.name-label{display:block; font-size:1rem; color:var(--muted); margin-bottom:6px}
+.name-input{
+  width:min(280px,100%); font-size:1.15rem; padding:10px 14px; border-radius:12px;
+  border:2px solid var(--card-edge); background:#221c4d; color:var(--text);
+  text-align:center; margin-bottom:18px;
+}
+.btn{
+  font-family:inherit; font-size:1.05rem; color:var(--text); background:var(--btn);
+  border:2px solid transparent; border-radius:14px; padding:12px 18px;
+  cursor:pointer; min-height:48px; touch-action:manipulation;
+}
+.btn:hover{background:var(--btn-hover)}
+.btn-big{
+  display:block; width:100%; font-size:1.25rem; font-weight:bold; padding:16px;
+  margin:10px 0 12px; background:var(--accent); color:#3a2500; border-radius:16px;
+}
+.btn-big:hover{background:#ffe27a}
+.btn-soft{background:var(--soft); font-size:.95rem}
+.btn-soft:hover{background:var(--soft-hover)}
+.glow{box-shadow:0 0 22px #ffd44788}
+:where(button,input,textarea,a):focus-visible{
+  outline:3px solid var(--focus); outline-offset:3px; border-radius:14px;
+}
+.row-top{display:flex; align-items:center; gap:14px; margin-bottom:14px}
+.row-top h1{margin-bottom:2px}
+.island-grid{
+  list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px; margin:14px 0;
+}
+.island-btn{
+  position:relative; width:100%; font-family:inherit; font-size:1rem; color:var(--text);
+  background:#272058; border:2px solid var(--card-edge); border-radius:18px;
+  padding:12px 8px 14px; cursor:pointer; display:flex; flex-direction:column;
+  align-items:center; gap:6px; min-height:150px; touch-action:manipulation;
+  transition:transform .15s ease, border-color .15s ease;
+}
+.island-btn:hover:not(:disabled){transform:translateY(-3px); border-color:var(--accent)}
+.island-btn.done{opacity:.55; cursor:default}
+.island-name{font-weight:bold}
+.island-star{position:absolute; top:6px; right:10px; font-size:1.3rem}
+.progress-note{text-align:center; color:var(--muted); margin-top:8px}
+.island-intro{font-size:1.1rem; margin-bottom:12px; color:#ffe9a3; font-style:italic}
+.prompt{font-size:1.25rem; font-weight:bold; margin-bottom:8px}
+.scene-count{color:var(--muted); font-size:.9rem}
+.option-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin:10px 0 16px}
+.option-btn{width:100%; text-align:left; font-size:1.1rem; padding:14px 16px; border-radius:16px}
+.toolbar{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
+.spark-hero{margin:6px auto 10px; width:fit-content}
+.feedback-msg{font-size:1.6rem; color:var(--accent); margin:8px 0 16px}
+.constellation{width:100%; height:auto; background:#1b1740; border-radius:16px; border:2px solid var(--card-edge); margin:8px 0 14px}
+.profile-card{background:#251f52; border-radius:16px; padding:16px; margin-bottom:14px}
+.profile-line{font-size:1.15rem; margin-bottom:8px}
+.dim-top{color:var(--accent); font-size:1.3rem}
+.dim-second{color:#9fe8ff}
+.profile-desc{margin-bottom:8px}
+.profile-power{color:#ffe9a3}
+.letter{
+  width:100%; font-family:Georgia,"Times New Roman",serif; font-size:1.08rem; line-height:1.6;
+  background:#fdf6de; color:#3a2f14; border:2px solid #c9b06b; border-radius:12px;
+  padding:16px; margin:8px 0 12px; resize:vertical;
+}
+.family-intro{margin-bottom:12px}
+.family-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:16px; font-size:1.1rem}
+.family-list li{background:#251f52; border-radius:12px; padding:12px 14px}
+#live{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
+.float{animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.pop{animation:pop .45s ease}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important; transition:none !important}
+}
+@media (max-width:420px){
+  body{padding:10px}
+  .card{padding:18px 14px}
+  h1,h2{font-size:1.35rem}
+  .game-title{font-size:2rem}
+  .island-grid{grid-template-columns:repeat(2,1fr)}
+  .island-btn{min-height:136px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="live" role="status" aria-live="polite"></div>
+<script>
+/* Chispa / Spark — motor del juego (contenido, idiomas, cálculo del propósito)
+   100% offline. Sin dependencias. Funciona en navegador y en Node (tests). */
+
+const DIMS = ['crear', 'ayudar', 'explorar', 'construir', 'expresar', 'naturaleza'];
+
+const MIN_ISLANDS = 4; // islas mínimas para encender la constelación
+
+/* ---------- Textos de interfaz ---------- */
+const STR = {
+  es: {
+    title: 'Chispa',
+    subtitle: 'Un viaje para descubrir para qué brillas',
+    yourName: 'Tu nombre (si quieres)',
+    play: '¡Comenzar el viaje!',
+    langBtn: 'English',
+    privacy: 'Juego 100% sin internet. No guarda ni envía nada.',
+    mapTitle: 'El mar de las islas',
+    mapHint: 'Elige una isla para visitar. Tú decides el camino.',
+    visited: 'visitada',
+    constellationReady: '✨ ¡Tus estrellas ya brillan! Ver mi constelación',
+    islandsLeft: n => `Visita ${n} isla${n === 1 ? '' : 's'} más para encender tu constelación`,
+    next: 'Seguir',
+    backToMap: 'Volver al mapa',
+    constTitle: 'Tu constelación',
+    sparkIs: 'Tu chispa brilla fuerte en',
+    withTouch: 'con un toque de',
+    superpower: 'Tu superpoder',
+    readAloud: 'Leer en voz alta',
+    stopReading: 'Dejar de leer',
+    writeLetter: 'Escribir mi carta al futuro',
+    letterTitle: 'Carta a tu yo del futuro',
+    letterHint: 'Puedes cambiar lo que quieras. Es tuya.',
+    downloadLetter: 'Guardar carta (.txt)',
+    downloadPng: 'Guardar constelación (imagen)',
+    playAgain: 'Jugar otra vez',
+    familyGuide: 'Guía para familias',
+    familyTitle: 'Para conversar en familia',
+    familyIntro: 'La constelación no es un diagnóstico ni una etiqueta: es una foto de lo que hoy le entusiasma. Puede cambiar, y está bien. Tres preguntas para conversar:',
+    familyQ1: '1. ¿Qué isla te gustó más y por qué?',
+    familyQ2: '2. ¿En qué momentos de tu semana aparece tu estrella más brillante?',
+    familyQ3: '3. ¿Qué te gustaría probar este mes usando tu chispa?',
+    close: 'Cerrar',
+    chooseHint: 'Elige lo que harías tú:',
+    feedback: ['¡Buena elección! ✨', 'La Chispa brilla más fuerte ✨', '¡Eso suena genial! ✨', 'Tu estrella se enciende ✨'],
+    of: 'de',
+    defaultName: 'yo del futuro',
+    pngSaved: 'Imagen guardada',
+    pngFail: 'Tu navegador no pudo crear la imagen, pero puedes sacar una captura de pantalla.',
+  },
+  en: {
+    title: 'Spark',
+    subtitle: 'A journey to discover what makes you shine',
+    yourName: 'Your name (if you want)',
+    play: 'Start the journey!',
+    langBtn: 'Español',
+    privacy: '100% offline game. Nothing is saved or sent anywhere.',
+    mapTitle: 'The sea of islands',
+    mapHint: 'Pick an island to visit. You choose the path.',
+    visited: 'visited',
+    constellationReady: '✨ Your stars are glowing! See my constellation',
+    islandsLeft: n => `Visit ${n} more island${n === 1 ? '' : 's'} to light up your constellation`,
+    next: 'Continue',
+    backToMap: 'Back to the map',
+    constTitle: 'Your constellation',
+    sparkIs: 'Your spark shines bright in',
+    withTouch: 'with a touch of',
+    superpower: 'Your superpower',
+    readAloud: 'Read aloud',
+    stopReading: 'Stop reading',
+    writeLetter: 'Write my letter to the future',
+    letterTitle: 'Letter to your future self',
+    letterHint: 'Change anything you like. It is yours.',
+    downloadLetter: 'Save letter (.txt)',
+    downloadPng: 'Save constellation (image)',
+    playAgain: 'Play again',
+    familyGuide: 'Family guide',
+    familyTitle: 'To talk about together',
+    familyIntro: 'The constellation is not a diagnosis or a label: it is a snapshot of what excites them today. It can change, and that is okay. Three questions to talk about:',
+    familyQ1: '1. Which island did you like best, and why?',
+    familyQ2: '2. When during your week does your brightest star show up?',
+    familyQ3: '3. What would you like to try this month using your spark?',
+    close: 'Close',
+    chooseHint: 'Choose what YOU would do:',
+    feedback: ['Great choice! ✨', 'The Spark glows brighter ✨', 'That sounds amazing! ✨', 'Your star lights up ✨'],
+    of: 'of',
+    defaultName: 'future me',
+    pngSaved: 'Image saved',
+    pngFail: 'Your browser could not create the image, but you can take a screenshot.',
+  },
+};
+
+/* ---------- Perfiles por dimensión ---------- */
+const PROFILES = {
+  crear: {
+    label: { es: 'CREAR', en: 'CREATE' },
+    desc: {
+      es: 'Se te ocurren ideas que nadie más vio. Tu imaginación convierte lo común en algo mágico.',
+      en: 'You come up with ideas nobody else has seen. Your imagination turns ordinary things into magic.',
+    },
+    power: { es: 'Inventar cosas nuevas', en: 'Inventing new things' },
+    doing: { es: 'inventar y crear cosas nuevas', en: 'invent and create new things' },
+    reminder: { es: 'el mundo necesita mis ideas', en: 'the world needs my ideas' },
+  },
+  ayudar: {
+    label: { es: 'AYUDAR', en: 'HELP' },
+    desc: {
+      es: 'Tu corazón nota cuando alguien necesita una mano. Haces que los demás se sientan mejor.',
+      en: 'Your heart notices when someone needs a hand. You make other people feel better.',
+    },
+    power: { es: 'Cuidar a los demás', en: 'Caring for others' },
+    doing: { es: 'ayudar y cuidar a los demás', en: 'help and take care of others' },
+    reminder: { es: 'una mano amiga cambia el día de alguien', en: 'a helping hand can change someone’s day' },
+  },
+  explorar: {
+    label: { es: 'EXPLORAR', en: 'EXPLORE' },
+    desc: {
+      es: 'Las preguntas te llevan lejos. Donde otros ven una puerta cerrada, tú ves un misterio por descubrir.',
+      en: 'Questions take you far. Where others see a closed door, you see a mystery waiting to be solved.',
+    },
+    power: { es: 'Descubrir secretos', en: 'Discovering secrets' },
+    doing: { es: 'explorar y descubrir misterios', en: 'explore and discover mysteries' },
+    reminder: { es: 'las preguntas abren puertas', en: 'questions open doors' },
+  },
+  construir: {
+    label: { es: 'CONSTRUIR', en: 'BUILD' },
+    desc: {
+      es: 'Te encanta entender cómo funcionan las cosas y armarlas con tus manos. Para ti, los problemas son rompecabezas.',
+      en: 'You love figuring out how things work and putting them together with your hands. To you, problems are puzzles.',
+    },
+    power: { es: 'Resolver problemas', en: 'Solving problems' },
+    doing: { es: 'construir y resolver problemas', en: 'build things and solve problems' },
+    reminder: { es: 'no hay problema sin solución', en: 'every problem has a solution' },
+  },
+  expresar: {
+    label: { es: 'EXPRESAR', en: 'EXPRESS' },
+    desc: {
+      es: 'Tienes historias, palabras y voces que hacen sentir cosas a los demás. Cuando compartes, todos escuchan.',
+      en: 'You have stories, words and voices that make other people feel things. When you share, everyone listens.',
+    },
+    power: { es: 'Contar y compartir', en: 'Telling and sharing' },
+    doing: { es: 'contar historias y compartir ideas', en: 'tell stories and share ideas' },
+    reminder: { es: 'mi voz importa', en: 'my voice matters' },
+  },
+  naturaleza: {
+    label: { es: 'NATURALEZA', en: 'NATURE' },
+    desc: {
+      es: 'Los animales y las plantas confían en ti. Entiendes que el planeta es la casa de todos.',
+      en: 'Animals and plants trust you. You understand that the planet is everyone’s home.',
+    },
+    power: { es: 'Cuidar el mundo', en: 'Caring for the world' },
+    doing: { es: 'cuidar a los animales y a la naturaleza', en: 'care for animals and nature' },
+    reminder: { es: 'el planeta es la casa de todos', en: 'the planet is everyone’s home' },
+  },
+};
+
+/* ---------- Islas: cada opción tiene una dimensión primaria (2 pts) y una secundaria (1 pt).
+   Balance: cada dimensión es primaria exactamente 6 veces en las 36 opciones. ---------- */
+const ISLANDS = [
+  {
+    id: 'colores',
+    name: { es: 'Isla de los Colores', en: 'Color Island' },
+    intro: {
+      es: 'Una isla pintada a medias. ¡Alguien dejó los pinceles y se fue!',
+      en: 'A half-painted island. Someone left their brushes behind and disappeared!',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'Encuentras una pared gigante en blanco.',
+          en: 'You find a giant blank wall.',
+        },
+        options: [
+          { text: { es: 'Pinto un mundo que nadie vio nunca', en: 'I paint a world nobody has ever seen' }, w: { crear: 2, expresar: 1 } },
+          { text: { es: 'Pinto a mis amigos ayudándose entre todos', en: 'I paint my friends helping each other' }, w: { ayudar: 2, crear: 1 } },
+          { text: { es: 'Pinto un mapa secreto de la isla', en: 'I paint a secret map of the island' }, w: { explorar: 2, construir: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'Un cangrejo te pide ayuda para decorar su casa.',
+          en: 'A crab asks you to help decorate its house.',
+        },
+        options: [
+          { text: { es: 'Hago tintes nuevos con flores y hojas', en: 'I make new dyes from flowers and leaves' }, w: { naturaleza: 2, crear: 1 } },
+          { text: { es: 'Le pregunto qué le gusta y lo hacemos juntos', en: 'I ask what it likes and we do it together' }, w: { ayudar: 2, expresar: 1 } },
+          { text: { es: 'Le construyo estantes para sus caracoles', en: 'I build shelves for its seashells' }, w: { construir: 2, ayudar: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'faro',
+    name: { es: 'Isla del Faro', en: 'Lighthouse Island' },
+    intro: {
+      es: 'El faro se apagó y los barcos no encuentran el puerto.',
+      en: 'The lighthouse went dark and the ships can’t find the harbor.',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: '¿Cómo encendemos el faro esta noche?',
+          en: 'How do we light the lighthouse tonight?',
+        },
+        options: [
+          { text: { es: 'Armo un sistema de espejos con la luz de la luna', en: 'I build a mirror system using moonlight' }, w: { construir: 2, crear: 1 } },
+          { text: { es: 'Organizo a todos con antorchas en la playa', en: 'I organize everyone with torches on the beach' }, w: { ayudar: 2, expresar: 1 } },
+          { text: { es: 'Busco el interruptor secreto en el sótano', en: 'I search for the secret switch in the basement' }, w: { explorar: 2, construir: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'Un barquito perdido llega a la costa. El capitán está triste.',
+          en: 'A lost little boat reaches the shore. The captain is sad.',
+        },
+        options: [
+          { text: { es: 'Le canto una canción para animarlo', en: 'I sing him a song to cheer him up' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Le preparo comida caliente y lo escucho', en: 'I make him warm food and listen to him' }, w: { ayudar: 2, naturaleza: 1 } },
+          { text: { es: 'Le dibujo un mapa nuevo para volver a casa', en: 'I draw him a new map to get back home' }, w: { crear: 2, explorar: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'bosque',
+    name: { es: 'Isla del Bosque', en: 'Forest Island' },
+    intro: {
+      es: 'Un bosque donde los árboles susurran y los animales te miran con curiosidad.',
+      en: 'A forest where the trees whisper and the animals watch you with curious eyes.',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'Encuentras un pichón que se cayó del nido.',
+          en: 'You find a baby bird that fell from its nest.',
+        },
+        options: [
+          { text: { es: 'Lo abrigo y le busco agua y semillas', en: 'I keep it warm and find it water and seeds' }, w: { naturaleza: 2, ayudar: 1 } },
+          { text: { es: 'Construyo una escalerita hasta el nido', en: 'I build a little ladder up to the nest' }, w: { construir: 2, ayudar: 1 } },
+          { text: { es: 'Observo a su familia para aprender dónde vive', en: 'I watch its family to learn where it lives' }, w: { explorar: 2, naturaleza: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'El arroyo del bosque está lleno de basura.',
+          en: 'The forest stream is full of trash.',
+        },
+        options: [
+          { text: { es: 'Organizo una patrulla de limpieza con los animales', en: 'I organize a cleanup patrol with the animals' }, w: { naturaleza: 2, ayudar: 1 } },
+          { text: { es: 'Invento una máquina que junta la basura', en: 'I invent a machine that collects the trash' }, w: { construir: 2, crear: 1 } },
+          { text: { es: 'Hago carteles para que nadie ensucie más', en: 'I make signs so nobody litters again' }, w: { expresar: 2, naturaleza: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'taller',
+    name: { es: 'Isla del Taller', en: 'Tinker Island' },
+    intro: {
+      es: 'Una isla llena de engranajes, tuercas y máquinas dormidas.',
+      en: 'An island full of gears, bolts and sleeping machines.',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'Hay un robot desarmado con un cartel: «ÁRMAME».',
+          en: 'There is a robot in pieces with a sign: “BUILD ME”.',
+        },
+        options: [
+          { text: { es: 'Sigo el plano paso a paso hasta terminarlo', en: 'I follow the blueprint step by step until it’s done' }, w: { construir: 2, explorar: 1 } },
+          { text: { es: 'Lo armo a mi manera… ¡y le agrego alas!', en: 'I build it my own way… and add wings!' }, w: { crear: 2, construir: 1 } },
+          { text: { es: 'Invito a otros chicos para armarlo en equipo', en: 'I invite other kids to build it as a team' }, w: { ayudar: 2, expresar: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'El puente de la isla está roto y nadie puede cruzar.',
+          en: 'The island’s bridge is broken and nobody can cross.',
+        },
+        options: [
+          { text: { es: 'Diseño un puente nuevo, más fuerte que antes', en: 'I design a new bridge, stronger than before' }, w: { construir: 2, crear: 1 } },
+          { text: { es: 'Busco otro camino cruzando la montaña', en: 'I look for another path across the mountain' }, w: { explorar: 2, naturaleza: 1 } },
+          { text: { es: 'Aviso a todos y organizo la reparación juntos', en: 'I warn everyone and organize the repair together' }, w: { ayudar: 2, construir: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'historias',
+    name: { es: 'Isla de las Historias', en: 'Story Island' },
+    intro: {
+      es: 'En esta isla, las palabras flotan en el aire como burbujas de colores.',
+      en: 'On this island, words float in the air like colorful bubbles.',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'La biblioteca perdió el final de su cuento favorito.',
+          en: 'The library lost the ending of its favorite story.',
+        },
+        options: [
+          { text: { es: 'Escribo un final nuevo y emocionante', en: 'I write a new, exciting ending' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Dibujo el final como una historieta', en: 'I draw the ending as a comic' }, w: { crear: 2, expresar: 1 } },
+          { text: { es: 'Inventamos el final entre todos, en voz alta', en: 'We make up the ending together, out loud' }, w: { expresar: 2, ayudar: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'Te invitan a compartir algo en la plaza de la isla.',
+          en: 'You are invited to share something in the island square.',
+        },
+        options: [
+          { text: { es: 'Cuento una historia que invento en el momento', en: 'I tell a story I make up on the spot' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Enseño cómo cuidar a los animales de la isla', en: 'I show everyone how to care for the island animals' }, w: { naturaleza: 2, expresar: 1 } },
+          { text: { es: 'Le enseño a otros un truco que sé hacer', en: 'I teach others a trick I know' }, w: { expresar: 2, ayudar: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'mapa',
+    name: { es: 'Isla del Mapa', en: 'Compass Island' },
+    intro: {
+      es: 'Una isla con puertas misteriosas y un mapa que cambia solo.',
+      en: 'An island with mysterious doors and a map that changes on its own.',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'Hay tres puertas: una brilla, una suena y una está escondida.',
+          en: 'There are three doors: one glows, one makes sounds, one is hidden.',
+        },
+        options: [
+          { text: { es: 'Abro la escondida: ¡lo secreto es lo mejor!', en: 'I open the hidden one: secrets are the best!' }, w: { explorar: 2, crear: 1 } },
+          { text: { es: 'Imagino qué hay detrás y dibujo mis ideas', en: 'I imagine what’s behind them and draw my ideas' }, w: { crear: 2, explorar: 1 } },
+          { text: { es: 'Examino las pistas de cada puerta antes de elegir', en: 'I examine the clues on each door before choosing' }, w: { explorar: 2, construir: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'El mapa muestra un tesoro en el fondo del mar.',
+          en: 'The map shows a treasure at the bottom of the sea.',
+        },
+        options: [
+          { text: { es: 'Invento un submarino de burbujas para bajar', en: 'I invent a bubble submarine to go down' }, w: { crear: 2, construir: 1 } },
+          { text: { es: 'Les pido ayuda a los delfines', en: 'I ask the dolphins for help' }, w: { naturaleza: 2, ayudar: 1 } },
+          { text: { es: 'Buceo despacio, cuidando los corales', en: 'I dive down slowly, protecting the corals' }, w: { naturaleza: 2, explorar: 1 } },
+        ],
+      },
+    ],
+  },
+];
+
+/* ---------- Posiciones de las estrellas en la constelación (viewBox 100×70) ---------- */
+const STAR_POS = {
+  crear: { x: 50, y: 12 },
+  ayudar: { x: 81, y: 26 },
+  explorar: { x: 74, y: 52 },
+  construir: { x: 26, y: 52 },
+  expresar: { x: 19, y: 26 },
+  naturaleza: { x: 50, y: 38 },
+};
+
+/* ---------- Motor ---------- */
+
+function newScores() {
+  const s = {};
+  for (const d of DIMS) s[d] = 0;
+  return s;
+}
+
+function applyChoice(scores, islandIdx, sceneIdx, optIdx) {
+  const opt = ISLANDS[islandIdx].scenes[sceneIdx].options[optIdx];
+  if (!opt) throw new Error(`Opción inválida: ${islandIdx}/${sceneIdx}/${optIdx}`);
+  const out = { ...scores };
+  for (const [d, n] of Object.entries(opt.w)) out[d] = (out[d] || 0) + n;
+  return out;
+}
+
+/* Devuelve [dimPrincipal, dimSecundaria] con desempate estable por orden de DIMS. */
+function computePurpose(scores) {
+  const ranked = DIMS.map((d, i) => ({ d, s: scores[d] || 0, i }))
+    .sort((a, b) => b.s - a.s || a.i - b.i);
+  return { top: ranked[0].d, second: ranked[1].d, ranked };
+}
+
+function buildLetter(name, lang, top, second) {
+  const t = PROFILES[top], s = PROFILES[second];
+  const who = (name && name.trim()) ? name.trim() : STR[lang].defaultName;
+  if (lang === 'es') {
+    return `Hola, ${who} del futuro:
+
+Hoy viajé por las islas de la Chispa y descubrí algo sobre mí: mi chispa brilla fuerte cuando puedo ${t.doing.es}. También me gusta ${s.doing.es}.
+
+Quiero acordarme de esto: ${t.reminder.es}.
+
+Cuando leas esta carta, espero que sigas haciendo brillar tu chispa. Y si cambió, ¡también está bien! Las estrellas se mueven.
+
+— ${who} de hoy ✨`;
+  }
+  return `Hello, future ${who}:
+
+Today I traveled through the Spark islands and discovered something about myself: my spark shines bright when I can ${t.doing.en}. I also like to ${s.doing.en}.
+
+I want to remember this: ${t.reminder.en}.
+
+When you read this letter, I hope you are still making your spark shine. And if it changed, that is okay too! Stars move.
+
+— today's ${who} ✨`;
+}
+
+/* Datos listos para dibujar la constelación: posición, radio y brillo por estrella. */
+function constellationData(scores) {
+  const max = Math.max(1, ...DIMS.map(d => scores[d] || 0));
+  return DIMS.map(d => ({
+    dim: d,
+    x: STAR_POS[d].x,
+    y: STAR_POS[d].y,
+    r: 1.6 + 3.4 * ((scores[d] || 0) / max),
+    glow: (scores[d] || 0) / max,
+    score: scores[d] || 0,
+  }));
+}
+
+const ChispaLogic = {
+  DIMS, MIN_ISLANDS, STR, PROFILES, ISLANDS, STAR_POS,
+  newScores, applyChoice, computePurpose, buildLetter, constellationData,
+};
+
+if (typeof module !== 'undefined' && module.exports) module.exports = ChispaLogic;
+if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
+
+</script>
+<script>
+/* Chispa / Spark — interfaz. Depende de window.ChispaLogic. Sin llamadas a internet. */
+(function () {
+  'use strict';
+  const L = window.ChispaLogic;
+  const app = document.getElementById('app');
+
+  /* ---------- Estado ---------- */
+  const state = {
+    lang: 'es',
+    name: '',
+    visited: [],            // ids de islas visitadas
+    scores: L.newScores(),
+    current: null,          // índice de isla actual
+    scene: 0,
+    speaking: false,
+  };
+
+  const t = key => L.STR[state.lang][key];
+
+  /* ---------- Arte SVG original ---------- */
+  // La Chispa: una llamita-estrella con cara. mood: 'happy' | 'wow' | 'proud'
+  function sparkArt(mood, size) {
+    const mouth = mood === 'wow'
+      ? '<circle cx="50" cy="62" r="5" fill="#7a3803"/>'
+      : mood === 'proud'
+        ? '<path d="M42 60 Q50 70 58 60" stroke="#7a3803" stroke-width="3" fill="none" stroke-linecap="round"/>'
+        : '<path d="M43 61 Q50 67 57 61" stroke="#7a3803" stroke-width="3" fill="none" stroke-linecap="round"/>';
+    return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-hidden="true" focusable="false">
+      <defs><radialGradient id="sg${mood}" cx="50%" cy="55%"><stop offset="0%" stop-color="#ffe9a3"/><stop offset="70%" stop-color="#ffc247"/><stop offset="100%" stop-color="#ff9d2e"/></radialGradient></defs>
+      <path d="M50 4 C56 22 70 26 74 40 C86 44 88 58 80 68 C84 82 70 94 50 94 C30 94 16 82 20 68 C12 58 14 44 26 40 C30 26 44 22 50 4 Z" fill="url(#sg${mood})" stroke="#e07b00" stroke-width="2"/>
+      <circle cx="40" cy="50" r="4.5" fill="#7a3803"/><circle cx="60" cy="50" r="4.5" fill="#7a3803"/>
+      <circle cx="41.5" cy="48.5" r="1.5" fill="#fff"/><circle cx="61.5" cy="48.5" r="1.5" fill="#fff"/>
+      ${mouth}
+      <circle cx="33" cy="58" r="3.5" fill="#ff8bb0" opacity=".6"/><circle cx="67" cy="58" r="3.5" fill="#ff8bb0" opacity=".6"/>
+    </svg>`;
+  }
+
+  // Ilustraciones de cada isla (vectoriales, originales, livianas)
+  const ISLAND_ART = {
+    colores: `<g><ellipse cx="50" cy="78" rx="42" ry="14" fill="#f2d16b"/>
+      <rect x="30" y="34" width="40" height="30" rx="3" fill="#fffbe8" stroke="#c9a94e" stroke-width="2"/>
+      <path d="M33 60 L47 40 L56 52 L62 45 L67 60 Z" fill="#7ec8e3"/>
+      <circle cx="61" cy="41" r="4" fill="#ffd447"/>
+      <rect x="20" y="58" width="5" height="18" rx="2" fill="#b5651d" transform="rotate(-18 22 67)"/>
+      <ellipse cx="18" cy="56" rx="5" ry="4" fill="#e6398b"/>
+      <rect x="74" y="58" width="5" height="18" rx="2" fill="#b5651d" transform="rotate(15 77 67)"/>
+      <ellipse cx="79" cy="56" rx="5" ry="4" fill="#3fb68e"/></g>`,
+    faro: `<g><ellipse cx="50" cy="80" rx="40" ry="12" fill="#8fd0c2"/>
+      <path d="M42 76 L46 30 L54 30 L58 76 Z" fill="#fff"/>
+      <path d="M42 76 L46 30 L54 30 L58 76 Z" fill="none" stroke="#d4553f" stroke-width="2"/>
+      <rect x="43" y="42" width="14" height="7" fill="#d4553f"/><rect x="41.5" y="58" width="17" height="7" fill="#d4553f"/>
+      <rect x="44" y="20" width="12" height="10" rx="2" fill="#ffd447" stroke="#c9932a" stroke-width="1.5"/>
+      <path d="M44 24 L18 12 L18 34 Z" fill="#fff3b8" opacity=".8"/>
+      <path d="M56 24 L82 12 L82 34 Z" fill="#fff3b8" opacity=".8"/>
+      <path d="M12 80 Q20 74 28 80 Q36 86 44 80" stroke="#4aa8d8" stroke-width="2.5" fill="none" stroke-linecap="round"/></g>`,
+    bosque: `<g><ellipse cx="50" cy="80" rx="42" ry="13" fill="#79b96b"/>
+      <rect x="28" y="52" width="7" height="24" rx="2" fill="#8a5a2b"/>
+      <circle cx="31" cy="42" r="15" fill="#3d9142"/><circle cx="24" cy="50" r="9" fill="#4caf50"/>
+      <rect x="62" y="46" width="8" height="30" rx="2" fill="#8a5a2b"/>
+      <circle cx="66" cy="34" r="17" fill="#2e7d32"/><circle cx="76" cy="44" r="10" fill="#43a047"/>
+      <circle cx="48" cy="68" r="5" fill="#ff9d2e"/><circle cx="46.5" cy="66.5" r="1.2" fill="#5b2d00"/>
+      <path d="M52 67 L57 65 L53 70 Z" fill="#ff7a1a"/>
+      <circle cx="14" cy="70" r="2.5" fill="#e6398b"/><circle cx="86" cy="72" r="2.5" fill="#ffd447"/></g>`,
+    taller: `<g><ellipse cx="50" cy="80" rx="41" ry="12" fill="#c9b18c"/>
+      <g stroke="#666" stroke-width="2" fill="#9aa7b5"><circle cx="34" cy="46" r="12"/><circle cx="58" cy="58" r="9"/></g>
+      <circle cx="34" cy="46" r="5" fill="#5d6d7e"/><circle cx="58" cy="58" r="4" fill="#5d6d7e"/>
+      <g fill="#9aa7b5"><rect x="31" y="30" width="6" height="8" rx="1"/><rect x="31" y="54" width="6" height="8" rx="1"/><rect x="18" y="43" width="8" height="6" rx="1"/><rect x="42" y="43" width="8" height="6" rx="1"/></g>
+      <rect x="66" y="30" width="16" height="22" rx="4" fill="#7ec8e3" stroke="#4a7fa5" stroke-width="2"/>
+      <circle cx="71" cy="38" r="2.5" fill="#183a52"/><circle cx="77" cy="38" r="2.5" fill="#183a52"/>
+      <path d="M70 45 Q74 48 78 45" stroke="#183a52" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="70" y="52" width="8" height="6" fill="#4a7fa5"/></g>`,
+    historias: `<g><ellipse cx="50" cy="80" rx="42" ry="13" fill="#c8a2d8"/>
+      <path d="M30 70 L30 40 Q40 34 50 40 Q60 34 70 40 L70 70 Q60 64 50 70 Q40 64 30 70 Z" fill="#fffbe8" stroke="#9265ab" stroke-width="2"/>
+      <path d="M50 40 L50 70" stroke="#9265ab" stroke-width="2"/>
+      <g stroke="#b48cc7" stroke-width="1.6" stroke-linecap="round"><path d="M35 46 h10 M35 51 h10 M35 56 h8"/><path d="M55 46 h10 M55 51 h10 M55 56 h8"/></g>
+      <circle cx="26" cy="30" r="5" fill="#ffd447" opacity=".85"/><circle cx="40" cy="22" r="4" fill="#7ec8e3" opacity=".85"/>
+      <circle cx="60" cy="20" r="5" fill="#e6398b" opacity=".8"/><circle cx="75" cy="28" r="3.5" fill="#3fb68e" opacity=".85"/></g>`,
+    mapa: `<g><ellipse cx="50" cy="80" rx="41" ry="12" fill="#e8c98f"/>
+      <rect x="24" y="30" width="52" height="38" rx="3" fill="#fdf3d7" stroke="#b08d45" stroke-width="2"/>
+      <path d="M30 60 Q40 40 52 52 Q62 60 70 38" stroke="#d4553f" stroke-width="2" stroke-dasharray="4 3" fill="none"/>
+      <path d="M66 34 l4 4 m0 -4 l-4 4" stroke="#d4553f" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="31" cy="61" r="3" fill="#3fb68e"/>
+      <g transform="translate(50 18)"><circle r="7" fill="#fffbe8" stroke="#b08d45" stroke-width="2"/><path d="M0 -4 L2 0 L0 4 L-2 0 Z" fill="#d4553f"/></g></g>`,
+  };
+
+  function islandArt(id, size) {
+    return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-hidden="true" focusable="false">${ISLAND_ART[id]}</svg>`;
+  }
+
+  /* ---------- Lectura en voz alta ---------- */
+  function canSpeak() { return typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined'; }
+
+  function speak(text) {
+    if (!canSpeak()) return;
+    if (state.speaking) { window.speechSynthesis.cancel(); state.speaking = false; syncSpeakBtns(); return; }
+    const u = new window.SpeechSynthesisUtterance(text);
+    u.lang = state.lang === 'es' ? 'es-ES' : 'en-US';
+    u.rate = 0.95;
+    u.onend = () => { state.speaking = false; syncSpeakBtns(); };
+    state.speaking = true; syncSpeakBtns();
+    window.speechSynthesis.speak(u);
+  }
+
+  function syncSpeakBtns() {
+    for (const b of document.querySelectorAll('[data-speak]')) {
+      b.querySelector('.spk-label').textContent = state.speaking ? t('stopReading') : t('readAloud');
+      b.setAttribute('aria-pressed', state.speaking ? 'true' : 'false');
+    }
+  }
+
+  function speakBtn(getText) {
+    if (!canSpeak()) return '';
+    speakBtn._targets.push(getText);
+    return `<button type="button" class="btn btn-soft" data-speak="${speakBtn._targets.length - 1}" aria-pressed="false">🔊 <span class="spk-label">${t('readAloud')}</span></button>`;
+  }
+  speakBtn._targets = [];
+
+  /* ---------- Utilidades ---------- */
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+  function render(html, screenName) {
+    speakBtn._targets = [];
+    if (canSpeak()) window.speechSynthesis.cancel();
+    state.speaking = false;
+    app.innerHTML = html;
+    app.dataset.screen = screenName;
+    const h = app.querySelector('h1, h2');
+    if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
+  }
+
+  function announce(msg) {
+    const live = document.getElementById('live');
+    if (live) live.textContent = msg;
+  }
+
+  function download(filename, text) {
+    try {
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    } catch (e) { /* jsdom / navegadores viejos */ }
+  }
+
+  /* ---------- Pantallas ---------- */
+
+  function screenTitle() {
+    render(`
+      <div class="card center">
+        <div class="spark-hero float">${sparkArt('happy', 130)}</div>
+        <h1 class="game-title">${t('title')} <span class="title-alt">· ${state.lang === 'es' ? 'Spark' : 'Chispa'}</span></h1>
+        <p class="subtitle">${t('subtitle')}</p>
+        <label class="name-label" for="name-input">${t('yourName')}</label>
+        <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
+        <button type="button" id="btn-start" class="btn btn-big">${t('play')}</button>
+        <button type="button" id="btn-lang" class="btn btn-soft" aria-label="${state.lang === 'es' ? 'Switch to English' : 'Cambiar a español'}">🌐 ${t('langBtn')}</button>
+        <p class="privacy">${t('privacy')}</p>
+      </div>`, 'title');
+
+    document.getElementById('btn-start').addEventListener('click', () => {
+      state.name = document.getElementById('name-input').value.trim();
+      screenMap();
+    });
+    document.getElementById('btn-lang').addEventListener('click', () => {
+      state.name = document.getElementById('name-input').value.trim();
+      state.lang = state.lang === 'es' ? 'en' : 'es';
+      document.documentElement.lang = state.lang;
+      screenTitle();
+    });
+  }
+
+  function screenMap() {
+    const left = Math.max(0, L.MIN_ISLANDS - state.visited.length);
+    const allDone = state.visited.length === L.ISLANDS.length;
+    const islands = L.ISLANDS.map((isl, i) => {
+      const done = state.visited.includes(isl.id);
+      return `<li><button type="button" class="island-btn ${done ? 'done' : ''}" data-island="${i}" ${done ? 'disabled' : ''}
+        aria-label="${esc(isl.name[state.lang])}${done ? ', ' + t('visited') : ''}">
+        ${islandArt(isl.id, 84)}
+        <span class="island-name">${esc(isl.name[state.lang])}</span>
+        ${done ? '<span class="island-star" aria-hidden="true">⭐</span>' : ''}
+      </button></li>`;
+    }).join('');
+
+    render(`
+      <div class="card">
+        <div class="row-top">${sparkArt(state.visited.length ? 'proud' : 'happy', 56)}
+          <div><h1>${t('mapTitle')}</h1><p class="hint">${t('mapHint')}</p></div>
+        </div>
+        <ul class="island-grid" role="list">${islands}</ul>
+        ${left > 0 && !allDone
+          ? `<p class="progress-note">${t('islandsLeft')(left)}</p>`
+          : `<button type="button" id="btn-constellation" class="btn btn-big glow">${t('constellationReady')}</button>`}
+      </div>`, 'map');
+
+    for (const b of app.querySelectorAll('[data-island]')) {
+      b.addEventListener('click', () => {
+        state.current = Number(b.dataset.island);
+        state.scene = 0;
+        screenIsland(true);
+      });
+    }
+    const bc = document.getElementById('btn-constellation');
+    if (bc) bc.addEventListener('click', screenConstellation);
+  }
+
+  function screenIsland(showIntro) {
+    const isl = L.ISLANDS[state.current];
+    const scene = isl.scenes[state.scene];
+    const total = isl.scenes.length;
+    const options = scene.options.map((o, i) =>
+      `<li><button type="button" class="btn option-btn" data-opt="${i}">${esc(o.text[state.lang])}</button></li>`).join('');
+
+    const introBlock = showIntro ? `<p class="island-intro">${esc(isl.intro[state.lang])}</p>` : '';
+    const readText = `${showIntro ? isl.intro[state.lang] + '. ' : ''}${scene.prompt[state.lang]} ${t('chooseHint')} ${scene.options.map(o => o.text[state.lang]).join('. ')}`;
+
+    render(`
+      <div class="card">
+        <div class="row-top">${islandArt(isl.id, 90)}
+          <div>
+            <h1>${esc(isl.name[state.lang])}</h1>
+            <p class="scene-count">${state.scene + 1} ${t('of')} ${total}</p>
+          </div>
+        </div>
+        ${introBlock}
+        <p class="prompt">${esc(scene.prompt[state.lang])}</p>
+        <p class="hint">${t('chooseHint')}</p>
+        <ul class="option-list" role="list">${options}</ul>
+        <div class="toolbar">
+          ${speakBtn(() => readText)}
+          <button type="button" id="btn-back" class="btn btn-soft">↩ ${t('backToMap')}</button>
+        </div>
+      </div>`, 'island');
+
+    wireSpeak();
+    document.getElementById('btn-back').addEventListener('click', screenMap);
+    for (const b of app.querySelectorAll('[data-opt]')) {
+      b.addEventListener('click', () => {
+        state.scores = L.applyChoice(state.scores, state.current, state.scene, Number(b.dataset.opt));
+        const pool = t('feedback');
+        const msg = pool[(state.visited.length * 3 + state.scene * 2 + Number(b.dataset.opt)) % pool.length];
+        announce(msg);
+        if (state.scene + 1 < total) {
+          state.scene += 1;
+          screenFeedback(msg, () => screenIsland(false));
+        } else {
+          if (!state.visited.includes(isl.id)) state.visited.push(isl.id);
+          screenFeedback(msg, screenMap, true);
+        }
+      });
+    }
+  }
+
+  function screenFeedback(msg, next, islandDone) {
+    render(`
+      <div class="card center">
+        <div class="spark-hero pop">${sparkArt(islandDone ? 'proud' : 'wow', 110)}</div>
+        <h1 class="feedback-msg">${esc(msg)}</h1>
+        ${islandDone ? `<p class="hint">⭐ ${esc(L.ISLANDS[state.current].name[state.lang])} — ${t('visited')}</p>` : ''}
+        <button type="button" id="btn-next" class="btn btn-big">${t('next')} →</button>
+      </div>`, 'feedback');
+    document.getElementById('btn-next').addEventListener('click', next);
+  }
+
+  function constellationSVG(data, purpose, forExport) {
+    const lines = [];
+    const topStars = purpose.ranked.slice(0, 3).map(r => r.d);
+    for (let i = 0; i < topStars.length - 1; i++) {
+      const a = L.STAR_POS[topStars[i]], b = L.STAR_POS[topStars[i + 1]];
+      lines.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#ffe9a3" stroke-width="0.5" opacity="0.7"/>`);
+    }
+    const stars = data.map(s => {
+      const label = L.PROFILES[s.dim].label[state.lang];
+      return `<g>
+        <circle cx="${s.x}" cy="${s.y}" r="${(s.r * 1.9).toFixed(2)}" fill="#ffe9a3" opacity="${(0.10 + s.glow * 0.22).toFixed(2)}"/>
+        <circle cx="${s.x}" cy="${s.y}" r="${s.r.toFixed(2)}" fill="${s.dim === purpose.top ? '#ffd447' : '#fff7dd'}"/>
+        <text x="${s.x}" y="${s.y + s.r + 5.5}" text-anchor="middle" font-size="4" fill="#dcd3ff" font-family="inherit">${label}</text>
+      </g>`;
+    }).join('');
+    const bg = forExport ? '<rect width="100" height="70" fill="#1b1740"/>' : '';
+    return `<svg id="const-svg" viewBox="0 0 100 70" class="constellation" role="img"
+      aria-label="${state.lang === 'es' ? 'Constelación con seis estrellas' : 'Constellation with six stars'}">${bg}${lines.join('')}${stars}</svg>`;
+  }
+
+  function exportPNG(purpose) {
+    try {
+      const data = L.constellationData(state.scores);
+      const svg = constellationSVG(data, purpose, true).replace('class="constellation"', 'width="1000" height="700"');
+      const canvas = document.createElement('canvas');
+      canvas.width = 1000; canvas.height = 760;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('no canvas');
+      const img = new Image();
+      const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      img.onload = () => {
+        ctx.fillStyle = '#1b1740'; ctx.fillRect(0, 0, 1000, 760);
+        ctx.drawImage(img, 0, 0, 1000, 700);
+        ctx.fillStyle = '#ffe9a3'; ctx.font = '28px sans-serif'; ctx.textAlign = 'center';
+        const who = state.name ? `${state.name} · ` : '';
+        ctx.fillText(`${who}${t('sparkIs')} ${L.PROFILES[purpose.top].label[state.lang]} ✨`, 500, 738);
+        URL.revokeObjectURL(url);
+        const a = document.createElement('a');
+        a.download = state.lang === 'es' ? 'mi-constelacion.png' : 'my-constellation.png';
+        a.href = canvas.toDataURL('image/png');
+        document.body.appendChild(a); a.click(); a.remove();
+        announce(t('pngSaved'));
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); announce(t('pngFail')); };
+      img.src = url;
+    } catch (e) { announce(t('pngFail')); }
+  }
+
+  function screenConstellation() {
+    const purpose = L.computePurpose(state.scores);
+    const data = L.constellationData(state.scores);
+    const topP = L.PROFILES[purpose.top], secP = L.PROFILES[purpose.second];
+    // Con nombre, el título va en minúscula tras la coma: "Luna, tu constelación"
+    const rawTitle = t('constTitle');
+    const title = state.name ? rawTitle.charAt(0).toLowerCase() + rawTitle.slice(1) : rawTitle;
+    const who = state.name ? `${esc(state.name)}, ` : '';
+    const readText = `${state.name ? state.name + '. ' : ''}${t('sparkIs')} ${topP.label[state.lang]}, ${t('withTouch')} ${secP.label[state.lang]}. ${topP.desc[state.lang]} ${t('superpower')}: ${topP.power[state.lang]}.`;
+
+    render(`
+      <div class="card">
+        <h1>${who}${title} ✨</h1>
+        ${constellationSVG(data, purpose, false)}
+        <div class="profile-card">
+          <p class="profile-line">${t('sparkIs')} <strong class="dim-top">${topP.label[state.lang]}</strong> ${t('withTouch')} <strong class="dim-second">${secP.label[state.lang]}</strong></p>
+          <p class="profile-desc">${topP.desc[state.lang]}</p>
+          <p class="profile-power">⚡ ${t('superpower')}: <strong>${topP.power[state.lang]}</strong></p>
+        </div>
+        <div class="toolbar">
+          ${speakBtn(() => readText)}
+          <button type="button" id="btn-png" class="btn btn-soft">🖼 ${t('downloadPng')}</button>
+          <button type="button" id="btn-family" class="btn btn-soft">👪 ${t('familyGuide')}</button>
+        </div>
+        <button type="button" id="btn-letter" class="btn btn-big">✉ ${t('writeLetter')}</button>
+      </div>`, 'constellation');
+
+    wireSpeak();
+    document.getElementById('btn-letter').addEventListener('click', () => screenLetter(purpose));
+    document.getElementById('btn-png').addEventListener('click', () => exportPNG(purpose));
+    document.getElementById('btn-family').addEventListener('click', () => screenFamily(purpose));
+  }
+
+  function screenFamily(purpose) {
+    render(`
+      <div class="card">
+        <h1>${t('familyTitle')}</h1>
+        <p class="family-intro">${t('familyIntro')}</p>
+        <ul class="family-list" role="list">
+          <li>${t('familyQ1')}</li><li>${t('familyQ2')}</li><li>${t('familyQ3')}</li>
+        </ul>
+        <div class="toolbar">
+          ${speakBtn(() => [t('familyIntro'), t('familyQ1'), t('familyQ2'), t('familyQ3')].join(' '))}
+          <button type="button" id="btn-close-family" class="btn btn-big">${t('close')}</button>
+        </div>
+      </div>`, 'family');
+    wireSpeak();
+    document.getElementById('btn-close-family').addEventListener('click', () => screenConstellation());
+  }
+
+  function screenLetter(purpose) {
+    const letter = L.buildLetter(state.name, state.lang, purpose.top, purpose.second);
+    render(`
+      <div class="card">
+        <h1>${t('letterTitle')} ✉</h1>
+        <p class="hint">${t('letterHint')}</p>
+        <textarea id="letter-text" class="letter" rows="12" aria-label="${t('letterTitle')}">${esc(letter)}</textarea>
+        <div class="toolbar">
+          ${speakBtn(() => document.getElementById('letter-text').value)}
+          <button type="button" id="btn-dl-letter" class="btn btn-soft">💾 ${t('downloadLetter')}</button>
+        </div>
+        <button type="button" id="btn-replay" class="btn btn-big">🔁 ${t('playAgain')}</button>
+      </div>`, 'letter');
+
+    wireSpeak();
+    document.getElementById('btn-dl-letter').addEventListener('click', () => {
+      download(state.lang === 'es' ? 'mi-carta-al-futuro.txt' : 'my-letter-to-the-future.txt',
+        document.getElementById('letter-text').value);
+    });
+    document.getElementById('btn-replay').addEventListener('click', () => {
+      state.visited = []; state.scores = L.newScores(); state.current = null; state.scene = 0;
+      screenTitle();
+    });
+  }
+
+  function wireSpeak() {
+    for (const b of app.querySelectorAll('[data-speak]')) {
+      b.addEventListener('click', () => {
+        const get = speakBtn._targets[Number(b.dataset.speak)];
+        speak(typeof get === 'function' ? get() : String(get));
+      });
+    }
+  }
+
+  /* ---------- Inicio ---------- */
+  document.documentElement.lang = state.lang;
+  screenTitle();
+})();
+
+</script>
+</body>
+</html>
