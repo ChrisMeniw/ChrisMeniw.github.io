@@ -327,8 +327,15 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   position:fixed; inset:0; z-index:50; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:6px;
   background:
-    radial-gradient(900px 600px at 50% 30%, #45358c59 0%, transparent 60%),
-    linear-gradient(180deg,#221a4dbb 0%,#0f0c24d9 100%);
+    radial-gradient(1.5px 1.5px at 16% 22%,#fff8 50%,transparent 51%),
+    radial-gradient(1px 1px at 34% 10%,#fff6 50%,transparent 51%),
+    radial-gradient(2px 2px at 52% 30%,#ffce4f77 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 70% 14%,#fff7 50%,transparent 51%),
+    radial-gradient(1px 1px at 86% 26%,#fff5 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 10% 52%,#fff6 50%,transparent 51%),
+    radial-gradient(1px 1px at 90% 48%,#ff8fb155 50%,transparent 51%),
+    radial-gradient(900px 600px at 50% 30%, #45358c66 0%, transparent 60%),
+    linear-gradient(180deg,#221a4d 0%,#0f0c24 100%);
   animation:introBg .6s ease-out;
 }
 .intro-star{animation:introStar 1.5s cubic-bezier(.2,1.3,.4,1) both; filter:drop-shadow(0 0 34px #ffd35e88)}
@@ -358,6 +365,40 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 }
 @keyframes introTitle{from{opacity:0; transform:translateY(16px) scale(.85)}to{opacity:1; transform:none}}
 @keyframes introOut{to{opacity:0; visibility:hidden}}
+
+/* ---------- Misión (objetivos del juego) ---------- */
+.mission-list{list-style:none; display:flex; flex-direction:column; gap:14px; margin:14px 0 18px}
+.mission-step{
+  display:flex; gap:14px; align-items:flex-start; font-size:1.12rem; line-height:1.45;
+  background:linear-gradient(180deg,#2a224f,#231c48); border:1px solid #5647ab44;
+  border-radius:18px; padding:15px 17px; box-shadow:0 6px 14px -8px #000a;
+  animation:screenIn .4s ease-out backwards;
+}
+.mission-num{
+  flex:0 0 auto; width:44px; height:44px; border-radius:50%; font-size:1.35rem;
+  display:flex; align-items:center; justify-content:center;
+  background:#241d52; border:1.5px solid #6c5ce766;
+}
+
+/* ---------- Intro narrativa ---------- */
+.intro-scene{position:relative; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.intro-islands{position:absolute; bottom:0; left:0; width:100%; height:26vh; min-height:120px; animation:introTitle .8s ease-out .2s both}
+.intro-star{position:relative; z-index:2}
+.intro-line{
+  position:relative; z-index:2; font-family:var(--display); text-align:center;
+  font-size:1.45rem; line-height:1.3; color:var(--text); max-width:22ch;
+  text-shadow:0 2px 14px #000a; margin-top:10px; opacity:0;
+}
+.intro-line.l1{animation:lineIn 1.2s ease-out .5s both}
+.intro-line.l2{animation:lineIn 1.2s ease-out 2.0s both; color:var(--gold1)}
+.intro-line.l3{animation:lineIn 1.3s ease-out 3.5s both; font-size:1.7rem;
+  background:linear-gradient(110deg,var(--gold1),#fff8e0 45%,var(--gold2));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+@keyframes lineIn{0%{opacity:0; transform:translateY(14px)}18%,82%{opacity:1; transform:none}100%{opacity:1}}
+
+/* ---------- Intro de video ---------- */
+.intro-video{background:#000}
+#intro-vid{width:100%; height:100%; object-fit:contain; background:#000}
 
 /* ---------- Partículas de celebración ---------- */
 .burst-particles{position:absolute; inset:0; pointer-events:none}
@@ -459,6 +500,16 @@ const STR = {
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
     skipIntro: 'Saltar intro ›',
+    introLine1: 'Hay seis islas que guardan un secreto…',
+    introLine2: 'Cada elección tuya enciende una estrella',
+    introLine3: 'Descubre para qué brillas',
+    missionTitle: 'Tu misión',
+    missionSteps: [
+      'Recorre las 6 islas y vive sus aventuras',
+      'En cada una, elige lo que harías TÚ. No hay respuestas incorrectas',
+      'Tus elecciones encienden tu constelación: descubre tu superpoder y escribe tu carta al futuro',
+    ],
+    missionGo: '¡A las islas!',
     privacy: 'Sin internet · Sin publicidad · Sin datos personales',
     mapTitle: 'El mar de las islas',
     mapHint: 'Elige una isla para visitar. Tú decides el camino.',
@@ -506,6 +557,16 @@ const STR = {
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
     skipIntro: 'Skip intro ›',
+    introLine1: 'Six islands hold a secret…',
+    introLine2: 'Every choice you make lights up a star',
+    introLine3: 'Discover what makes you shine',
+    missionTitle: 'Your mission',
+    missionSteps: [
+      'Explore the 6 islands and live their adventures',
+      'In each one, choose what YOU would do. There are no wrong answers',
+      'Your choices light up your constellation: discover your superpower and write your letter to the future',
+    ],
+    missionGo: 'To the islands!',
     privacy: 'No internet · No ads · No personal data',
     mapTitle: 'The sea of islands',
     mapHint: 'Pick an island to visit. You choose the path.',
@@ -553,6 +614,16 @@ const STR = {
     yourName: 'Seu nome (se quiser)',
     play: 'Começar a viagem!',
     skipIntro: 'Pular intro ›',
+    introLine1: 'Seis ilhas guardam um segredo…',
+    introLine2: 'Cada escolha sua acende uma estrela',
+    introLine3: 'Descubra o que faz você brilhar',
+    missionTitle: 'Sua missão',
+    missionSteps: [
+      'Percorra as 6 ilhas e viva suas aventuras',
+      'Em cada uma, escolha o que VOCÊ faria. Não existem respostas erradas',
+      'Suas escolhas acendem sua constelação: descubra seu superpoder e escreva sua carta para o futuro',
+    ],
+    missionGo: 'Para as ilhas!',
     privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
     mapTitle: 'O mar das ilhas',
     mapHint: 'Escolha uma ilha para visitar. Você decide o caminho.',
@@ -1236,7 +1307,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
     document.getElementById('btn-start').addEventListener('click', () => {
       state.name = document.getElementById('name-input').value.trim();
-      screenMap();
+      screenMission();
     });
     for (const b of app.querySelectorAll('[data-lang]')) {
       b.addEventListener('click', () => {
@@ -1247,6 +1318,29 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         screenTitle();
       });
     }
+  }
+
+  /* ---------- Misión: los objetivos del juego, antes de empezar ---------- */
+  function screenMission() {
+    const steps = t('missionSteps');
+    const icons = ['🏝️', '💛', '✨'];
+    const readText = `${t('missionTitle')}. ${steps.join('. ')}.`;
+    render(`
+      <div class="card">
+        <div class="row-top">${sparkArt('wow', 64)}
+          <div><h1>${t('missionTitle')} ✦</h1></div>
+        </div>
+        <ol class="mission-list" role="list">
+          ${steps.map((st, i) => `<li class="mission-step" style="animation-delay:${i * 180}ms">
+            <span class="mission-num" aria-hidden="true">${icons[i]}</span>
+            <span>${st}</span>
+          </li>`).join('')}
+        </ol>
+        <button type="button" id="btn-go" class="btn btn-big glow">${t('missionGo')} →</button>
+        <div class="toolbar">${speakBtn(() => readText)}</div>
+      </div>`, 'mission');
+    wireSpeak();
+    document.getElementById('btn-go').addEventListener('click', screenMap);
   }
 
   function screenMap() {
@@ -1608,19 +1702,12 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     };
   })();
 
-  /* ---------- Intro cinemática (una vez por carga; sin video: pura animación) ---------- */
-  function playIntro() {
-    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) return;
+  /* ---------- Intro: video real (online) o escena narrativa animada (offline) ---------- */
+  function makeIntroShell() {
     const intro = document.createElement('div');
     intro.id = 'intro';
     intro.setAttribute('role', 'dialog');
     intro.setAttribute('aria-label', 'Spark');
-    intro.innerHTML = `
-      <div class="intro-star">${sparkArt('happy', 150)}</div>
-      <div class="intro-title" aria-hidden="true">Spark</div>
-      <div class="intro-sub" aria-hidden="true">✦ ✦ ✦</div>
-      <button type="button" id="intro-skip">${t('skipIntro')}</button>`;
     document.body.appendChild(intro);
     let done = false;
     const finish = () => {
@@ -1629,9 +1716,65 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       intro.classList.add('intro-out');
       setTimeout(() => { intro.remove(); const h = app.querySelector('h1, h2'); if (h) h.focus(); }, 420);
     };
+    return { intro, finish };
+  }
+
+  function playVideoIntro(finishTimeoutMs) {
+    const { intro, finish } = makeIntroShell();
+    intro.classList.add('intro-video');
+    intro.innerHTML = `
+      <video id="intro-vid" src="intro.mp4" autoplay muted playsinline preload="auto"></video>
+      <button type="button" id="intro-skip">${t('skipIntro')}</button>`;
+    const vid = intro.querySelector('#intro-vid');
+    vid.addEventListener('ended', finish);
+    vid.addEventListener('error', finish);
+    intro.querySelector('#intro-skip').addEventListener('click', finish);
+    setTimeout(finish, finishTimeoutMs);
+  }
+
+  function playAnimatedIntro() {
+    const { intro, finish } = makeIntroShell();
+    intro.innerHTML = `
+      <div class="intro-scene" aria-hidden="true">
+        <div class="intro-star">${sparkArt('happy', 130)}</div>
+        <svg class="intro-islands" viewBox="0 0 390 120" preserveAspectRatio="xMidYMax slice">
+          <rect x="0" y="78" width="390" height="42" fill="#100d26"/>
+          <path d="M0 84 Q30 76 60 84 Q95 92 130 84 Q165 76 200 84 Q235 92 270 84 Q305 76 340 84 Q365 90 390 84 L390 120 L0 120 Z" fill="#1a1538"/>
+          <g fill="#241d4e">
+            <path d="M20 84 Q38 58 56 84 Z"/><path d="M84 86 Q100 66 116 86 Z"/>
+            <path d="M150 84 Q170 54 190 84 Z"/><path d="M222 86 Q238 68 254 86 Z"/>
+            <path d="M284 84 Q304 58 324 84 Z"/><path d="M348 86 Q362 70 376 86 Z"/>
+          </g>
+          <g fill="#ffce4f" opacity=".9">
+            <circle cx="38" cy="70" r="1.6"/><circle cx="100" cy="76" r="1.3"/><circle cx="170" cy="66" r="1.6"/>
+            <circle cx="238" cy="76" r="1.3"/><circle cx="304" cy="70" r="1.6"/><circle cx="362" cy="78" r="1.2"/>
+          </g>
+        </svg>
+        <p class="intro-line l1">${t('introLine1')}</p>
+        <p class="intro-line l2">${t('introLine2')}</p>
+        <p class="intro-line l3">${t('introLine3')}</p>
+      </div>
+      <button type="button" id="intro-skip">${t('skipIntro')}</button>`;
     intro.querySelector('#intro-skip').addEventListener('click', finish);
     intro.addEventListener('click', e => { if (e.target === intro) finish(); });
-    setTimeout(finish, 4200);
+    setTimeout(finish, 5600);
+  }
+
+  function playIntro() {
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    // Si el host sirve intro.mp4 (versión online), usamos el video real
+    if (location.protocol.indexOf('http') === 0 && typeof window.fetch === 'function') {
+      fetch('intro.mp4', { method: 'HEAD' })
+        .then(r => {
+          const ct = r.headers.get('content-type') || '';
+          if (r.ok && ct.indexOf('video') === 0) playVideoIntro(16000);
+          else playAnimatedIntro();
+        })
+        .catch(playAnimatedIntro);
+    } else {
+      playAnimatedIntro();
+    }
   }
 
   /* ---------- Inicio ---------- */
