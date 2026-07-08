@@ -367,7 +367,15 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 @keyframes introOut{to{opacity:0; visibility:hidden}}
 
 /* ---------- Misión (objetivos del juego) ---------- */
-.mission-list{list-style:none; display:flex; flex-direction:column; gap:14px; margin:14px 0 18px}
+.mission-label{
+  font-family:var(--display); color:var(--gold2); font-size:1.02rem;
+  letter-spacing:.8px; text-transform:uppercase; margin:16px 0 6px;
+}
+.mission-goal{font-size:1.22rem; font-weight:800; line-height:1.35}
+.mission-win{font-size:1.1rem; line-height:1.5}
+.mission-learn{color:var(--muted); font-size:.98rem; margin-top:6px; font-style:italic}
+.map-help{margin:2px 0 4px}
+.mission-list{list-style:none; display:flex; flex-direction:column; gap:11px; margin:8px 0 4px}
 .mission-step{
   display:flex; gap:14px; align-items:flex-start; font-size:1.12rem; line-height:1.45;
   background:linear-gradient(180deg,#2a224f,#231c48); border:1px solid #5647ab44;
@@ -375,7 +383,8 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   animation:screenIn .4s ease-out backwards;
 }
 .mission-num{
-  flex:0 0 auto; width:44px; height:44px; border-radius:50%; font-size:1.35rem;
+  flex:0 0 auto; width:38px; height:38px; border-radius:50%; font-size:1.15rem;
+  font-family:var(--display); font-weight:700; color:var(--gold1);
   display:flex; align-items:center; justify-content:center;
   background:#241d52; border:1.5px solid #6c5ce766;
 }
@@ -503,12 +512,20 @@ const STR = {
     introLine1: 'Hay seis islas que guardan un secreto…',
     introLine2: 'Cada elección tuya enciende una estrella',
     introLine3: 'Descubre para qué brillas',
-    missionTitle: 'Tu misión',
+    missionTitle: 'Cómo jugar',
+    goalLabel: 'El objetivo',
+    goalText: 'Descubrir para qué brillas: tu chispa.',
+    howLabel: 'Cómo se juega',
     missionSteps: [
-      'Recorre las 6 islas y vive sus aventuras',
-      'En cada una, elige lo que harías TÚ. No hay respuestas incorrectas',
-      'Tus elecciones encienden tu constelación: descubre tu superpoder y escribe tu carta al futuro',
+      'Elige una isla del mapa y vive su aventura',
+      'En cada aventura hay 3 caminos: elige el que harías TÚ. No hay respuestas incorrectas',
+      'Visita 4 islas o más y tu constelación se enciende',
     ],
+    winLabel: 'Qué ganas',
+    winText: 'Tu constelación única ✨, tu superpoder ⚡ y una carta a tu yo del futuro ✉.',
+    learnText: 'Aquí no hay puntos ni perdedores: lo que te llevas es conocerte mejor.',
+    helpBtn: 'Cómo jugar',
+    resultLabel: 'Tu resultado',
     missionGo: '¡A las islas!',
     privacy: 'Sin internet · Sin publicidad · Sin datos personales',
     mapTitle: 'El mar de las islas',
@@ -560,12 +577,20 @@ const STR = {
     introLine1: 'Six islands hold a secret…',
     introLine2: 'Every choice you make lights up a star',
     introLine3: 'Discover what makes you shine',
-    missionTitle: 'Your mission',
+    missionTitle: 'How to play',
+    goalLabel: 'The goal',
+    goalText: 'Discover what makes you shine: your spark.',
+    howLabel: 'How to play',
     missionSteps: [
-      'Explore the 6 islands and live their adventures',
-      'In each one, choose what YOU would do. There are no wrong answers',
-      'Your choices light up your constellation: discover your superpower and write your letter to the future',
+      'Pick an island on the map and live its adventure',
+      'Each adventure has 3 paths: choose the one YOU would take. There are no wrong answers',
+      'Visit 4 or more islands and your constellation lights up',
     ],
+    winLabel: 'What you win',
+    winText: 'Your unique constellation ✨, your superpower ⚡ and a letter to your future self ✉.',
+    learnText: 'There are no points and no losers here: what you take home is knowing yourself better.',
+    helpBtn: 'How to play',
+    resultLabel: 'Your result',
     missionGo: 'To the islands!',
     privacy: 'No internet · No ads · No personal data',
     mapTitle: 'The sea of islands',
@@ -617,12 +642,20 @@ const STR = {
     introLine1: 'Seis ilhas guardam um segredo…',
     introLine2: 'Cada escolha sua acende uma estrela',
     introLine3: 'Descubra o que faz você brilhar',
-    missionTitle: 'Sua missão',
+    missionTitle: 'Como jogar',
+    goalLabel: 'O objetivo',
+    goalText: 'Descobrir o que faz você brilhar: a sua faísca.',
+    howLabel: 'Como se joga',
     missionSteps: [
-      'Percorra as 6 ilhas e viva suas aventuras',
-      'Em cada uma, escolha o que VOCÊ faria. Não existem respostas erradas',
-      'Suas escolhas acendem sua constelação: descubra seu superpoder e escreva sua carta para o futuro',
+      'Escolha uma ilha do mapa e viva a aventura dela',
+      'Cada aventura tem 3 caminhos: escolha o que VOCÊ faria. Não existem respostas erradas',
+      'Visite 4 ilhas ou mais e a sua constelação se acende',
     ],
+    winLabel: 'O que você ganha',
+    winText: 'Sua constelação única ✨, seu superpoder ⚡ e uma carta para o seu eu do futuro ✉.',
+    learnText: 'Aqui não há pontos nem perdedores: o que você leva é se conhecer melhor.',
+    helpBtn: 'Como jogar',
+    resultLabel: 'Seu resultado',
     missionGo: 'Para as ilhas!',
     privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
     mapTitle: 'O mar das ilhas',
@@ -1320,22 +1353,31 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     }
   }
 
-  /* ---------- Misión: los objetivos del juego, antes de empezar ---------- */
+  /* ---------- Cómo jugar: objetivo, pasos, qué se gana y qué se aprende ---------- */
   function screenMission() {
     const steps = t('missionSteps');
-    const icons = ['🏝️', '💛', '✨'];
-    const readText = `${t('missionTitle')}. ${steps.join('. ')}.`;
+    const readText = `${t('goalLabel')}: ${t('goalText')} ${t('howLabel')}: ${steps.join('. ')}. ${t('winLabel')}: ${t('winText')} ${t('learnText')}`;
     render(`
       <div class="card">
         <div class="row-top">${sparkArt('wow', 64)}
           <div><h1>${t('missionTitle')} ✦</h1></div>
         </div>
+
+        <p class="mission-label">🎯 ${t('goalLabel')}</p>
+        <p class="mission-goal">${t('goalText')}</p>
+
+        <p class="mission-label">🕹️ ${t('howLabel')}</p>
         <ol class="mission-list" role="list">
-          ${steps.map((st, i) => `<li class="mission-step" style="animation-delay:${i * 180}ms">
-            <span class="mission-num" aria-hidden="true">${icons[i]}</span>
+          ${steps.map((st, i) => `<li class="mission-step" style="animation-delay:${i * 160}ms">
+            <span class="mission-num" aria-hidden="true">${i + 1}</span>
             <span>${st}</span>
           </li>`).join('')}
         </ol>
+
+        <p class="mission-label">🏆 ${t('winLabel')}</p>
+        <p class="mission-win">${t('winText')}</p>
+        <p class="mission-learn">${t('learnText')}</p>
+
         <button type="button" id="btn-go" class="btn btn-big glow">${t('missionGo')} →</button>
         <div class="toolbar">${speakBtn(() => readText)}</div>
       </div>`, 'mission');
@@ -1366,6 +1408,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <div class="row-top">${sparkArt(state.visited.length ? 'proud' : 'happy', 56)}
           <div><h1>${t('mapTitle')}</h1><p class="hint">${t('mapHint')}</p></div>
         </div>
+        <button type="button" id="btn-help" class="btn btn-soft map-help">❓ ${t('helpBtn')}</button>
         <ul class="island-grid" role="list">${islands}</ul>
         <div class="progress-wrap">
           <div class="progress-stars">${stars}</div>
@@ -1384,6 +1427,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     }
     const bc = document.getElementById('btn-constellation');
     if (bc) bc.addEventListener('click', screenConstellation);
+    document.getElementById('btn-help').addEventListener('click', screenMission);
   }
 
   function screenIsland(showIntro) {
@@ -1535,6 +1579,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       <div class="card">
         <h1>${who}${title} ✨</h1>
         ${constellationSVG(data, purpose, false)}
+        <p class="mission-label">🏆 ${t('resultLabel')}</p>
         <div class="profile-card">
           <p class="profile-line">${t('sparkIs')} <strong class="dim-top">${topP.label[state.lang]}</strong> ${t('withTouch')} <strong class="dim-second">${secP.label[state.lang]}</strong></p>
           <p class="profile-desc">${topP.desc[state.lang]}</p>
@@ -1768,7 +1813,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       fetch('intro.mp4', { method: 'HEAD' })
         .then(r => {
           const ct = r.headers.get('content-type') || '';
-          if (r.ok && ct.indexOf('video') === 0) playVideoIntro(16000);
+          if (r.ok && ct.indexOf('video') === 0) playVideoIntro(45000);
           else playAnimatedIntro();
         })
         .catch(playAnimatedIntro);
