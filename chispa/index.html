@@ -3,128 +3,269 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Chispa / Spark — un juego para descubrir para qué brillas. 100% offline.">
-<title>Chispa · Spark</title>
+<meta name="description" content="Chispa / Spark / Faísca — un juego para descubrir para qué brillas. 100% offline.">
+<title>Chispa · Spark · Faísca</title>
 <style>
+/* ====== Tema "Cielo de Chispa" (Midnight Galaxy + Golden Hour, custom) ====== */
 :root{
-  --sky1:#241d52; --sky2:#12102e; --card:#2e2760; --card-edge:#4a3f96;
-  --text:#f3efff; --muted:#c9c0f0; --accent:#ffd447; --accent-dark:#e07b00;
-  --btn:#5a4bd6; --btn-hover:#6d5ef0; --soft:#3b3378; --soft-hover:#4a4192;
-  --focus:#8ef0ff;
+  --night1:#2a2058; --night2:#171233; --nebula:#3b2d79;
+  --card:#272052; --card-edge:#4a3f96; --card-inner:#211a49;
+  --text:#f7f4ff; --muted:#bfb3ea;
+  --gold1:#ffe9a3; --gold2:#ffce4f; --gold3:#ffb347; --gold-deep:#b96e00;
+  --violet1:#8b7cf7; --violet2:#6c5ce7; --violet-deep:#4636b8;
+  --pink:#ff8fb1; --teal:#7fe3ff; --green:#7ddf8e;
+  --focus:#7fe3ff;
+  --round:'Arial Rounded MT Bold','SF Pro Rounded','Trebuchet MS',Verdana,sans-serif;
 }
 *{box-sizing:border-box; margin:0; padding:0}
 html,body{height:100%}
 body{
-  font-family:"Avenir Next","Trebuchet MS",Verdana,system-ui,sans-serif;
-  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 100%);
+  font-family:ui-rounded,var(--round);
+  background:
+    radial-gradient(1200px 700px at 75% -10%, #45358c55 0%, transparent 60%),
+    radial-gradient(900px 600px at 10% 110%, #6c5ce733 0%, transparent 55%),
+    linear-gradient(180deg,var(--night1) 0%,var(--night2) 100%);
+  background-attachment:fixed;
   color:var(--text); min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; padding:16px; line-height:1.5;
+  align-items:center; padding:18px 16px 28px; line-height:1.5;
 }
-/* estrellitas de fondo, puro CSS */
+/* Capa de estrellas fijas */
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
   background-image:
-    radial-gradient(1.5px 1.5px at 12% 20%,#fff8 50%,transparent 51%),
-    radial-gradient(1px 1px at 30% 8%,#fff6 50%,transparent 51%),
-    radial-gradient(2px 2px at 48% 28%,#ffd44766 50%,transparent 51%),
-    radial-gradient(1.5px 1.5px at 66% 12%,#fff7 50%,transparent 51%),
-    radial-gradient(1px 1px at 84% 24%,#fff5 50%,transparent 51%),
-    radial-gradient(1.5px 1.5px at 92% 60%,#fff6 50%,transparent 51%),
-    radial-gradient(1px 1px at 8% 70%,#fff5 50%,transparent 51%),
-    radial-gradient(2px 2px at 74% 82%,#ffd44755 50%,transparent 51%);
+    radial-gradient(1.5px 1.5px at 12% 20%,#fff9 50%,transparent 51%),
+    radial-gradient(1px 1px at 30% 8%,#fff7 50%,transparent 51%),
+    radial-gradient(2px 2px at 48% 28%,#ffce4f88 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 66% 12%,#fff8 50%,transparent 51%),
+    radial-gradient(1px 1px at 84% 24%,#fff6 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 92% 60%,#fff7 50%,transparent 51%),
+    radial-gradient(1px 1px at 8% 70%,#fff6 50%,transparent 51%),
+    radial-gradient(2px 2px at 74% 82%,#ffce4f66 50%,transparent 51%),
+    radial-gradient(1px 1px at 22% 48%,#fff5 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 55% 66%,#ff8fb155 50%,transparent 51%);
 }
+/* Capa de estrellas que titilan */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 34%,#fff8 50%,transparent 51%),
+    radial-gradient(2px 2px at 62% 44%,#7fe3ff77 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 88% 12%,#fff7 50%,transparent 51%),
+    radial-gradient(1px 1px at 40% 78%,#fff6 50%,transparent 51%),
+    radial-gradient(2px 2px at 6% 12%,#ffce4f77 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 96% 84%,#ff8fb166 50%,transparent 51%);
+  animation:twinkle 3.4s ease-in-out infinite alternate;
+}
+@keyframes twinkle{from{opacity:.25}to{opacity:1}}
+
 #app{position:relative; z-index:1; width:100%; max-width:640px}
 .card{
-  background:var(--card); border:2px solid var(--card-edge); border-radius:22px;
-  padding:24px 20px; box-shadow:0 8px 30px #0006;
+  position:relative;
+  background:linear-gradient(180deg,#2d2560 0%,var(--card) 55%,#241d4e 100%);
+  border:1px solid #5647ab66; border-radius:28px;
+  padding:26px 22px;
+  box-shadow:0 24px 60px -18px #000c, 0 2px 0 #ffffff14 inset, 0 -18px 40px -28px var(--violet2) inset;
 }
 .center{text-align:center}
-h1,h2{font-size:1.55rem; line-height:1.25; margin-bottom:8px; outline:none}
-h1:focus-visible,h2:focus-visible{outline:none}
-.game-title{font-size:2.4rem; color:var(--accent); letter-spacing:1px}
-.title-alt{font-size:1.2rem; color:var(--muted); font-weight:normal}
-.subtitle{color:var(--muted); font-size:1.1rem; margin-bottom:20px}
+h1,h2{font-size:1.6rem; line-height:1.25; margin-bottom:8px; outline:none; letter-spacing:.2px}
+.game-title{
+  font-size:3rem; letter-spacing:1.5px; margin:4px 0 2px;
+  background:linear-gradient(180deg,var(--gold1) 15%,var(--gold2) 55%,var(--gold3) 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:var(--gold2);
+  filter:drop-shadow(0 3px 10px #ffb34744);
+}
+.title-alt{
+  display:block; font-size:1rem; font-weight:normal; letter-spacing:4px;
+  text-transform:uppercase; color:var(--muted);
+  -webkit-text-fill-color:var(--muted); filter:none; margin-top:2px;
+}
+.subtitle{color:var(--muted); font-size:1.12rem; margin:10px 0 22px}
 .hint{color:var(--muted); font-size:1rem; margin-bottom:10px}
-.privacy{color:var(--muted); font-size:.85rem; margin-top:18px; opacity:.85}
-.name-label{display:block; font-size:1rem; color:var(--muted); margin-bottom:6px}
+.privacy{color:var(--muted); font-size:.82rem; margin-top:20px; opacity:.8}
+.name-label{display:block; font-size:.98rem; color:var(--muted); margin-bottom:7px}
 .name-input{
-  width:min(280px,100%); font-size:1.15rem; padding:10px 14px; border-radius:12px;
-  border:2px solid var(--card-edge); background:#221c4d; color:var(--text);
-  text-align:center; margin-bottom:18px;
+  width:min(300px,100%); font-family:inherit; font-size:1.15rem; padding:12px 16px;
+  border-radius:16px; border:2px solid #5647ab; background:var(--card-inner);
+  color:var(--text); text-align:center; margin-bottom:20px;
+  box-shadow:0 2px 10px #0006 inset; transition:border-color .2s;
 }
+.name-input:focus{border-color:var(--gold2)}
+
+/* ---------- Botones ---------- */
 .btn{
-  font-family:inherit; font-size:1.05rem; color:var(--text); background:var(--btn);
-  border:2px solid transparent; border-radius:14px; padding:12px 18px;
+  font-family:inherit; font-size:1.05rem; color:var(--text);
+  background:linear-gradient(180deg,var(--violet1),var(--violet2));
+  border:none; border-radius:16px; padding:12px 18px;
   cursor:pointer; min-height:48px; touch-action:manipulation;
+  box-shadow:0 4px 0 var(--violet-deep), 0 8px 18px -6px #0009;
+  transition:transform .12s ease, box-shadow .12s ease, filter .15s;
 }
-.btn:hover{background:var(--btn-hover)}
+.btn:hover{filter:brightness(1.12)}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--violet-deep), 0 4px 10px -6px #0009}
 .btn-big{
-  display:block; width:100%; font-size:1.25rem; font-weight:bold; padding:16px;
-  margin:10px 0 12px; background:var(--accent); color:#3a2500; border-radius:16px;
+  display:block; width:100%; font-size:1.3rem; font-weight:bold; padding:17px;
+  margin:12px 0; border-radius:20px; color:#3f2a00;
+  background:linear-gradient(180deg,var(--gold1) 0%,var(--gold2) 55%,var(--gold3) 100%);
+  box-shadow:0 5px 0 var(--gold-deep), 0 14px 28px -8px #ffb34766, 0 1px 0 #fff8 inset;
+  text-shadow:0 1px 0 #fff6;
 }
-.btn-big:hover{background:#ffe27a}
-.btn-soft{background:var(--soft); font-size:.95rem}
-.btn-soft:hover{background:var(--soft-hover)}
-.glow{box-shadow:0 0 22px #ffd44788}
+.btn-big:active{transform:translateY(4px); box-shadow:0 1px 0 var(--gold-deep), 0 6px 14px -8px #ffb34766}
+.btn-soft{
+  background:linear-gradient(180deg,#463a8d,#392f75);
+  font-size:.95rem; box-shadow:0 3px 0 #241d52, 0 6px 14px -6px #0008;
+}
+.btn-soft:active{transform:translateY(2px); box-shadow:0 1px 0 #241d52}
+.glow{animation:breathe 2.2s ease-in-out infinite}
+@keyframes breathe{
+  0%,100%{box-shadow:0 5px 0 var(--gold-deep), 0 0 18px #ffce4f55}
+  50%{box-shadow:0 5px 0 var(--gold-deep), 0 0 34px #ffce4faa}
+}
 :where(button,input,textarea,a):focus-visible{
-  outline:3px solid var(--focus); outline-offset:3px; border-radius:14px;
+  outline:3px solid var(--focus); outline-offset:3px;
 }
-.row-top{display:flex; align-items:center; gap:14px; margin-bottom:14px}
+
+.row-top{display:flex; align-items:center; gap:14px; margin-bottom:16px}
 .row-top h1{margin-bottom:2px}
+
+/* ---------- Mapa de islas ---------- */
 .island-grid{
   list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:12px; margin:14px 0;
+  gap:14px; margin:16px 0 6px;
 }
 .island-btn{
+  --isl:#ffce4f;
   position:relative; width:100%; font-family:inherit; font-size:1rem; color:var(--text);
-  background:#272058; border:2px solid var(--card-edge); border-radius:18px;
-  padding:12px 8px 14px; cursor:pointer; display:flex; flex-direction:column;
-  align-items:center; gap:6px; min-height:150px; touch-action:manipulation;
-  transition:transform .15s ease, border-color .15s ease;
+  background:linear-gradient(180deg,#2e2663,#241d4e);
+  border:1px solid #5647ab55; border-radius:22px;
+  padding:16px 8px 15px; cursor:pointer; display:flex; flex-direction:column;
+  align-items:center; gap:9px; min-height:168px; touch-action:manipulation;
+  box-shadow:0 10px 22px -10px #000a;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
 }
-.island-btn:hover:not(:disabled){transform:translateY(-3px); border-color:var(--accent)}
-.island-btn.done{opacity:.55; cursor:default}
-.island-name{font-weight:bold}
-.island-star{position:absolute; top:6px; right:10px; font-size:1.3rem}
-.progress-note{text-align:center; color:var(--muted); margin-top:8px}
-.island-intro{font-size:1.1rem; margin-bottom:12px; color:#ffe9a3; font-style:italic}
-.prompt{font-size:1.25rem; font-weight:bold; margin-bottom:8px}
+.island-btn:hover:not(:disabled){
+  transform:translateY(-4px);
+  border-color:var(--isl);
+  box-shadow:0 16px 30px -10px #000b, 0 0 22px -4px var(--isl);
+}
+.island-btn:active:not(:disabled){transform:translateY(-1px)}
+.island-bubble{
+  width:96px; height:96px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 32% 26%, #ffffff26 0%, transparent 42%),
+             radial-gradient(circle at 50% 115%, var(--isl) -40%, #201a45 70%);
+  border:2.5px solid var(--isl);
+  box-shadow:0 6px 16px -6px #000b, 0 0 0 5px color-mix(in srgb, var(--isl) 16%, transparent);
+}
+.island-btn.done{cursor:default; border-style:dashed; opacity:.92}
+.island-btn.done .island-bubble{filter:saturate(.45) brightness(.75)}
+.island-btn.done .island-name{color:var(--muted)}
+.island-name{font-weight:bold; line-height:1.2}
+.island-star{
+  position:absolute; top:-9px; right:-6px; font-size:1.5rem;
+  filter:drop-shadow(0 2px 6px #ffce4f88);
+}
+.progress-wrap{display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:12px}
+.progress-stars{display:flex; gap:8px; font-size:1.25rem; letter-spacing:2px}
+.progress-stars .on{filter:drop-shadow(0 0 6px #ffce4faa)}
+.progress-stars .off{opacity:.28; filter:grayscale(1)}
+.progress-note{text-align:center; color:var(--muted); font-size:.95rem}
+
+/* ---------- Escenas ---------- */
+.scene-art{
+  flex:0 0 auto; width:96px; height:96px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 32% 26%, #ffffff22 0%, transparent 42%),
+             radial-gradient(circle at 50% 115%, var(--isl,#ffce4f) -40%, #201a45 70%);
+  border:2.5px solid var(--isl,#ffce4f);
+  box-shadow:0 6px 16px -6px #000b;
+}
+.island-intro{
+  font-size:1.08rem; margin-bottom:14px; color:var(--gold1); font-style:italic;
+  background:#ffce4f12; border-left:3px solid var(--gold2);
+  padding:10px 14px; border-radius:0 14px 14px 0;
+}
+.prompt{font-size:1.28rem; font-weight:bold; margin-bottom:8px; line-height:1.35}
 .scene-count{color:var(--muted); font-size:.9rem}
-.option-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin:10px 0 16px}
-.option-btn{width:100%; text-align:left; font-size:1.1rem; padding:14px 16px; border-radius:16px}
-.toolbar{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
-.spark-hero{margin:6px auto 10px; width:fit-content}
-.feedback-msg{font-size:1.6rem; color:var(--accent); margin:8px 0 16px}
-.constellation{width:100%; height:auto; background:#1b1740; border-radius:16px; border:2px solid var(--card-edge); margin:8px 0 14px}
-.profile-card{background:#251f52; border-radius:16px; padding:16px; margin-bottom:14px}
-.profile-line{font-size:1.15rem; margin-bottom:8px}
-.dim-top{color:var(--accent); font-size:1.3rem}
-.dim-second{color:#9fe8ff}
-.profile-desc{margin-bottom:8px}
-.profile-power{color:#ffe9a3}
-.letter{
-  width:100%; font-family:Georgia,"Times New Roman",serif; font-size:1.08rem; line-height:1.6;
-  background:#fdf6de; color:#3a2f14; border:2px solid #c9b06b; border-radius:12px;
-  padding:16px; margin:8px 0 12px; resize:vertical;
+.option-list{list-style:none; display:flex; flex-direction:column; gap:12px; margin:12px 0 18px}
+.option-btn{
+  width:100%; text-align:left; font-size:1.1rem; padding:15px 18px; border-radius:18px;
+  background:linear-gradient(180deg,#463a8d,#382f73);
+  box-shadow:0 4px 0 #251e55, 0 8px 16px -8px #0009;
+  border:1px solid #6c5ce744;
 }
-.family-intro{margin-bottom:12px}
-.family-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:16px; font-size:1.1rem}
-.family-list li{background:#251f52; border-radius:12px; padding:12px 14px}
-#live{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
+.option-btn:hover{border-color:var(--gold2); filter:brightness(1.1)}
+.option-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #251e55}
+.toolbar{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+
+/* ---------- Feedback ---------- */
+.spark-hero{position:relative; margin:8px auto 12px; width:fit-content}
+.burst{position:relative}
+.burst::before{
+  content:""; position:absolute; inset:-38px; border-radius:50%; z-index:-1;
+  background:
+    repeating-conic-gradient(from 8deg, #ffce4f14 0deg 8deg, transparent 8deg 32deg),
+    radial-gradient(circle, #ffce4f2b 0%, #ff8fb112 45%, transparent 70%);
+  -webkit-mask-image:radial-gradient(circle, #000 30%, transparent 72%);
+  mask-image:radial-gradient(circle, #000 30%, transparent 72%);
+  animation:spin 16s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.feedback-msg{font-size:1.7rem; color:var(--gold2); margin:10px 0 18px; text-shadow:0 2px 14px #ffb34755}
 .float{animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.pop{animation:pop .45s ease}
-@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{transform:scale(.3)}100%{transform:scale(1)}}
+
+/* ---------- Constelación ---------- */
+.constellation{
+  width:100%; height:auto; border-radius:20px; margin:10px 0 16px;
+  border:1px solid #5647ab66;
+  box-shadow:0 14px 30px -12px #000c, 0 0 40px -18px var(--violet2) inset;
+}
+.profile-card{
+  background:linear-gradient(180deg,#2a224f,#221b47);
+  border:1px solid #ffce4f2e; border-radius:20px; padding:18px; margin-bottom:16px;
+  box-shadow:0 10px 24px -12px #000a;
+}
+.profile-line{font-size:1.15rem; margin-bottom:9px}
+.dim-top{color:var(--gold2); font-size:1.32rem; text-shadow:0 0 16px #ffce4f55}
+.dim-second{color:var(--teal); text-shadow:0 0 12px #7fe3ff44}
+.profile-desc{margin-bottom:9px}
+.profile-power{color:var(--gold1)}
+
+/* ---------- Carta ---------- */
+.letter{
+  width:100%; font-family:Georgia,'Times New Roman',serif; font-size:1.08rem; line-height:1.62;
+  background:linear-gradient(180deg,#fdf7e3,#f8eecb); color:#41341a;
+  border:1px solid #d9c07e; border-radius:16px;
+  padding:18px; margin:10px 0 14px; resize:vertical;
+  box-shadow:0 10px 24px -10px #0008, 0 1px 0 #fff9 inset;
+}
+
+/* ---------- Guía familiar ---------- */
+.family-intro{margin-bottom:14px}
+.family-list{list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:18px; font-size:1.08rem}
+.family-list li{
+  background:linear-gradient(180deg,#2a224f,#231c48);
+  border:1px solid #5647ab44; border-radius:16px; padding:13px 16px;
+  box-shadow:0 6px 14px -8px #000a;
+}
+
+#live{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%)}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none !important; transition:none !important}
+  body::after{opacity:.7}
 }
 @media (max-width:420px){
-  body{padding:10px}
-  .card{padding:18px 14px}
-  h1,h2{font-size:1.35rem}
-  .game-title{font-size:2rem}
-  .island-grid{grid-template-columns:repeat(2,1fr)}
-  .island-btn{min-height:136px}
+  body{padding:12px 10px 22px}
+  .card{padding:20px 15px; border-radius:24px}
+  h1,h2{font-size:1.38rem}
+  .game-title{font-size:2.4rem}
+  .island-grid{grid-template-columns:repeat(2,1fr); gap:11px}
+  .island-btn{min-height:152px}
+  .island-bubble,.scene-art{width:84px; height:84px}
 }
 </style>
 </head>
@@ -145,7 +286,7 @@ const MIN_ISLANDS = 4; // islas mínimas para encender la constelación
 const STR = {
   es: {
     title: 'Chispa',
-    titleAlt: '· Spark',
+    titleAlt: 'Spark',
     subtitle: 'Un viaje para descubrir para qué brillas',
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
@@ -189,7 +330,7 @@ const STR = {
   },
   en: {
     title: 'Spark',
-    titleAlt: '· Chispa',
+    titleAlt: 'Chispa',
     subtitle: 'A journey to discover what makes you shine',
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
@@ -233,7 +374,7 @@ const STR = {
   },
   pt: {
     title: 'Faísca',
-    titleAlt: '· Chispa / Spark',
+    titleAlt: 'Chispa · Spark',
     subtitle: 'Uma viagem para descobrir o que faz você brilhar',
     yourName: 'Seu nome (se quiser)',
     play: 'Começar a viagem!',
@@ -743,6 +884,12 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-hidden="true" focusable="false">${ISLAND_ART[id]}</svg>`;
   }
 
+  // Color de acento de cada isla (tema "Cielo de Chispa")
+  const ISLAND_COLOR = {
+    colores: '#ff8fb1', faro: '#7fe3ff', bosque: '#7ddf8e',
+    taller: '#a5b4ff', historias: '#c9a2ff', mapa: '#ffce4f',
+  };
+
   /* ---------- Lectura en voz alta ---------- */
   function canSpeak() { return typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined'; }
 
@@ -805,7 +952,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   function screenTitle() {
     render(`
       <div class="card center">
-        <div class="spark-hero float">${sparkArt('happy', 130)}</div>
+        <div class="spark-hero burst float">${sparkArt('happy', 130)}</div>
         <h1 class="game-title">${t('title')} <span class="title-alt">${t('titleAlt')}</span></h1>
         <p class="subtitle">${t('subtitle')}</p>
         <label class="name-label" for="name-input">${t('yourName')}</label>
@@ -834,12 +981,16 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const islands = L.ISLANDS.map((isl, i) => {
       const done = state.visited.includes(isl.id);
       return `<li><button type="button" class="island-btn ${done ? 'done' : ''}" data-island="${i}" ${done ? 'disabled' : ''}
+        style="--isl:${ISLAND_COLOR[isl.id]}"
         aria-label="${esc(isl.name[state.lang])}${done ? ', ' + t('visited') : ''}">
-        ${islandArt(isl.id, 84)}
+        <span class="island-bubble">${islandArt(isl.id, 74)}</span>
         <span class="island-name">${esc(isl.name[state.lang])}</span>
         ${done ? '<span class="island-star" aria-hidden="true">⭐</span>' : ''}
       </button></li>`;
     }).join('');
+
+    const stars = L.ISLANDS.map(isl =>
+      `<span class="${state.visited.includes(isl.id) ? 'on' : 'off'}" aria-hidden="true">⭐</span>`).join('');
 
     render(`
       <div class="card">
@@ -847,9 +998,12 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           <div><h1>${t('mapTitle')}</h1><p class="hint">${t('mapHint')}</p></div>
         </div>
         <ul class="island-grid" role="list">${islands}</ul>
-        ${left > 0 && !allDone
-          ? `<p class="progress-note">${t('islandsLeft')(left)}</p>`
-          : `<button type="button" id="btn-constellation" class="btn btn-big glow">${t('constellationReady')}</button>`}
+        <div class="progress-wrap">
+          <div class="progress-stars">${stars}</div>
+          ${left > 0 && !allDone
+            ? `<p class="progress-note">${t('islandsLeft')(left)}</p>`
+            : `<button type="button" id="btn-constellation" class="btn btn-big glow">${t('constellationReady')}</button>`}
+        </div>
       </div>`, 'map');
 
     for (const b of app.querySelectorAll('[data-island]')) {
@@ -875,7 +1029,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
     render(`
       <div class="card">
-        <div class="row-top">${islandArt(isl.id, 90)}
+        <div class="row-top">
+          <span class="scene-art" style="--isl:${ISLAND_COLOR[isl.id]}">${islandArt(isl.id, 72)}</span>
           <div>
             <h1>${esc(isl.name[state.lang])}</h1>
             <p class="scene-count">${state.scene + 1} ${t('of')} ${total}</p>
@@ -913,7 +1068,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   function screenFeedback(msg, next, islandDone) {
     render(`
       <div class="card center">
-        <div class="spark-hero pop">${sparkArt(islandDone ? 'proud' : 'wow', 110)}</div>
+        <div class="spark-hero burst pop">${sparkArt(islandDone ? 'proud' : 'wow', 110)}</div>
         <h1 class="feedback-msg">${esc(msg)}</h1>
         ${islandDone ? `<p class="hint">⭐ ${esc(L.ISLANDS[state.current].name[state.lang])} — ${t('visited')}</p>` : ''}
         <button type="button" id="btn-next" class="btn btn-big">${t('next')} →</button>
@@ -922,23 +1077,42 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   }
 
   function constellationSVG(data, purpose, forExport) {
+    const defs = `<defs>
+      <radialGradient id="csky" cx="60%" cy="8%" r="110%">
+        <stop offset="0%" stop-color="#33296b"/><stop offset="45%" stop-color="#221b4e"/><stop offset="100%" stop-color="#140f30"/>
+      </radialGradient>
+      <radialGradient id="cneb" cx="24%" cy="78%" r="55%">
+        <stop offset="0%" stop-color="#6c5ce7" stop-opacity=".28"/><stop offset="100%" stop-color="#6c5ce7" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="cline" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffe9a3"/><stop offset="100%" stop-color="#ffb347"/>
+      </linearGradient>
+    </defs>`;
+    // Estrellitas decorativas fijas del cielo
+    const deco = [[9,8,.5],[21,14,.35],[38,6,.45],[63,20,.3],[90,9,.5],[95,38,.35],[86,62,.45],[60,64,.3],[36,63,.4],[8,44,.35],[13,60,.5],[70,33,.25]]
+      .map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" opacity=".55"/>`).join('');
     const lines = [];
     const topStars = purpose.ranked.slice(0, 3).map(r => r.d);
     for (let i = 0; i < topStars.length - 1; i++) {
       const a = L.STAR_POS[topStars[i]], b = L.STAR_POS[topStars[i + 1]];
-      lines.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#ffe9a3" stroke-width="0.5" opacity="0.7"/>`);
+      lines.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="url(#cline)" stroke-width="0.6" stroke-linecap="round" opacity="0.85" stroke-dasharray="1.6 1.1"/>`);
     }
     const stars = data.map(s => {
       const label = L.PROFILES[s.dim].label[state.lang];
+      const isTop = s.dim === purpose.top;
       return `<g>
-        <circle cx="${s.x}" cy="${s.y}" r="${(s.r * 1.9).toFixed(2)}" fill="#ffe9a3" opacity="${(0.10 + s.glow * 0.22).toFixed(2)}"/>
-        <circle cx="${s.x}" cy="${s.y}" r="${s.r.toFixed(2)}" fill="${s.dim === purpose.top ? '#ffd447' : '#fff7dd'}"/>
-        <text x="${s.x}" y="${s.y + s.r + 5.5}" text-anchor="middle" font-size="4" fill="#dcd3ff" font-family="inherit">${label}</text>
+        <circle cx="${s.x}" cy="${s.y}" r="${(s.r * 2.4).toFixed(2)}" fill="${isTop ? '#ffce4f' : '#ffe9a3'}" opacity="${(0.07 + s.glow * 0.14).toFixed(2)}"/>
+        <circle cx="${s.x}" cy="${s.y}" r="${(s.r * 1.5).toFixed(2)}" fill="${isTop ? '#ffce4f' : '#ffe9a3'}" opacity="${(0.12 + s.glow * 0.2).toFixed(2)}"/>
+        <circle cx="${s.x}" cy="${s.y}" r="${s.r.toFixed(2)}" fill="${isTop ? '#ffd75e' : '#fff7dd'}"/>
+        <text x="${s.x}" y="${s.y + s.r + 5.5}" text-anchor="middle" font-size="3.8" font-weight="bold" letter-spacing=".3"
+          fill="${isTop ? '#ffe9a3' : '#c5b9f2'}" font-family="inherit">${label}</text>
       </g>`;
     }).join('');
-    const bg = forExport ? '<rect width="100" height="70" fill="#1b1740"/>' : '';
     return `<svg id="const-svg" viewBox="0 0 100 70" class="constellation" role="img"
-      aria-label="${t('constAria')}">${bg}${lines.join('')}${stars}</svg>`;
+      aria-label="${t('constAria')}">${defs}
+      <rect width="100" height="70" fill="url(#csky)" rx="${forExport ? 0 : 3}"/>
+      <rect width="100" height="70" fill="url(#cneb)" rx="${forExport ? 0 : 3}"/>
+      ${deco}${lines.join('')}${stars}</svg>`;
   }
 
   function exportPNG(purpose) {
