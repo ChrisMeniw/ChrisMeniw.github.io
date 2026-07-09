@@ -107,7 +107,16 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   text-transform:uppercase; color:var(--muted);
   -webkit-text-fill-color:var(--muted); filter:none; margin-top:2px;
 }
-.subtitle{color:var(--muted); font-size:1.12rem; margin:10px 0 22px}
+.subtitle{color:var(--muted); font-size:1.12rem; margin:10px 0 8px}
+.solo-badge{
+  display:inline-block; font-size:.82rem; color:var(--teal); letter-spacing:.4px;
+  background:#7fe3ff14; border:1px solid #7fe3ff33; border-radius:999px;
+  padding:6px 14px; margin-bottom:16px;
+}
+.mission-solo{
+  color:var(--teal); font-size:1rem; line-height:1.45; margin-top:8px;
+  border-left:3px solid #7fe3ff55; padding-left:12px;
+}
 .hint{color:var(--muted); font-size:1rem; margin-bottom:10px}
 .privacy{color:var(--muted); font-size:.82rem; margin-top:18px; opacity:.8}
 .foundation-credit{
@@ -636,6 +645,8 @@ const STR = {
     weekLabel: 'Tu primera misión',
     missionGo: '¡A las islas!',
     privacy: 'Sin internet · Sin publicidad · Sin datos personales',
+    soloBadge: 'Exploración personal · Sin competencia',
+    soloNote: 'Este viaje es tuyo: acá no se compite con nadie. La única estrella a superar es la tuya de ayer.',
     mapTitle: 'El mar de las islas',
     mapHint: 'Elige una isla para visitar. Tú decides el camino.',
     visited: 'visitada',
@@ -729,6 +740,8 @@ const STR = {
     weekLabel: 'Your first mission',
     missionGo: 'To the islands!',
     privacy: 'No internet · No ads · No personal data',
+    soloBadge: 'Personal exploration · No competing',
+    soloNote: 'This journey is yours: you compete with no one here. The only star to outshine is your own from yesterday.',
     mapTitle: 'The sea of islands',
     mapHint: 'Pick an island to visit. You choose the path.',
     visited: 'visited',
@@ -822,6 +835,8 @@ const STR = {
     weekLabel: 'Sua primeira missão',
     missionGo: 'Para as ilhas!',
     privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
+    soloBadge: 'Exploração pessoal · Sem competição',
+    soloNote: 'Esta viagem é sua: aqui não se compete com ninguém. A única estrela a superar é a sua de ontem.',
     mapTitle: 'O mar das ilhas',
     mapHint: 'Escolha uma ilha para visitar. Você decide o caminho.',
     visited: 'visitada',
@@ -1709,6 +1724,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <div class="spark-hero burst float">${sparkArt('happy', 130)}</div>
         <h1 class="game-title">${t('title')}</h1>
         <p class="subtitle">${t('subtitle')}</p>
+        <p class="solo-badge">🧭 ${t('soloBadge')}</p>
         <label class="name-label" for="name-input">${t('yourName')}</label>
         <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
         <button type="button" id="btn-start" class="btn btn-big">${t('play')}</button>
@@ -1751,6 +1767,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
         <p class="mission-label">🎯 ${t('goalLabel')}</p>
         <p class="mission-goal">${t('goalText')}</p>
+        <p class="mission-solo">🧭 ${t('soloNote')}</p>
 
         <p class="mission-label">🕹️ ${t('howLabel')}</p>
         <ol class="mission-list" role="list">
