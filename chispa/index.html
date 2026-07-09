@@ -296,6 +296,20 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   text-shadow:0 0 18px #ffce4f55; margin-bottom:6px;
 }
 .purpose-sentence{font-size:1.14rem; line-height:1.5; color:#ffe9c9}
+.fav-line{
+  background:linear-gradient(180deg,#3a1e2c,#2e1722); border:1px solid #ff8fb155;
+  border-radius:16px; padding:13px 16px; font-size:1.02rem; line-height:1.5; margin-bottom:10px;
+}
+.resonance{
+  background:linear-gradient(180deg,#232a52,#1d2344); border:1px solid #7fe3ff44;
+  border-radius:16px; padding:14px 16px; margin-bottom:12px;
+}
+.resonance-q{font-family:var(--display); font-size:1.08rem; color:var(--teal); margin-bottom:10px}
+.res-msg{font-size:1.02rem; line-height:1.5; margin-bottom:8px}
+.res-alt{
+  background:#1a1f3d; border-radius:12px; padding:11px 13px; margin-bottom:8px;
+  font-size:1.02rem; line-height:1.5; color:var(--gold1);
+}
 .paths{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:6px}
 .path-chip{
   background:linear-gradient(180deg,#3b3178,#312968); border:1px solid #6c5ce755;
@@ -592,6 +606,23 @@ const STR = {
     winText: 'Tu propósito con nombre propio 🧭, tu constelación ✨, tu superpoder ⚡ y una carta a tu yo del futuro ✉.',
     learnText: 'Aquí no hay puntos ni perdedores: lo que te llevas es conocerte mejor.',
     helpBtn: 'Cómo jugar',
+    favTitle: '¿Cuál aventura te gustó MÁS?',
+    favHint: 'Lo que disfrutás sin que nadie te obligue es la pista más honesta de tu pasión.',
+    favLabel: 'Tu pasión',
+    favNote: 'Eso que más disfrutaste, hacelo más veces: por ahí pasa tu pasión.',
+    resonanceQ: '¿Te reconocés en este propósito?',
+    resYes: '¡Sí, soy yo!',
+    resMeh: 'Más o menos',
+    resNo: 'No tanto',
+    resYesMsg: 'Nadie te lo dijo: lo descubriste vos jugando. Ese propósito es tuyo. 🌟',
+    resAltIntro: 'Que lo digas vale más que cualquier resultado. Mirá tu segunda estrella:',
+    resAltNote: 'Tu constelación cambia con vos. Volvé a jugar cuando quieras: no hay una respuesta fija.',
+    resReplay: 'Jugar de nuevo eligiendo distinto',
+    explorerName: 'Estrella Multicolor',
+    explorerTagline: 'Tu chispa todavía está eligiendo su color — y eso es una superpotencia.',
+    explorerDesc: (a, b) => `Hoy brillás en varias direcciones a la vez: tus estrellas más fuertes son ${a} y ${b || a}. Los grandes propósitos casi siempre empiezan así, probando caminos.`,
+    explorerNext: 'Tu próximo paso: probá esta semana un reto de cada una… y fijate cuál no querías que termine.',
+    explorerMonth: 'Volvé a jugar Spark dentro de un tiempo, eligiendo con el corazón: tu constelación puede cambiar con vos.',
     resultLabel: 'Tu resultado',
     purposeLabel: 'Tu propósito',
     shareBtn: 'Compartir mi propósito',
@@ -668,6 +699,23 @@ const STR = {
     winText: 'Your purpose with its own name 🧭, your constellation ✨, your superpower ⚡ and a letter to your future self ✉.',
     learnText: 'There are no points and no losers here: what you take home is knowing yourself better.',
     helpBtn: 'How to play',
+    favTitle: 'Which adventure did you enjoy the MOST?',
+    favHint: 'What you enjoy without anyone making you is the most honest clue to your passion.',
+    favLabel: 'Your passion',
+    favNote: 'Whatever you enjoyed most — do it more often: your passion lives around there.',
+    resonanceQ: 'Do you recognize yourself in this purpose?',
+    resYes: 'Yes, that’s me!',
+    resMeh: 'Kind of',
+    resNo: 'Not really',
+    resYesMsg: 'Nobody told you — you discovered it yourself by playing. That purpose is yours. 🌟',
+    resAltIntro: 'Saying so is worth more than any result. Look at your second star:',
+    resAltNote: 'Your constellation changes with you. Play again anytime: there is no fixed answer.',
+    resReplay: 'Play again choosing differently',
+    explorerName: 'Multicolor Star',
+    explorerTagline: 'Your spark is still choosing its color — and that is a superpower.',
+    explorerDesc: (a, b) => `Right now you shine in several directions at once: your strongest stars are ${a} and ${b || a}. Great purposes almost always start this way — trying paths.`,
+    explorerNext: 'Your next step: try one challenge from each this week… and notice which one you didn’t want to end.',
+    explorerMonth: 'Play Spark again in a while, choosing with your heart: your constellation can change with you.',
     resultLabel: 'Your result',
     purposeLabel: 'Your purpose',
     shareBtn: 'Share my purpose',
@@ -744,6 +792,23 @@ const STR = {
     winText: 'Seu propósito com nome próprio 🧭, sua constelação ✨, seu superpoder ⚡ e uma carta para o seu eu do futuro ✉.',
     learnText: 'Aqui não há pontos nem perdedores: o que você leva é se conhecer melhor.',
     helpBtn: 'Como jogar',
+    favTitle: 'Qual aventura você MAIS gostou?',
+    favHint: 'O que você curte sem ninguém mandar é a pista mais honesta da sua paixão.',
+    favLabel: 'Sua paixão',
+    favNote: 'Aquilo que você mais curtiu, faça mais vezes: a sua paixão mora por aí.',
+    resonanceQ: 'Você se reconhece nesse propósito?',
+    resYes: 'Sim, sou eu!',
+    resMeh: 'Mais ou menos',
+    resNo: 'Nem tanto',
+    resYesMsg: 'Ninguém te contou: você descobriu jogando. Esse propósito é seu. 🌟',
+    resAltIntro: 'Dizer isso vale mais que qualquer resultado. Olhe a sua segunda estrela:',
+    resAltNote: 'Sua constelação muda com você. Jogue de novo quando quiser: não existe resposta fixa.',
+    resReplay: 'Jogar de novo escolhendo diferente',
+    explorerName: 'Estrela Multicolor',
+    explorerTagline: 'Sua faísca ainda está escolhendo a sua cor — e isso é um superpoder.',
+    explorerDesc: (a, b) => `Hoje você brilha em várias direções ao mesmo tempo: suas estrelas mais fortes são ${a} e ${b || a}. Os grandes propósitos quase sempre começam assim, testando caminhos.`,
+    explorerNext: 'Seu próximo passo: teste esta semana um desafio de cada uma… e perceba qual você não queria que acabasse.',
+    explorerMonth: 'Jogue Spark de novo daqui a um tempo, escolhendo com o coração: sua constelação pode mudar com você.',
     resultLabel: 'Seu resultado',
     purposeLabel: 'Seu propósito',
     shareBtn: 'Compartilhar meu propósito',
@@ -1279,11 +1344,24 @@ function applyChoice(scores, islandIdx, sceneIdx, optIdx) {
   return out;
 }
 
-/* Devuelve [dimPrincipal, dimSecundaria] con desempate estable por orden de DIMS. */
+/* Devuelve [dimPrincipal, dimSecundaria] con desempate estable por orden de DIMS.
+   exploring=true cuando el perfil está parejo (top y 3ª casi iguales): el juego
+   NO inventa certeza para un chico que todavía está probando caminos. */
 function computePurpose(scores) {
   const ranked = DIMS.map((d, i) => ({ d, s: scores[d] || 0, i }))
     .sort((a, b) => b.s - a.s || a.i - b.i);
-  return { top: ranked[0].d, second: ranked[1].d, ranked };
+  const spread = ranked[0].s - ranked[2].s;
+  return { top: ranked[0].d, second: ranked[1].d, ranked, spread, exploring: spread <= 1 };
+}
+
+/* Pasión: la isla que MÁS disfrutó pesa doble — se re-aplican las elecciones
+   que el jugador hizo en esa isla. */
+function applyFavorite(scores, log, islandIdx) {
+  let out = { ...scores };
+  for (const c of log) {
+    if (c.island === islandIdx) out = applyChoice(out, c.island, c.scene, c.opt);
+  }
+  return out;
 }
 
 function buildLetter(name, lang, top, second) {
@@ -1360,7 +1438,7 @@ function constellationData(scores) {
 
 const ChispaLogic = {
   DIMS, LANGS, MIN_ISLANDS, STR, PROFILES, ISLANDS, STAR_POS,
-  newScores, applyChoice, computePurpose, purposeSentence, buildLetter, constellationData,
+  newScores, applyChoice, applyFavorite, computePurpose, purposeSentence, buildLetter, constellationData,
 };
 
 if (typeof module !== 'undefined' && module.exports) module.exports = ChispaLogic;
@@ -1386,6 +1464,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     name: '',
     visited: [],            // ids de islas visitadas
     scores: L.newScores(),
+    log: [],                // historial de elecciones (para la pregunta de pasión)
+    favorite: null,         // índice de la isla que MÁS le gustó
     current: null,          // índice de isla actual
     scene: 0,
     speaking: false,
@@ -1732,7 +1812,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       });
     }
     const bc = document.getElementById('btn-constellation');
-    if (bc) bc.addEventListener('click', screenConstellation);
+    if (bc) bc.addEventListener('click', screenFavorite);
     document.getElementById('btn-help').addEventListener('click', screenMission);
   }
 
@@ -1901,6 +1981,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         clickBurst(e.clientX, e.clientY);
         if (navigator.vibrate) navigator.vibrate(18);
         state.scores = L.applyChoice(state.scores, state.current, state.scene, Number(b.dataset.opt));
+        state.log.push({ island: state.current, scene: state.scene, opt: Number(b.dataset.opt) });
         const pool = t('feedback');
         const msg = pool[(state.visited.length * 3 + state.scene * 2 + Number(b.dataset.opt)) % pool.length];
         announce(msg);
@@ -1998,6 +2079,35 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     } catch (e) { announce(t('pngFail')); }
   }
 
+  /* ---------- Pasión: ¿cuál aventura te gustó MÁS? (pesa doble) ---------- */
+  function screenFavorite() {
+    const visited = state.visited.map(id => L.ISLANDS.findIndex(x => x.id === id));
+    render(`
+      <div class="card">
+        <div class="row-top">${sparkArt('wow', 64)}
+          <div><h1>❤️ ${t('favTitle')}</h1><p class="hint">${t('favHint')}</p></div>
+        </div>
+        <ul class="island-grid" role="list">
+          ${visited.map(i => {
+            const isl = L.ISLANDS[i];
+            return `<li><button type="button" class="island-btn" data-fav="${i}" style="--isl:${ISLAND_COLOR[isl.id]}">
+              <span class="island-bubble">${islandArt(isl.id, 74)}</span>
+              <span class="island-name">${esc(isl.name[state.lang])}</span>
+            </button></li>`;
+          }).join('')}
+        </ul>
+      </div>`, 'favorite');
+    for (const b of app.querySelectorAll('[data-fav]')) {
+      b.addEventListener('click', e => {
+        clickBurst(e.clientX, e.clientY);
+        state.favorite = Number(b.dataset.fav);
+        state.scores = L.applyFavorite(state.scores, state.log, state.favorite);
+        Sound.chime();
+        screenConstellation();
+      });
+    }
+  }
+
   function screenConstellation() {
     Sound.startMusic('constellation');
     Sound.arpeggio();
@@ -2012,7 +2122,11 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const paths = topP.paths[state.lang];
     // Habilidades humanas: las 3 del don principal + la primera del secundario
     const skills = topP.skills[state.lang].concat([secP.skills[state.lang][0]]);
-    const train = [
+    const train = purpose.exploring ? [
+      [t('todayTag'), topP.today[state.lang]],
+      [t('weekTag'), secP.week[state.lang]],
+      [t('monthTag'), t('explorerMonth')],
+    ] : [
       [t('todayTag'), topP.today[state.lang]],
       [t('weekTag'), topP.week[state.lang]],
       [t('monthTag'), topP.month[state.lang]],
@@ -2026,8 +2140,28 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
         <p class="mission-label reveal" style="animation-delay:1.2s">🧭 ${t('purposeLabel')}</p>
         <div class="purpose-card reveal" style="animation-delay:1.35s">
+          ${purpose.exploring ? `
+          <p class="purpose-name">${t('explorerName')} ✦</p>
+          <p class="purpose-sentence">${t('explorerTagline')}</p>
+          <p class="purpose-sentence">${t('explorerDesc')(topP.label[state.lang], secP.label[state.lang])}</p>
+          <p class="purpose-sentence"><strong>${t('explorerNext')}</strong></p>
+          ` : `
           <p class="purpose-name">${topP.starName[state.lang]}</p>
           <p class="purpose-sentence">${sentence}</p>
+          `}
+        </div>
+        ${state.favorite !== null ? `
+        <div class="fav-line reveal" style="animation-delay:1.5s">
+          ❤️ <strong>${t('favLabel')}:</strong> ${esc(L.ISLANDS[state.favorite].name[state.lang])} — ${t('favNote')}
+        </div>` : ''}
+        <div class="resonance reveal" style="animation-delay:1.6s" id="resonance">
+          <p class="resonance-q">${t('resonanceQ')}</p>
+          <div class="toolbar">
+            <button type="button" class="btn btn-soft" data-res="yes">💛 ${t('resYes')}</button>
+            <button type="button" class="btn btn-soft" data-res="meh">🤔 ${t('resMeh')}</button>
+            <button type="button" class="btn btn-soft" data-res="no">🙃 ${t('resNo')}</button>
+          </div>
+          <div id="res-answer" hidden></div>
         </div>
 
         <p class="mission-label reveal" style="animation-delay:1.7s">🏆 ${t('resultLabel')}</p>
@@ -2064,6 +2198,31 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       </div>`, 'constellation');
 
     wireSpeak();
+    for (const b of app.querySelectorAll('[data-res]')) {
+      b.addEventListener('click', () => {
+        const box = document.getElementById('res-answer');
+        box.hidden = false;
+        if (b.dataset.res === 'yes') {
+          box.innerHTML = `<p class="res-msg">${t('resYesMsg')}</p>`;
+          Sound.star();
+        } else {
+          const altSentence = L.purposeSentence(state.lang, purpose.second, purpose.top, 'tu');
+          box.innerHTML = `
+            <p class="res-msg">${t('resAltIntro')}</p>
+            <p class="res-alt"><strong>${secP.starName[state.lang]}</strong> — ${altSentence}</p>
+            <p class="res-msg">${t('resAltNote')}</p>
+            <button type="button" id="btn-replay-alt" class="btn btn-soft">🔁 ${t('resReplay')}</button>`;
+          const ra = document.getElementById('btn-replay-alt');
+          ra.addEventListener('click', () => {
+            state.visited = []; state.scores = L.newScores(); state.log = []; state.favorite = null;
+            state.current = null; state.scene = 0;
+            screenMap();
+          });
+        }
+        document.getElementById('resonance').querySelector('.toolbar').remove();
+        announce(box.textContent);
+      });
+    }
     document.getElementById('btn-letter').addEventListener('click', () => screenLetter(purpose));
     document.getElementById('btn-png').addEventListener('click', () => exportPNG(purpose));
     const bshare = document.getElementById('btn-share');
@@ -2122,7 +2281,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       window.print();
     });
     document.getElementById('btn-replay').addEventListener('click', () => {
-      state.visited = []; state.scores = L.newScores(); state.current = null; state.scene = 0;
+      state.visited = []; state.scores = L.newScores(); state.log = []; state.favorite = null;
+      state.current = null; state.scene = 0;
       screenTitle();
     });
   }
