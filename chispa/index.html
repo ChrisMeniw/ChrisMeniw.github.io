@@ -453,6 +453,12 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   100%{transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--d) * -1)) scale(1); opacity:0}
 }
 
+/* ---------- Toques pro: burst en el tap, opciones con ritmo, ceremonia ---------- */
+.click-burst{position:fixed; z-index:60; pointer-events:none; width:0; height:0; color:var(--gold2); font-size:1rem}
+.opt-in{animation:optIn .38s ease-out backwards}
+@keyframes optIn{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+.reveal{animation:screenIn .5s ease-out backwards}
+
 /* ---------- Constelación que se enciende ---------- */
 .star-in{animation:starIn .55s ease-out backwards}
 @keyframes starIn{from{opacity:0}}
@@ -558,6 +564,7 @@ const STR = {
     helpBtn: 'Cómo jugar',
     resultLabel: 'Tu resultado',
     purposeLabel: 'Tu propósito',
+    shareBtn: 'Compartir mi propósito',
     pathsLabel: 'Caminos donde tu propósito brilla',
     weekLabel: 'Tu primera misión',
     missionGo: '¡A las islas!',
@@ -626,6 +633,7 @@ const STR = {
     helpBtn: 'How to play',
     resultLabel: 'Your result',
     purposeLabel: 'Your purpose',
+    shareBtn: 'Share my purpose',
     pathsLabel: 'Paths where your purpose shines',
     weekLabel: 'Your first mission',
     missionGo: 'To the islands!',
@@ -694,6 +702,7 @@ const STR = {
     helpBtn: 'Como jogar',
     resultLabel: 'Seu resultado',
     purposeLabel: 'Seu propósito',
+    shareBtn: 'Compartilhar meu propósito',
     pathsLabel: 'Caminhos onde o seu propósito brilha',
     weekLabel: 'Sua primeira missão',
     missionGo: 'Para as ilhas!',
@@ -1365,12 +1374,22 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
       o.connect(g); g.connect(master); o.start(); o.stop(ctx.currentTime + dur);
     }
+    let userSet = false;
     return {
       toggle() {
+        userSet = true;
         enabled = !enabled;
         if (enabled && !ensure()) { enabled = false; return false; }
         if (enabled) startMusic(); else stopMusic();
         return enabled;
+      },
+      // Como los juegos pro: la música arranca sola en el primer tap,
+      // salvo que el jugador ya la haya apagado a mano.
+      autoStart() {
+        if (userSet || enabled) return;
+        if (!ensure()) return;
+        enabled = true;
+        startMusic();
       },
       startMusic,
       chime() { blip(659.25, 0.18); setTimeout(() => blip(880, 0.22), 90); },
@@ -1472,6 +1491,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
     document.getElementById('btn-start').addEventListener('click', () => {
       state.name = document.getElementById('name-input').value.trim();
+      Sound.autoStart();
       screenMission();
     });
     for (const b of app.querySelectorAll('[data-lang]')) {
@@ -1562,13 +1582,26 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     document.getElementById('btn-help').addEventListener('click', screenMission);
   }
 
+  // Mini explosión dorada donde el jugador toca (se limpia sola)
+  function clickBurst(x, y) {
+    if (!x && !y) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const b = document.createElement('div');
+    b.className = 'click-burst';
+    b.style.left = x + 'px'; b.style.top = y + 'px';
+    b.innerHTML = Array.from({ length: 8 }, (_, i) =>
+      `<span class="particle" style="--a:${i * 45}deg; --d:${42 + (i % 2) * 18}px">✦</span>`).join('');
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 900);
+  }
+
   function screenIsland(showIntro) {
     const isl = L.ISLANDS[state.current];
     if (showIntro) Sound.startMusic(isl.id);
     const scene = isl.scenes[state.scene];
     const total = isl.scenes.length;
     const options = scene.options.map((o, i) =>
-      `<li><button type="button" class="btn option-btn" data-opt="${i}" aria-keyshortcuts="${i + 1}">
+      `<li class="opt-in" style="animation-delay:${140 + i * 110}ms"><button type="button" class="btn option-btn" data-opt="${i}" aria-keyshortcuts="${i + 1}">
         <span class="key-hint" aria-hidden="true">${i + 1}</span>${esc(o.text[state.lang])}</button></li>`).join('');
 
     const introBlock = showIntro ? `<p class="island-intro">${esc(isl.intro[state.lang])}</p>` : '';
@@ -1595,8 +1628,13 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
 
     wireSpeak();
     document.getElementById('btn-back').addEventListener('click', screenMap);
+    let answered = false; // anti doble-tap: dos toques rápidos no deben sumar dos veces
     for (const b of app.querySelectorAll('[data-opt]')) {
-      b.addEventListener('click', () => {
+      b.addEventListener('click', e => {
+        if (answered) return;
+        answered = true;
+        clickBurst(e.clientX, e.clientY);
+        if (navigator.vibrate) navigator.vibrate(18);
         state.scores = L.applyChoice(state.scores, state.current, state.scene, Number(b.dataset.opt));
         const pool = t('feedback');
         const msg = pool[(state.visited.length * 3 + state.scene * 2 + Number(b.dataset.opt)) % pool.length];
@@ -1715,28 +1753,29 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <h1>${who}${title} ✨</h1>
         ${constellationSVG(data, purpose, false)}
 
-        <p class="mission-label">🧭 ${t('purposeLabel')}</p>
-        <div class="purpose-card">
+        <p class="mission-label reveal" style="animation-delay:1.2s">🧭 ${t('purposeLabel')}</p>
+        <div class="purpose-card reveal" style="animation-delay:1.35s">
           <p class="purpose-name">${topP.starName[state.lang]}</p>
           <p class="purpose-sentence">${sentence}</p>
         </div>
 
-        <p class="mission-label">🏆 ${t('resultLabel')}</p>
-        <div class="profile-card">
+        <p class="mission-label reveal" style="animation-delay:1.7s">🏆 ${t('resultLabel')}</p>
+        <div class="profile-card reveal" style="animation-delay:1.85s">
           <p class="profile-line">${t('sparkIs')} <strong class="dim-top">${topP.label[state.lang]}</strong> ${t('withTouch')} <strong class="dim-second">${secP.label[state.lang]}</strong></p>
           <p class="profile-desc">${topP.desc[state.lang]}</p>
           <p class="profile-power">⚡ ${t('superpower')}: <strong>${topP.power[state.lang]}</strong></p>
         </div>
 
-        <p class="mission-label">🛤️ ${t('pathsLabel')}</p>
-        <div class="paths" role="list">
+        <p class="mission-label reveal" style="animation-delay:2.1s">🛤️ ${t('pathsLabel')}</p>
+        <div class="paths reveal" style="animation-delay:2.2s" role="list">
           ${paths.map(pp => `<span class="path-chip" role="listitem">${pp}</span>`).join('')}
         </div>
 
-        <p class="mission-label">⭐ ${t('weekLabel')}</p>
-        <div class="week-mission">${week}</div>
+        <p class="mission-label reveal" style="animation-delay:2.4s">⭐ ${t('weekLabel')}</p>
+        <div class="week-mission reveal" style="animation-delay:2.5s">${week}</div>
         <div class="toolbar">
           ${speakBtn(() => readText)}
+          ${navigator.share ? `<button type="button" id="btn-share" class="btn btn-soft">📤 ${t('shareBtn')}</button>` : ''}
           <button type="button" id="btn-png" class="btn btn-soft">🖼 ${t('downloadPng')}</button>
           <button type="button" id="btn-family" class="btn btn-soft">👪 ${t('familyGuide')}</button>
         </div>
@@ -1746,6 +1785,14 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     wireSpeak();
     document.getElementById('btn-letter').addEventListener('click', () => screenLetter(purpose));
     document.getElementById('btn-png').addEventListener('click', () => exportPNG(purpose));
+    const bshare = document.getElementById('btn-share');
+    if (bshare) bshare.addEventListener('click', () => {
+      navigator.share({
+        title: 'Spark',
+        text: `${topP.starName[state.lang]} ✨ ${sentence}`,
+        url: location.protocol.indexOf('http') === 0 ? location.href : 'https://thesparkgame.vercel.app',
+      }).catch(() => { /* cancelado */ });
+    });
     document.getElementById('btn-family').addEventListener('click', () => screenFamily(purpose));
   }
 
