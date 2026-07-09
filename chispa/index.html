@@ -305,6 +305,10 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   text-shadow:0 0 18px #ffce4f55; margin-bottom:6px;
 }
 .purpose-sentence{font-size:1.14rem; line-height:1.5; color:#ffe9c9}
+.group-btn{display:block; width:100%; margin-top:2px}
+.group-names{display:flex; flex-direction:column; gap:8px; margin:10px 0 16px}
+.group-names .name-input{width:100%; margin-bottom:0; text-align:left}
+.team-chip{border-color:#7fe3ff44; background:linear-gradient(180deg,#1e3050,#182741); color:#c9ecff}
 .fav-line{
   background:linear-gradient(180deg,#3a1e2c,#2e1722); border:1px solid #ff8fb155;
   border-radius:16px; padding:13px 16px; font-size:1.02rem; line-height:1.5; margin-bottom:10px;
@@ -647,6 +651,23 @@ const STR = {
     privacy: 'Sin internet · Sin publicidad · Sin datos personales',
     soloBadge: 'Exploración personal · Sin competencia',
     soloNote: 'Este viaje es tuyo: acá no se compite con nadie. La única estrella a superar es la tuya de ayer.',
+    modeGroup: 'Jugar en grupo (2 a 5)',
+    groupNamesTitle: '¿Quiénes juegan?',
+    groupNamesHint: 'Escriban sus nombres (de 2 a 5). Juegan por turnos, pasándose el dispositivo. Nadie compite: al final se enciende la constelación del grupo.',
+    playerPh: n => `Jugador/a ${n}`,
+    groupStart: '¡Empezar!',
+    needTwo: 'Escriban al menos 2 nombres para jugar en grupo.',
+    turnTitle: n => `¡Te toca, ${n}!`,
+    turnHint: 'Explora 3 islas y elige con el corazón. Cuando termines, pasas el dispositivo.',
+    turnGo: '¡A jugar!',
+    miniPass: n => `Pasale el dispositivo a ${n}`,
+    miniSeeGroup: 'Ver la constelación del grupo',
+    groupConstTitle: 'La constelación del grupo',
+    groupSpark: 'La chispa del grupo brilla en',
+    groupMsg: 'Nadie ganó y nadie perdió: un equipo brilla cuando cada estrella aporta un color distinto.',
+    teamLabel: 'Las chispas del equipo',
+    groupChallengeLabel: 'Reto para el grupo',
+    groupSoloHint: 'Para tu carta al futuro y tu plan personal completo, juega también el modo solo.',
     mapTitle: 'El mar de las islas',
     mapHint: 'Elige una isla para visitar. Tú decides el camino.',
     visited: 'visitada',
@@ -742,6 +763,23 @@ const STR = {
     privacy: 'No internet · No ads · No personal data',
     soloBadge: 'Personal exploration · No competing',
     soloNote: 'This journey is yours: you compete with no one here. The only star to outshine is your own from yesterday.',
+    modeGroup: 'Play as a group (2 to 5)',
+    groupNamesTitle: 'Who is playing?',
+    groupNamesHint: 'Write your names (2 to 5). You take turns passing the device. Nobody competes: at the end, the group constellation lights up.',
+    playerPh: n => `Player ${n}`,
+    groupStart: 'Start!',
+    needTwo: 'Write at least 2 names to play as a group.',
+    turnTitle: n => `Your turn, ${n}!`,
+    turnHint: 'Explore 3 islands and choose with your heart. When you finish, pass the device.',
+    turnGo: 'Let’s play!',
+    miniPass: n => `Pass the device to ${n}`,
+    miniSeeGroup: 'See the group constellation',
+    groupConstTitle: 'The group constellation',
+    groupSpark: 'The group’s spark shines in',
+    groupMsg: 'Nobody won and nobody lost: a team shines when every star brings a different color.',
+    teamLabel: 'The team’s sparks',
+    groupChallengeLabel: 'Challenge for the group',
+    groupSoloHint: 'For your letter to the future and your full personal plan, play solo mode too.',
     mapTitle: 'The sea of islands',
     mapHint: 'Pick an island to visit. You choose the path.',
     visited: 'visited',
@@ -837,6 +875,23 @@ const STR = {
     privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
     soloBadge: 'Exploração pessoal · Sem competição',
     soloNote: 'Esta viagem é sua: aqui não se compete com ninguém. A única estrela a superar é a sua de ontem.',
+    modeGroup: 'Jogar em grupo (2 a 5)',
+    groupNamesTitle: 'Quem vai jogar?',
+    groupNamesHint: 'Escrevam seus nomes (de 2 a 5). Vocês jogam por turnos, passando o dispositivo. Ninguém compete: no final, a constelação do grupo se acende.',
+    playerPh: n => `Jogador(a) ${n}`,
+    groupStart: 'Começar!',
+    needTwo: 'Escrevam pelo menos 2 nomes para jogar em grupo.',
+    turnTitle: n => `Sua vez, ${n}!`,
+    turnHint: 'Explore 3 ilhas e escolha com o coração. Quando terminar, passe o dispositivo.',
+    turnGo: 'Vamos jogar!',
+    miniPass: n => `Passe o dispositivo para ${n}`,
+    miniSeeGroup: 'Ver a constelação do grupo',
+    groupConstTitle: 'A constelação do grupo',
+    groupSpark: 'A faísca do grupo brilha em',
+    groupMsg: 'Ninguém ganhou e ninguém perdeu: uma equipe brilha quando cada estrela traz uma cor diferente.',
+    teamLabel: 'As faíscas da equipe',
+    groupChallengeLabel: 'Desafio para o grupo',
+    groupSoloHint: 'Para a sua carta ao futuro e o seu plano pessoal completo, jogue também o modo solo.',
     mapTitle: 'O mar das ilhas',
     mapHint: 'Escolha uma ilha para visitar. Você decide o caminho.',
     visited: 'visitada',
@@ -1476,6 +1531,9 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   }
   const state = {
     lang: savedLang(),
+    mode: 'solo',           // 'solo' | 'group' (grupo: 2-5 por turnos, cooperativo)
+    players: [],            // [{name, scores, top, second}] en modo grupo
+    playerIdx: 0,
     name: '',
     visited: [],            // ids de islas visitadas
     scores: L.newScores(),
@@ -1728,6 +1786,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <label class="name-label" for="name-input">${t('yourName')}</label>
         <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
         <button type="button" id="btn-start" class="btn btn-big">${t('play')}</button>
+        <button type="button" id="btn-group" class="btn btn-soft group-btn">👥 ${t('modeGroup')}</button>
         <div class="lang-switch" role="group" aria-label="Idioma · Language">
           ${L.LANGS.map(lg => `<button type="button" class="lang-btn ${lg === state.lang ? 'active' : ''}"
             data-lang="${lg}" lang="${lg}" aria-pressed="${lg === state.lang}">${{ es: 'Español', en: 'English', pt: 'Português' }[lg]}</button>`).join('')}
@@ -1740,9 +1799,14 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       </div>`, 'title');
 
     document.getElementById('btn-start').addEventListener('click', () => {
+      state.mode = 'solo';
       state.name = document.getElementById('name-input').value.trim();
       Sound.autoStart();
       screenMission();
+    });
+    document.getElementById('btn-group').addEventListener('click', () => {
+      Sound.autoStart();
+      screenGroupNames();
     });
     for (const b of app.querySelectorAll('[data-lang]')) {
       b.addEventListener('click', () => {
@@ -1785,12 +1849,16 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <div class="toolbar">${speakBtn(() => readText)}</div>
       </div>`, 'mission');
     wireSpeak();
-    document.getElementById('btn-go').addEventListener('click', screenMap);
+    document.getElementById('btn-go').addEventListener('click', () => {
+      if (state.mode === 'group') screenTurn(); else screenMap();
+    });
   }
+
+  function effMin() { return state.mode === 'group' ? 3 : L.MIN_ISLANDS; }
 
   function screenMap() {
     Sound.startMusic('mapa');
-    const left = Math.max(0, L.MIN_ISLANDS - state.visited.length);
+    const left = Math.max(0, effMin() - state.visited.length);
     const allDone = state.visited.length === L.ISLANDS.length;
     const islands = L.ISLANDS.map((isl, i) => {
       const done = state.visited.includes(isl.id);
@@ -2125,7 +2193,129 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     }
   }
 
+  /* ---------- Modo grupo (2-5, cooperativo, pasando el dispositivo) ---------- */
+  function screenGroupNames() {
+    render(`
+      <div class="card">
+        <div class="row-top">${sparkArt('wow', 64)}
+          <div><h1>👥 ${t('groupNamesTitle')}</h1></div>
+        </div>
+        <p class="hint">${t('groupNamesHint')}</p>
+        <div class="group-names">
+          ${[1, 2, 3, 4, 5].map(i =>
+            `<input type="text" class="name-input group-name" maxlength="20" autocomplete="off"
+              placeholder="${t('playerPh')(i)}" aria-label="${t('playerPh')(i)}">`).join('')}
+        </div>
+        <button type="button" id="btn-group-start" class="btn btn-big">${t('groupStart')} →</button>
+        <div class="toolbar"><button type="button" id="btn-names-back" class="btn btn-soft">↩</button></div>
+      </div>`, 'group-names');
+    document.getElementById('btn-names-back').addEventListener('click', screenTitle);
+    document.getElementById('btn-group-start').addEventListener('click', () => {
+      const names = [...app.querySelectorAll('.group-name')]
+        .map(i => i.value.trim()).filter(Boolean).slice(0, 5);
+      if (names.length < 2) { announce(t('needTwo')); return; }
+      state.mode = 'group';
+      state.players = names.map(n => ({ name: n }));
+      state.playerIdx = 0;
+      screenMission();
+    });
+  }
+
+  function screenTurn() {
+    const player = state.players[state.playerIdx];
+    // Reinicia el estado de juego para este jugador
+    state.name = player.name;
+    state.visited = []; state.scores = L.newScores(); state.log = []; state.favorite = null;
+    state.current = null; state.scene = 0;
+    render(`
+      <div class="card center">
+        <div class="spark-hero burst pop">${sparkArt('happy', 110)}</div>
+        <h1>${esc(t('turnTitle')(player.name))}</h1>
+        <p class="hint">${t('turnHint')}</p>
+        <button type="button" id="btn-turn-go" class="btn btn-big glow">${t('turnGo')} →</button>
+      </div>`, 'group-turn');
+    Sound.chime();
+    document.getElementById('btn-turn-go').addEventListener('click', screenMap);
+  }
+
+  function screenGroupMini(purpose) {
+    const player = state.players[state.playerIdx];
+    player.scores = state.scores;
+    player.top = purpose.top; player.second = purpose.second;
+    player.exploring = purpose.exploring;
+    const topP = L.PROFILES[purpose.top];
+    const last = state.playerIdx === state.players.length - 1;
+    const nextName = last ? '' : state.players[state.playerIdx + 1].name;
+    render(`
+      <div class="card center">
+        <div class="spark-hero burst pop">${sparkArt('proud', 100)}</div>
+        <h1>${esc(player.name)} ✦</h1>
+        <div class="purpose-card">
+          <p class="purpose-name">${purpose.exploring ? t('explorerName') : topP.starName[state.lang]}</p>
+          <p class="purpose-sentence">${purpose.exploring
+            ? t('explorerTagline')
+            : L.purposeSentence(state.lang, purpose.top, purpose.second, 'tu')}</p>
+        </div>
+        <button type="button" id="btn-pass" class="btn btn-big glow">
+          ${last ? '🌌 ' + t('miniSeeGroup') : '🤲 ' + esc(t('miniPass')(nextName))} →
+        </button>
+      </div>`, 'group-mini');
+    Sound.star();
+    document.getElementById('btn-pass').addEventListener('click', () => {
+      if (last) { screenGroupResult(); }
+      else { state.playerIdx += 1; screenTurn(); }
+    });
+  }
+
+  function screenGroupResult() {
+    Sound.startMusic('constellation');
+    Sound.arpeggio();
+    // Suma de todas las chispas del equipo
+    let combined = L.newScores();
+    for (const pl of state.players) {
+      for (const d of L.DIMS) combined[d] += pl.scores[d] || 0;
+    }
+    const purpose = L.computePurpose(combined);
+    const data = L.constellationData(combined);
+    const topP = L.PROFILES[purpose.top], secP = L.PROFILES[purpose.second];
+    const readText = `${t('groupConstTitle')}. ${t('groupSpark')} ${topP.label[state.lang]} ${t('withTouch')} ${secP.label[state.lang]}. ${t('groupMsg')} ${t('groupChallengeLabel')}: ${topP.month[state.lang]}`;
+
+    render(`
+      <div class="card">
+        <h1>🌌 ${t('groupConstTitle')}</h1>
+        ${constellationSVG(data, purpose, false)}
+
+        <div class="purpose-card reveal" style="animation-delay:1.2s">
+          <p class="purpose-name">${t('groupSpark')} ${topP.label[state.lang]}</p>
+          <p class="purpose-sentence">${t('withTouch')} <strong>${secP.label[state.lang]}</strong> · ${t('groupMsg')}</p>
+        </div>
+
+        <p class="mission-label reveal" style="animation-delay:1.5s">✦ ${t('teamLabel')}</p>
+        <div class="paths reveal" style="animation-delay:1.6s" role="list">
+          ${state.players.map(pl => `<span class="path-chip team-chip" role="listitem">
+            ${esc(pl.name)} · ${pl.exploring ? t('explorerName') : L.PROFILES[pl.top].starName[state.lang]}
+          </span>`).join('')}
+        </div>
+
+        <p class="mission-label reveal" style="animation-delay:1.9s">🚀 ${t('groupChallengeLabel')}</p>
+        <div class="week-mission reveal" style="animation-delay:2s">${topP.month[state.lang]}</div>
+
+        <p class="mission-learn reveal" style="animation-delay:2.2s">${t('groupSoloHint')}</p>
+        <div class="toolbar">${speakBtn(() => readText)}</div>
+        <button type="button" id="btn-replay" class="btn btn-big">🔁 ${t('playAgain')}</button>
+      </div>`, 'group-result');
+
+    wireSpeak();
+    document.getElementById('btn-replay').addEventListener('click', () => {
+      state.mode = 'solo'; state.players = []; state.playerIdx = 0;
+      state.visited = []; state.scores = L.newScores(); state.log = []; state.favorite = null;
+      state.current = null; state.scene = 0;
+      screenTitle();
+    });
+  }
+
   function screenConstellation() {
+    if (state.mode === 'group') { screenGroupMini(L.computePurpose(state.scores)); return; }
     Sound.startMusic('constellation');
     Sound.arpeggio();
     const purpose = L.computePurpose(state.scores);
