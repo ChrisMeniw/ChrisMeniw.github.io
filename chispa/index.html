@@ -302,6 +302,19 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   border-radius:999px; padding:8px 15px; font-size:.98rem; color:var(--text);
   box-shadow:0 4px 10px -6px #000a;
 }
+.skill-chip{border-color:#ffce4f55; background:linear-gradient(180deg,#3a2f14,#2e2610); color:var(--gold1)}
+.train{display:flex; flex-direction:column; gap:10px; margin-bottom:14px}
+.train-step{
+  display:flex; gap:12px; align-items:flex-start; font-size:1.05rem; line-height:1.45;
+  background:linear-gradient(180deg,#2a224f,#231c48); border:1px solid #5647ab44;
+  border-radius:16px; padding:13px 15px; box-shadow:0 6px 14px -8px #000a;
+}
+.train-tag{
+  flex:0 0 auto; font-family:var(--display); font-size:.82rem; letter-spacing:.5px;
+  text-transform:uppercase; color:#3f2a00; background:linear-gradient(180deg,var(--gold1),var(--gold2));
+  border-radius:999px; padding:4px 12px; margin-top:1px;
+}
+.train-note{color:var(--muted); font-style:italic; font-size:.95rem; text-align:center; margin-top:2px}
 .week-mission{
   background:linear-gradient(180deg,#2a224f,#231c48); border:1px dashed #ffce4f55;
   border-radius:16px; padding:15px 17px; font-size:1.08rem; line-height:1.5;
@@ -583,6 +596,12 @@ const STR = {
     purposeLabel: 'Tu propósito',
     shareBtn: 'Compartir mi propósito',
     pathsLabel: 'Caminos donde tu propósito brilla',
+    skillsLabel: 'Habilidades humanas que estás potenciando',
+    trainLabel: 'Entrena tu propósito',
+    trainNote: 'El propósito se entrena como un músculo: un poco cada día.',
+    todayTag: 'Hoy',
+    weekTag: 'Esta semana',
+    monthTag: 'Este mes',
     weekLabel: 'Tu primera misión',
     missionGo: '¡A las islas!',
     privacy: 'Sin internet · Sin publicidad · Sin datos personales',
@@ -653,6 +672,12 @@ const STR = {
     purposeLabel: 'Your purpose',
     shareBtn: 'Share my purpose',
     pathsLabel: 'Paths where your purpose shines',
+    skillsLabel: 'Human skills you are powering up',
+    trainLabel: 'Train your purpose',
+    trainNote: 'Purpose is trained like a muscle: a little every day.',
+    todayTag: 'Today',
+    weekTag: 'This week',
+    monthTag: 'This month',
     weekLabel: 'Your first mission',
     missionGo: 'To the islands!',
     privacy: 'No internet · No ads · No personal data',
@@ -723,6 +748,12 @@ const STR = {
     purposeLabel: 'Seu propósito',
     shareBtn: 'Compartilhar meu propósito',
     pathsLabel: 'Caminhos onde o seu propósito brilha',
+    skillsLabel: 'Habilidades humanas que você está potencializando',
+    trainLabel: 'Treine o seu propósito',
+    trainNote: 'O propósito se treina como um músculo: um pouco a cada dia.',
+    todayTag: 'Hoje',
+    weekTag: 'Esta semana',
+    monthTag: 'Este mês',
     weekLabel: 'Sua primeira missão',
     missionGo: 'Para as ilhas!',
     privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
@@ -772,6 +803,21 @@ const STR = {
 /* ---------- Perfiles por dimensión ---------- */
 const PROFILES = {
   crear: {
+    skills: {
+      es: ['Creatividad', 'Imaginación', 'Pensamiento original'],
+      en: ['Creativity', 'Imagination', 'Original thinking'],
+      pt: ['Criatividade', 'Imaginação', 'Pensamento original'],
+    },
+    today: {
+      es: 'Dibuja o construye durante 10 minutos algo que no exista.',
+      en: 'Spend 10 minutes drawing or building something that doesn’t exist.',
+      pt: 'Desenhe ou construa por 10 minutos algo que não existe.',
+    },
+    month: {
+      es: 'Crea algo junto a un amigo o tu familia… y regálenlo.',
+      en: 'Create something with a friend or your family… and give it away.',
+      pt: 'Crie algo com um amigo ou a sua família… e deem de presente.',
+    },
     starName: { es: 'Estrella Creadora', en: 'Creator Star', pt: 'Estrela Criadora' },
     service: { es: 'para llenar el mundo de ideas nuevas', en: 'to fill the world with new ideas', pt: 'para encher o mundo de ideias novas' },
     paths: {
@@ -795,6 +841,21 @@ const PROFILES = {
     reminder: { es: 'el mundo necesita mis ideas', en: 'the world needs my ideas', pt: 'o mundo precisa das minhas ideias' },
   },
   ayudar: {
+    skills: {
+      es: ['Empatía', 'Trabajo en equipo', 'Generosidad'],
+      en: ['Empathy', 'Teamwork', 'Generosity'],
+      pt: ['Empatia', 'Trabalho em equipe', 'Generosidade'],
+    },
+    today: {
+      es: 'Pregúntale a alguien de tu casa cómo está… y escucha de verdad.',
+      en: 'Ask someone at home how they are… and really listen.',
+      pt: 'Pergunte a alguém da sua casa como está… e escute de verdade.',
+    },
+    month: {
+      es: 'Súmate a ayudar en algo de tu escuela o tu barrio.',
+      en: 'Join something helpful at your school or neighborhood.',
+      pt: 'Participe de algo que ajude na sua escola ou no seu bairro.',
+    },
     starName: { es: 'Estrella Guardiana', en: 'Guardian Star', pt: 'Estrela Guardiã' },
     service: { es: 'para hacer mejor la vida de los demás', en: 'to make other people’s lives better', pt: 'para tornar melhor a vida dos outros' },
     paths: {
@@ -818,6 +879,21 @@ const PROFILES = {
     reminder: { es: 'una mano amiga cambia el día de alguien', en: 'a helping hand can change someone’s day', pt: 'uma mão amiga muda o dia de alguém' },
   },
   explorar: {
+    skills: {
+      es: ['Curiosidad', 'Pensamiento crítico', 'Valentía'],
+      en: ['Curiosity', 'Critical thinking', 'Courage'],
+      pt: ['Curiosidade', 'Pensamento crítico', 'Coragem'],
+    },
+    today: {
+      es: 'Busca la respuesta a una pregunta que siempre tuviste.',
+      en: 'Hunt down the answer to a question you always had.',
+      pt: 'Procure a resposta para uma pergunta que você sempre teve.',
+    },
+    month: {
+      es: 'Visita un lugar nuevo (museo, biblioteca, parque) y anota 3 descubrimientos.',
+      en: 'Visit somewhere new (museum, library, park) and write down 3 discoveries.',
+      pt: 'Visite um lugar novo (museu, biblioteca, parque) e anote 3 descobertas.',
+    },
     starName: { es: 'Estrella Exploradora', en: 'Explorer Star', pt: 'Estrela Exploradora' },
     service: { es: 'para descubrir lo que nadie encontró todavía', en: 'to discover what nobody has found yet', pt: 'para descobrir o que ninguém encontrou ainda' },
     paths: {
@@ -841,6 +917,21 @@ const PROFILES = {
     reminder: { es: 'las preguntas abren puertas', en: 'questions open doors', pt: 'as perguntas abrem portas' },
   },
   construir: {
+    skills: {
+      es: ['Resolución de problemas', 'Paciencia', 'Ingenio'],
+      en: ['Problem solving', 'Patience', 'Resourcefulness'],
+      pt: ['Resolução de problemas', 'Paciência', 'Engenhosidade'],
+    },
+    today: {
+      es: 'Desarma (con permiso) algo simple y descubre cómo funciona.',
+      en: 'Take apart (with permission) something simple and see how it works.',
+      pt: 'Desmonte (com permissão) algo simples e descubra como funciona.',
+    },
+    month: {
+      es: 'Arma un proyecto con cajas, piezas o código… y muéstralo.',
+      en: 'Build a project with boxes, bricks or code… and show it off.',
+      pt: 'Monte um projeto com caixas, peças ou código… e mostre para alguém.',
+    },
     starName: { es: 'Estrella Constructora', en: 'Builder Star', pt: 'Estrela Construtora' },
     service: { es: 'para resolver los problemas que nadie sabe arreglar', en: 'to solve the problems nobody knows how to fix', pt: 'para resolver os problemas que ninguém sabe consertar' },
     paths: {
@@ -864,6 +955,21 @@ const PROFILES = {
     reminder: { es: 'no hay problema sin solución', en: 'every problem has a solution', pt: 'todo problema tem solução' },
   },
   expresar: {
+    skills: {
+      es: ['Comunicación', 'Escucha', 'Confianza para hablar'],
+      en: ['Communication', 'Listening', 'Confidence to speak'],
+      pt: ['Comunicação', 'Escuta', 'Confiança para falar'],
+    },
+    today: {
+      es: 'Escribe o graba una idea tuya y compártela con alguien.',
+      en: 'Write down or record one of your ideas and share it with someone.',
+      pt: 'Escreva ou grave uma ideia sua e compartilhe com alguém.',
+    },
+    month: {
+      es: 'Cuenta una historia frente a tu familia o tu clase.',
+      en: 'Tell a story in front of your family or your class.',
+      pt: 'Conte uma história para a sua família ou a sua turma.',
+    },
     starName: { es: 'Estrella Narradora', en: 'Storyteller Star', pt: 'Estrela Contadora de Histórias' },
     service: { es: 'para que las historias y las voces lleguen a todos', en: 'so stories and voices can reach everyone', pt: 'para que as histórias e as vozes cheguem a todos' },
     paths: {
@@ -887,6 +993,21 @@ const PROFILES = {
     reminder: { es: 'mi voz importa', en: 'my voice matters', pt: 'minha voz importa' },
   },
   naturaleza: {
+    skills: {
+      es: ['Responsabilidad', 'Cuidado', 'Constancia'],
+      en: ['Responsibility', 'Care', 'Perseverance'],
+      pt: ['Responsabilidade', 'Cuidado', 'Constância'],
+    },
+    today: {
+      es: 'Sal a mirar el cielo o una planta durante 5 minutos, en silencio.',
+      en: 'Go watch the sky or a plant for 5 quiet minutes.',
+      pt: 'Observe o céu ou uma planta por 5 minutos, em silêncio.',
+    },
+    month: {
+      es: 'Organiza con amigos una mini jornada de cuidado: plantar, limpiar o reciclar.',
+      en: 'Organize a mini care day with friends: plant, clean up or recycle.',
+      pt: 'Organize com amigos um mini dia de cuidado: plantar, limpar ou reciclar.',
+    },
     starName: { es: 'Estrella de la Naturaleza', en: 'Nature Star', pt: 'Estrela da Natureza' },
     service: { es: 'para cuidar el planeta y a sus criaturas', en: 'to care for the planet and its creatures', pt: 'para cuidar do planeta e das suas criaturas' },
     paths: {
@@ -1175,6 +1296,8 @@ Hoy viajé por las islas de Spark y descubrí algo sobre mí: mi chispa brilla f
 
 Descubrí mi propósito: usar mi don de ${t.doing.es} ${s.service.es}.
 
+Voy a entrenar mis habilidades: ${t.skills.es.join(', ').toLowerCase()}.
+
 Quiero acordarme de esto: ${t.reminder.es}.
 
 Cuando leas esta carta, espero que sigas haciendo brillar tu chispa. Y si cambió, ¡también está bien! Las estrellas se mueven.
@@ -1188,6 +1311,8 @@ Hoje eu viajei pelas ilhas de Spark e descobri algo sobre mim: minha faísca bri
 
 Descobri o meu propósito: usar o meu dom de ${t.doing.pt} ${s.service.pt}.
 
+Vou treinar as minhas habilidades: ${t.skills.pt.join(', ').toLowerCase()}.
+
 Quero lembrar disto: ${t.reminder.pt}.
 
 Quando você ler esta carta, espero que ainda esteja fazendo sua faísca brilhar. E se mudou, tudo bem também! As estrelas se movem.
@@ -1199,6 +1324,8 @@ Quando você ler esta carta, espero que ainda esteja fazendo sua faísca brilhar
 Today I traveled through the Spark islands and discovered something about myself: my spark shines bright when I can ${t.doing.en}. I also like to ${s.doing.en}.
 
 I discovered my purpose: to use my gift — ${t.doing.en} — ${s.service.en}.
+
+I will train my skills: ${t.skills.en.join(', ').toLowerCase()}.
 
 I want to remember this: ${t.reminder.en}.
 
@@ -1883,8 +2010,14 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const who = state.name ? `${esc(state.name)}, ` : '';
     const sentence = L.purposeSentence(state.lang, purpose.top, purpose.second, 'tu');
     const paths = topP.paths[state.lang];
-    const week = topP.week[state.lang];
-    const readText = `${state.name ? state.name + '. ' : ''}${t('purposeLabel')}: ${topP.starName[state.lang]}. ${sentence} ${topP.desc[state.lang]} ${t('superpower')}: ${topP.power[state.lang]}. ${t('pathsLabel')}: ${paths.join(', ')}. ${t('weekLabel')}: ${week}`;
+    // Habilidades humanas: las 3 del don principal + la primera del secundario
+    const skills = topP.skills[state.lang].concat([secP.skills[state.lang][0]]);
+    const train = [
+      [t('todayTag'), topP.today[state.lang]],
+      [t('weekTag'), topP.week[state.lang]],
+      [t('monthTag'), topP.month[state.lang]],
+    ];
+    const readText = `${state.name ? state.name + '. ' : ''}${t('purposeLabel')}: ${topP.starName[state.lang]}. ${sentence} ${topP.desc[state.lang]} ${t('superpower')}: ${topP.power[state.lang]}. ${t('pathsLabel')}: ${paths.join(', ')}. ${t('skillsLabel')}: ${skills.join(', ')}. ${t('trainLabel')}. ${train.map(([tag, txt]) => tag + ': ' + txt).join(' ')} ${t('trainNote')}`;
 
     render(`
       <div class="card">
@@ -1909,8 +2042,18 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           ${paths.map(pp => `<span class="path-chip" role="listitem">${pp}</span>`).join('')}
         </div>
 
-        <p class="mission-label reveal" style="animation-delay:2.4s">⭐ ${t('weekLabel')}</p>
-        <div class="week-mission reveal" style="animation-delay:2.5s">${week}</div>
+        <p class="mission-label reveal" style="animation-delay:2.4s">💪 ${t('skillsLabel')}</p>
+        <div class="paths skills reveal" style="animation-delay:2.5s" role="list">
+          ${skills.map(sk => `<span class="path-chip skill-chip" role="listitem">💪 ${sk}</span>`).join('')}
+        </div>
+
+        <p class="mission-label reveal" style="animation-delay:2.7s">🚀 ${t('trainLabel')}</p>
+        <div class="train reveal" style="animation-delay:2.8s">
+          ${train.map(([tag, txt]) => `<div class="train-step">
+            <span class="train-tag">${tag}</span><span>${txt}</span>
+          </div>`).join('')}
+          <p class="train-note">${t('trainNote')}</p>
+        </div>
         <div class="toolbar">
           ${speakBtn(() => readText)}
           ${navigator.share ? `<button type="button" id="btn-share" class="btn btn-soft">📤 ${t('shareBtn')}</button>` : ''}
