@@ -34,6 +34,8 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   --violet1:#8b7cf7; --violet2:#6c5ce7; --violet-deep:#4636b8;
   --pink:#ff8fb1; --teal:#7fe3ff; --green:#7ddf8e;
   --focus:#7fe3ff;
+  --isl-colores:#ff8fb1; --isl-faro:#7fe3ff; --isl-bosque:#7ddf8e;
+  --isl-taller:#a5b4ff; --isl-historias:#c9a2ff; --isl-mapa:#ffce4f;
   --body:'Nunito',ui-rounded,'Arial Rounded MT Bold','Trebuchet MS',Verdana,sans-serif;
   --display:'Baloo 2','Nunito',ui-rounded,'Arial Rounded MT Bold',sans-serif;
 }
@@ -118,15 +120,14 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   border-left:3px solid #7fe3ff55; padding-left:12px;
 }
 .hint{color:var(--muted); font-size:1rem; margin-bottom:10px}
-.privacy{color:var(--muted); font-size:.82rem; margin-top:18px; opacity:.8}
+.privacy{color:var(--muted); font-size:.78rem; margin-top:16px; opacity:.75}
 .foundation-credit{
-  display:flex; flex-direction:column; align-items:center; gap:5px;
-  color:var(--muted); opacity:.85; font-size:.8rem; margin-top:14px; letter-spacing:.6px;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  color:var(--muted); opacity:.8; font-size:.78rem; margin-top:14px; letter-spacing:.4px;
 }
 .cmf-logo{
-  width:84px; height:84px; border-radius:50%;
-  box-shadow:0 4px 14px -4px #000b, 0 0 0 2px #ffce4f33;
-  filter:drop-shadow(0 0 10px #ffce4f22);
+  width:40px; height:40px; border-radius:50%;
+  box-shadow:0 3px 10px -3px #000b, 0 0 0 1.5px #ffce4f33;
 }
 .lang-switch{
   display:inline-flex; background:var(--card-inner); border:1px solid #5647ab88;
@@ -180,6 +181,17 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 @keyframes breathe{
   0%,100%{box-shadow:0 5px 0 var(--gold-deep), 0 0 18px #ffce4f55}
   50%{box-shadow:0 5px 0 var(--gold-deep), 0 0 34px #ffce4faa}
+}
+/* Estados: disabled y loading universales */
+.btn:disabled, .btn[aria-disabled="true"]{
+  opacity:.45; cursor:not-allowed; transform:none !important;
+  box-shadow:0 2px 0 #0006; filter:grayscale(.4);
+}
+.btn.loading{position:relative; color:transparent !important; pointer-events:none}
+.btn.loading::after{
+  content:""; position:absolute; inset:0; margin:auto; width:20px; height:20px;
+  border:3px solid #ffffff55; border-top-color:#fff; border-radius:50%;
+  animation:spin .7s linear infinite;
 }
 :where(button,input,textarea,a):focus-visible{
   outline:3px solid var(--focus); outline-offset:3px;
@@ -257,6 +269,7 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 .option-btn:hover{border-color:var(--gold2); filter:brightness(1.1)}
 .option-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #251e55}
 .toolbar{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+.toolbar .btn-soft{flex:1 1 calc(50% - 5px); min-width:150px; text-align:center}
 
 /* ---------- Feedback ---------- */
 .spark-hero{position:relative; margin:8px auto 12px; width:fit-content}
@@ -1624,10 +1637,10 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-hidden="true" focusable="false">${ISLAND_ART[id]}</svg>`;
   }
 
-  // Color de acento de cada isla (tema "Cielo de Chispa")
+  // Color de acento de cada isla — referencia a los tokens del tema (una sola fuente: shell.html)
   const ISLAND_COLOR = {
-    colores: '#ff8fb1', faro: '#7fe3ff', bosque: '#7ddf8e',
-    taller: '#a5b4ff', historias: '#c9a2ff', mapa: '#ffce4f',
+    colores: 'var(--isl-colores)', faro: 'var(--isl-faro)', bosque: 'var(--isl-bosque)',
+    taller: 'var(--isl-taller)', historias: 'var(--isl-historias)', mapa: 'var(--isl-mapa)',
   };
 
   /* ---------- Sonido (WebAudio, 100% sintetizado, sin archivos) ---------- */
