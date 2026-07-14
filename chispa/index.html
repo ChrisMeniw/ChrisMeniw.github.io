@@ -3,9 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Spark — un juego para descubrir para qué brillas · a game to discover what makes you shine. 100% offline.">
-<title>Spark</title>
+<meta name="description" content="Spark: el juego gratis para que chicos de 6 a 14 descubran su propósito de vida jugando. En español, inglés y portugués, solo o en grupo, sin publicidad y sin registro. · A free game for kids to discover their life purpose. · Um jogo grátis para crianças descobrirem seu propósito.">
+<title>Spark — El juego para descubrir tu propósito de vida (chicos 6–14, gratis)</title>
 <meta name="theme-color" content="#2a2058">
+<link rel="canonical" href="https://thesparkgame.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Spark">
+<meta property="og:title" content="Spark — el juego para descubrir tu propósito de vida ✨">
+<meta property="og:description" content="Viajá por 6 islas, encendé tu constelación y descubrí para qué brillás. Gratis, sin publicidad, para chicos de 6 a 14. Español · English · Português.">
+<meta property="og:url" content="https://thesparkgame.vercel.app/">
+<meta property="og:image" content="https://thesparkgame.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_AR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Spark — el juego para descubrir tu propósito de vida ✨">
+<meta name="twitter:description" content="6 islas, una constelación y una carta a tu yo futuro. Gratis, sin publicidad, para chicos de 6 a 14.">
+<meta name="twitter:image" content="https://thesparkgame.vercel.app/og.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoGame","name":"Spark","alternateName":["The Spark Game","Spark el juego del propósito"],"url":"https://thesparkgame.vercel.app/","image":"https://thesparkgame.vercel.app/og.png","description":"Juego gratuito para que chicos de 6 a 14 años descubran su propósito de vida: viajan por 6 islas, sus elecciones encienden una constelación de 6 dimensiones y escriben una carta a su yo futuro. Modo individual y modo grupal cooperativo de 2 a 5. Sin competencia, sin publicidad, sin registro, funciona sin conexión.","inLanguage":["es","en","pt"],"gamePlatform":["Web browser","Mobile","Desktop"],"applicationCategory":"Game","genre":["Educational","Self-discovery"],"audience":{"@type":"PeopleAudience","suggestedMinAge":6,"suggestedMaxAge":14},"numberOfPlayers":{"@type":"QuantitativeValue","minValue":1,"maxValue":5},"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Chris Meniw Foundation","url":"https://chrismeniwfoundation.org"},"author":{"@type":"Person","name":"Chris Meniw","url":"https://chrismeniw.github.io","sameAs":["https://orcid.org/0009-0003-4417-1944"]}}
+</script>
 <link rel="icon" href='data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="22" fill="%23171233"/><path d="M44.3 17.5 Q50.0 6.0 55.7 17.5L57.8 21.9 Q63.5 33.4 76.2 35.2L81.1 35.9 Q93.7 37.8 84.6 46.7L81.1 50.2 Q71.9 59.1 74.0 71.8L74.9 76.6 Q77.0 89.2 65.7 83.2L61.4 81.0 Q50.0 75.0 38.6 81.0L34.3 83.2 Q23.0 89.2 25.1 76.6L26.0 71.8 Q28.1 59.1 18.9 50.2L15.4 46.7 Q6.3 37.8 18.9 35.9L23.8 35.2 Q36.5 33.4 42.2 21.9Z" fill="%23ffd35e" stroke="%23e08900" stroke-width="2.2" stroke-linejoin="round"/><circle cx="41.5" cy="46" r="4.4" fill="%237a3803"/><circle cx="58.5" cy="46" r="4.4" fill="%237a3803"/><path d="M43.5 56.5 Q50 62.5 56.5 56.5" stroke="%237a3803" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'>
 <link rel="manifest" href="manifest.webmanifest">
 <script>
@@ -43,11 +62,9 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
 html,body{height:100%}
 body{
   font-family:var(--body); font-weight:500;
-  background:
-    radial-gradient(1200px 700px at 75% -10%, #45358c55 0%, transparent 60%),
-    radial-gradient(900px 600px at 10% 110%, #6c5ce733 0%, transparent 55%),
-    linear-gradient(180deg,var(--night1) 0%,var(--night2) 100%);
-  background-attachment:fixed;
+  /* El degradé vive en la capa fija #sky: background-attachment:fixed repinta todo el
+     gradiente en cada scroll en iOS/Safari (jank en tablets de escuela). */
+  background:var(--night2);
   color:var(--text); min-height:100vh; display:flex; flex-direction:column;
   align-items:center; padding:18px 16px 28px; line-height:1.5;
 }
@@ -83,7 +100,13 @@ body::after{
 @keyframes screenIn{from{opacity:0; transform:translateY(14px) scale(.985)}to{opacity:1; transform:none}}
 #app > .card{animation:screenIn .26s ease-out}
 
-#sky{position:fixed; inset:0; z-index:0; pointer-events:none}
+#sky{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(1200px 700px at 75% -10%, #45358c55 0%, transparent 60%),
+    radial-gradient(900px 600px at 10% 110%, #6c5ce733 0%, transparent 55%),
+    linear-gradient(180deg,var(--night1) 0%,var(--night2) 100%);
+}
 #app{position:relative; z-index:1; width:100%; max-width:640px; margin-block:auto}
 .card{
   position:relative;
@@ -161,7 +184,7 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   box-shadow:0 4px 0 var(--violet-deep), 0 8px 18px -6px #0009;
   transition:transform .12s ease, box-shadow .12s ease, filter .15s;
 }
-.btn:hover{filter:brightness(1.12)}
+@media (hover:hover) and (pointer:fine){ .btn:hover:not(:disabled){filter:brightness(1.12)} }
 .btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--violet-deep), 0 4px 10px -6px #0009}
 .btn-big{
   font-family:var(--display);
@@ -266,7 +289,7 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   box-shadow:0 4px 0 #251e55, 0 8px 16px -8px #0009;
   border:1px solid #6c5ce744;
 }
-.option-btn:hover{border-color:var(--gold2); filter:brightness(1.1)}
+@media (hover:hover) and (pointer:fine){ .option-btn:hover:not(:disabled){border-color:var(--gold2); filter:brightness(1.1)} }
 .option-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #251e55}
 .toolbar{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
 .toolbar .btn-soft{flex:1 1 calc(50% - 5px); min-width:150px; text-align:center}
@@ -390,7 +413,7 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   box-shadow:0 6px 16px -6px #000b;
   transition:transform .15s, filter .15s;
 }
-.sound-btn:hover{filter:brightness(1.15); transform:scale(1.06)}
+@media (hover:hover) and (pointer:fine){ .sound-btn:hover{filter:brightness(1.15); transform:scale(1.06)} }
 .sound-btn:active{transform:scale(.96)}
 
 /* ---------- Pistas de teclado (solo escritorio con mouse) ---------- */
@@ -515,7 +538,7 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   border-radius:20px; cursor:pointer; font-family:inherit; color:var(--text);
   transition:border-color .2s, transform .12s;
 }
-.micro-stage:hover{border-color:var(--isl,#ffce4f)}
+@media (hover:hover) and (pointer:fine){ .micro-stage:hover{border-color:var(--isl,#ffce4f)} }
 .micro-stage:active{transform:scale(.99)}
 .micro-stage.micro-done{border-style:solid; border-color:var(--gold2); cursor:default}
 .micro-stage svg{display:block; margin-bottom:8px}
@@ -2668,6 +2691,11 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   function playIntro() {
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) return;
+    // La intro se muestra UNA sola vez: quien vuelve entra directo a jugar
+    let seen = null;
+    try { seen = localStorage.getItem('spark-intro-seen'); } catch (e) { /* sin storage */ }
+    if (seen) return;
+    try { localStorage.setItem('spark-intro-seen', '1'); } catch (e) { /* sin storage */ }
     // Si el host sirve intro.mp4 (versión online), usamos el video real
     if (location.protocol.indexOf('http') === 0 && typeof window.fetch === 'function') {
       fetch('intro.mp4', { method: 'HEAD' })
