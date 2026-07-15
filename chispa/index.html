@@ -362,6 +362,7 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 }
 .purpose-sentence{font-size:1.14rem; line-height:1.5; color:#ffe9c9}
 .group-btn{display:block; width:100%; margin-top:2px}
+.group-tag{color:var(--muted); font-size:.82rem; margin:6px 0 0; opacity:.8; line-height:1.35}
 .group-names{display:flex; flex-direction:column; gap:8px; margin:10px 0 16px}
 .group-names .name-input{width:100%; margin-bottom:0; text-align:left}
 .team-chip{border-color:#7fe3ff44; background:linear-gradient(180deg,#1e3050,#182741); color:#c9ecff}
@@ -502,19 +503,29 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   background:#241d52; border:1.5px solid #6c5ce766;
 }
 
-/* ---------- Intro narrativa (3 momentos sobre el cielo del juego) ---------- */
-.intro-scene{position:relative; width:100%; max-width:560px; padding:0 26px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px}
+/* ---------- Intro: la constelación que nace (3 momentos sobre el cielo del juego) ---------- */
+.intro-scene{position:relative; width:100%; max-width:540px; padding:0 26px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px}
+/* Bloom de nebulosa detrás de la estrella: da profundidad real, no es un scrim plano */
+.intro-halo{
+  position:absolute; top:-8%; left:50%; width:min(360px,88vw); aspect-ratio:1; transform:translateX(-50%);
+  background:radial-gradient(circle at 50% 45%, #ffd35e30 0%, #6c5ce71c 42%, #6c5ce700 70%);
+  filter:blur(4px); pointer-events:none; z-index:0; animation:introHalo 5.5s ease-in-out infinite;
+}
 .intro-star{position:relative; z-index:2; filter:drop-shadow(0 0 34px #ffd35e88); animation:introStar 1.4s cubic-bezier(.2,1.3,.4,1) both}
-.intro-beats{position:relative; z-index:2; width:100%; min-height:150px; display:grid}
+.intro-beats{position:relative; z-index:2; width:100%; min-height:172px; display:grid}
 .intro-beat{
-  grid-area:1/1; display:flex; flex-direction:column; align-items:center; gap:12px;
-  text-align:center; opacity:0; transform:translateY(12px);
+  grid-area:1/1; display:flex; flex-direction:column; align-items:center; gap:9px;
+  text-align:center; opacity:0; transform:translateY(14px);
   transition:opacity .55s ease, transform .55s ease; pointer-events:none;
 }
 .intro-beat.on{opacity:1; transform:none}
+.intro-kicker{
+  font-family:var(--display); font-weight:700; font-size:.8rem; letter-spacing:3px;
+  text-transform:uppercase; color:var(--gold2); opacity:.92;
+}
 .intro-beat-line{
-  font-family:var(--display); font-weight:700; font-size:1.7rem; line-height:1.28; color:var(--text);
-  max-width:20ch; text-shadow:0 2px 18px #000c;
+  font-family:var(--display); font-weight:700; font-size:1.72rem; line-height:1.24; color:var(--text);
+  max-width:19ch; text-shadow:0 2px 20px #000c;
 }
 .intro-beat-sub{
   font-family:var(--display); font-size:1.05rem; line-height:1.35; max-width:26ch;
@@ -522,9 +533,16 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   text-shadow:0 2px 12px #0007;
 }
-.intro-dots{position:relative; z-index:2; display:flex; gap:9px}
-.intro-dots span{width:8px; height:8px; border-radius:50%; background:#ffffff30; transition:background .4s, transform .4s}
-.intro-dots span.on{background:var(--gold2); transform:scale(1.3)}
+/* Firma: la propia constelación del juego dibujándose sola (mismos tokens que el resultado) */
+.intro-const{position:relative; z-index:2; width:186px; height:auto; overflow:visible}
+.intro-const .cnode{transform-box:fill-box; transform-origin:center center}
+.intro-const .cnode > circle{transition:opacity .5s ease}
+.intro-const .cnode:not(.lit) > circle{opacity:.1}
+.intro-const .cnode.lit{animation:cnodePop .6s cubic-bezier(.2,1.5,.4,1)}
+.intro-const .cline{stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .6s ease}
+.intro-const .cline.drawn{stroke-dashoffset:0}
+@keyframes introHalo{0%,100%{opacity:.7; transform:translateX(-50%) scale(1)}50%{opacity:1; transform:translateX(-50%) scale(1.06)}}
+@keyframes cnodePop{0%{transform:scale(.5)}55%{transform:scale(1.22)}100%{transform:scale(1)}}
 
 /* ---------- Partículas de celebración ---------- */
 .burst-particles{position:absolute; inset:0; pointer-events:none}
@@ -649,6 +667,9 @@ const STR = {
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
     skipIntro: 'Saltar ›',
+    introK1: 'Tu viaje',
+    introK2: 'Cómo se juega',
+    introK3: 'Qué descubrís',
     introB1: 'Tu viaje para descubrir tu propósito',
     introB1sub: 'No es una competencia · nadie gana, te descubrís vos',
     introB2: 'Viajás por 6 islas y elegís lo que harías TÚ',
@@ -702,7 +723,8 @@ const STR = {
     memorialLogoAlt: 'Fundación Gabby’s Place',
     soloBadge: 'Exploración personal · Sin competencia',
     soloNote: 'Este viaje es tuyo: acá no se compite con nadie. La única estrella a superar es la tuya de ayer.',
-    modeGroup: 'Jugar en grupo (2 a 5)',
+    modeGroup: 'Jugar juntos · por turnos',
+    groupTag: 'En equipo, sin competir · para el aula o la familia',
     groupNamesTitle: '¿Quiénes juegan?',
     groupNamesHint: 'Escriban sus nombres (de 2 a 5). Juegan por turnos, pasándose el dispositivo. Nadie compite: al final se enciende la constelación del grupo.',
     playerPh: n => `Jugador/a ${n}`,
@@ -766,6 +788,9 @@ const STR = {
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
     skipIntro: 'Skip ›',
+    introK1: 'Your journey',
+    introK2: 'How to play',
+    introK3: 'What you discover',
     introB1: 'Your journey to discover your purpose',
     introB1sub: 'Not a competition · nobody wins, you discover yourself',
     introB2: 'Travel 6 islands and choose what YOU would do',
@@ -819,7 +844,8 @@ const STR = {
     memorialLogoAlt: 'Gabby’s Place Foundation',
     soloBadge: 'Personal exploration · No competing',
     soloNote: 'This journey is yours: you compete with no one here. The only star to outshine is your own from yesterday.',
-    modeGroup: 'Play as a group (2 to 5)',
+    modeGroup: 'Play together · by turns',
+    groupTag: 'As a team, no competing · for classroom or family',
     groupNamesTitle: 'Who is playing?',
     groupNamesHint: 'Write your names (2 to 5). You take turns passing the device. Nobody competes: at the end, the group constellation lights up.',
     playerPh: n => `Player ${n}`,
@@ -883,6 +909,9 @@ const STR = {
     yourName: 'Seu nome (se quiser)',
     play: 'Começar a viagem!',
     skipIntro: 'Pular ›',
+    introK1: 'Sua viagem',
+    introK2: 'Como se joga',
+    introK3: 'O que você descobre',
     introB1: 'Sua jornada para descobrir seu propósito',
     introB1sub: 'Não é uma competição · ninguém ganha, você se descobre',
     introB2: 'Você viaja por 6 ilhas e escolhe o que VOCÊ faria',
@@ -936,7 +965,8 @@ const STR = {
     memorialLogoAlt: 'Fundação Gabby’s Place',
     soloBadge: 'Exploração pessoal · Sem competição',
     soloNote: 'Esta viagem é sua: aqui não se compete com ninguém. A única estrela a superar é a sua de ontem.',
-    modeGroup: 'Jogar em grupo (2 a 5)',
+    modeGroup: 'Jogar juntos · por turnos',
+    groupTag: 'Em equipe, sem competir · para a turma ou a família',
     groupNamesTitle: 'Quem vai jogar?',
     groupNamesHint: 'Escrevam seus nomes (de 2 a 5). Vocês jogam por turnos, passando o dispositivo. Ninguém compete: no final, a constelação do grupo se acende.',
     playerPh: n => `Jogador(a) ${n}`,
@@ -1850,7 +1880,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <label class="name-label" for="name-input">${t('yourName')}</label>
         <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
         <button type="button" id="btn-start" class="btn btn-big">${t('play')}</button>
-        <button type="button" id="btn-group" class="btn btn-soft group-btn">👥 ${t('modeGroup')}</button>
+        <button type="button" id="btn-group" class="btn btn-soft group-btn">🤝 ${t('modeGroup')}</button>
+        <p class="group-tag">${t('groupTag')}</p>
         <div class="lang-switch" role="group" aria-label="Idioma · Language">
           ${L.LANGS.map(lg => `<button type="button" class="lang-btn ${lg === state.lang ? 'active' : ''}"
             data-lang="${lg}" lang="${lg}" aria-pressed="${lg === state.lang}">${{ es: 'Español', en: 'English', pt: 'Português' }[lg]}</button>`).join('')}
@@ -2693,38 +2724,66 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     return { intro, finish };
   }
 
+  // Constelación-progreso: en vez de puntitos de carrusel, cada momento enciende una
+  // estrella y una línea dorada la une con la anterior — la MISMA firma que el resultado
+  // del juego ("tus elecciones encienden tu constelación"), anticipada en la intro.
+  function introConstellationSVG(n) {
+    // 3 nodos en un arco suave (viewBox 100×26). Mismos colores que constellationSVG().
+    const P = [{ x: 20, y: 17 }, { x: 50, y: 8 }, { x: 80, y: 16 }].slice(0, n);
+    const lines = P.slice(1).map((b, i) => {
+      const a = P[i];
+      return `<line class="cline" data-line="${i}" pathLength="1" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"
+        stroke="url(#iline)" stroke-width="0.9" stroke-linecap="round"/>`;
+    }).join('');
+    const nodes = P.map((p, i) => `<g class="cnode" data-node="${i}">
+        <circle cx="${p.x}" cy="${p.y}" r="6" fill="#ffce4f" opacity=".18"/>
+        <circle cx="${p.x}" cy="${p.y}" r="3.4" fill="#ffe9a3" opacity=".32"/>
+        <circle cx="${p.x}" cy="${p.y}" r="1.9" fill="#fff7dd"/>
+      </g>`).join('');
+    return `<svg class="intro-const" viewBox="0 0 100 26" role="img" aria-hidden="true" focusable="false">
+      <defs><linearGradient id="iline" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffe9a3"/><stop offset="100%" stop-color="#ffb347"/></linearGradient></defs>
+      ${lines}${nodes}</svg>`;
+  }
+
   // Intro nativa: sucede sobre el MISMO cielo del juego (#sky se ve por detrás, overlay
-  // transparente). Sin video, sin marcas externas. 3 momentos: el porqué (no es competencia),
-  // cómo se juega, qué aprendés. Skippable y con avance por toque.
+  // transparente). Sin video, sin marcas externas. 3 momentos con eyebrow (tu viaje /
+  // cómo se juega / qué descubrís), y una constelación que se va dibujando sola como
+  // progreso. Skippable y con avance por toque.
   function playIntroScene() {
     const { intro, finish } = makeIntroShell();
     const beats = [
-      { line: t('introB1'), sub: t('introB1sub') },
-      { line: t('introB2'), sub: t('introB2sub') },
-      { line: t('introB3'), sub: '' },
+      { kicker: t('introK1'), line: t('introB1'), sub: t('introB1sub') },
+      { kicker: t('introK2'), line: t('introB2'), sub: t('introB2sub') },
+      { kicker: t('introK3'), line: t('introB3'), sub: '' },
     ];
     intro.innerHTML = `
       <div class="intro-scene" aria-hidden="true">
+        <div class="intro-halo"></div>
         <div class="intro-star float">${sparkArt('happy', 120)}</div>
         <div class="intro-beats">
           ${beats.map((b, i) => `
             <div class="intro-beat" data-beat="${i}">
+              <p class="intro-kicker">${esc(b.kicker)}</p>
               <p class="intro-beat-line">${esc(b.line)}</p>
               ${b.sub ? `<p class="intro-beat-sub">${esc(b.sub)}</p>` : ''}
             </div>`).join('')}
         </div>
-        <div class="intro-dots">${beats.map((_, i) => `<span data-dot="${i}"></span>`).join('')}</div>
+        ${introConstellationSVG(beats.length)}
       </div>
       <button type="button" id="intro-skip">${t('skipIntro')}</button>`;
 
     const beatEls = intro.querySelectorAll('.intro-beat');
-    const dotEls = intro.querySelectorAll('[data-dot]');
+    const nodeEls = intro.querySelectorAll('.cnode');
+    const lineEls = intro.querySelectorAll('.cline');
     const HOLD = 2800;
     let idx = -1, timer = null;
     function show(i) {
       idx = i;
       beatEls.forEach((el, k) => el.classList.toggle('on', k === i));
-      dotEls.forEach((el, k) => el.classList.toggle('on', k === i));
+      // La constelación crece: se encienden los nodos 0..i y se dibujan las líneas 0..i-1
+      nodeEls.forEach((el, k) => el.classList.toggle('lit', k <= i));
+      lineEls.forEach((el, k) => el.classList.toggle('drawn', k < i));
     }
     function advance() {
       if (idx + 1 >= beats.length) { finish(); return; }
