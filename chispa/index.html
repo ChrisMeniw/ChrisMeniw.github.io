@@ -450,31 +450,17 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 }
 
 /* ---------- Intro cinemática ---------- */
+/* Mientras corre la intro, el juego se oculta para que detrás del overlay
+   transparente solo se vea el cielo animado (#sky) — el mismo fondo del juego. */
+#app.intro-hidden{visibility:hidden}
 #intro{
   position:fixed; inset:0; z-index:50; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:6px;
-  background:
-    radial-gradient(1.5px 1.5px at 16% 22%,#fff8 50%,transparent 51%),
-    radial-gradient(1px 1px at 34% 10%,#fff6 50%,transparent 51%),
-    radial-gradient(2px 2px at 52% 30%,#ffce4f77 50%,transparent 51%),
-    radial-gradient(1.5px 1.5px at 70% 14%,#fff7 50%,transparent 51%),
-    radial-gradient(1px 1px at 86% 26%,#fff5 50%,transparent 51%),
-    radial-gradient(1.5px 1.5px at 10% 52%,#fff6 50%,transparent 51%),
-    radial-gradient(1px 1px at 90% 48%,#ff8fb155 50%,transparent 51%),
-    radial-gradient(900px 600px at 50% 30%, #45358c66 0%, transparent 60%),
-    linear-gradient(180deg,#221a4d 0%,#0f0c24 100%);
+  align-items:center; justify-content:center; gap:6px; cursor:pointer;
+  /* Transparente: se ve el MISMO cielo animado del juego (#sky). Solo una viñeta
+     tenue para que el texto dorado se lea sobre las estrellas. */
+  background:radial-gradient(120% 90% at 50% 42%, #0f0c2400 0%, #0f0c2455 60%, #0f0c24aa 100%);
   animation:introBg .6s ease-out;
 }
-.intro-star{animation:introStar 1.5s cubic-bezier(.2,1.3,.4,1) both; filter:drop-shadow(0 0 34px #ffd35e88)}
-.intro-title{
-  font-family:var(--display); font-weight:700; font-size:4rem; letter-spacing:2px;
-  background:linear-gradient(110deg,var(--gold2) 0%,var(--gold1) 28%,#fff8e0 40%,var(--gold2) 52%,var(--gold3) 100%);
-  background-size:230% 100%;
-  animation:introTitle .7s cubic-bezier(.2,1.5,.4,1) 1.1s both, shine 3.2s ease-in-out 1.9s infinite;
-  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 4px 18px #ffb34766);
-}
-.intro-sub{color:var(--gold1); letter-spacing:12px; font-size:1rem; opacity:.8; animation:introTitle .6s ease-out 1.6s both}
 #intro-skip{
   position:absolute; bottom:26px; right:26px; font-family:inherit; font-size:.9rem;
   color:var(--muted); background:#ffffff10; border:1px solid #ffffff22; border-radius:12px;
@@ -516,25 +502,29 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   background:#241d52; border:1.5px solid #6c5ce766;
 }
 
-/* ---------- Intro narrativa ---------- */
-.intro-scene{position:relative; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center}
-.intro-islands{position:absolute; bottom:0; left:0; width:100%; height:26vh; min-height:120px; animation:introTitle .8s ease-out .2s both}
-.intro-star{position:relative; z-index:2}
-.intro-line{
-  position:relative; z-index:2; font-family:var(--display); text-align:center;
-  font-size:1.45rem; line-height:1.3; color:var(--text); max-width:22ch;
-  text-shadow:0 2px 14px #000a; margin-top:10px; opacity:0;
+/* ---------- Intro narrativa (3 momentos sobre el cielo del juego) ---------- */
+.intro-scene{position:relative; width:100%; max-width:560px; padding:0 26px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px}
+.intro-star{position:relative; z-index:2; filter:drop-shadow(0 0 34px #ffd35e88); animation:introStar 1.4s cubic-bezier(.2,1.3,.4,1) both}
+.intro-beats{position:relative; z-index:2; width:100%; min-height:150px; display:grid}
+.intro-beat{
+  grid-area:1/1; display:flex; flex-direction:column; align-items:center; gap:12px;
+  text-align:center; opacity:0; transform:translateY(12px);
+  transition:opacity .55s ease, transform .55s ease; pointer-events:none;
 }
-.intro-line.l1{animation:lineIn 1.2s ease-out .5s both}
-.intro-line.l2{animation:lineIn 1.2s ease-out 2.0s both; color:var(--gold1)}
-.intro-line.l3{animation:lineIn 1.3s ease-out 3.5s both; font-size:1.7rem;
+.intro-beat.on{opacity:1; transform:none}
+.intro-beat-line{
+  font-family:var(--display); font-weight:700; font-size:1.7rem; line-height:1.28; color:var(--text);
+  max-width:20ch; text-shadow:0 2px 18px #000c;
+}
+.intro-beat-sub{
+  font-family:var(--display); font-size:1.05rem; line-height:1.35; max-width:26ch;
   background:linear-gradient(110deg,var(--gold1),#fff8e0 45%,var(--gold2));
-  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
-@keyframes lineIn{0%{opacity:0; transform:translateY(14px)}18%,82%{opacity:1; transform:none}100%{opacity:1}}
-
-/* ---------- Intro de video ---------- */
-.intro-video{background:#000}
-#intro-vid{width:100%; height:100%; object-fit:contain; background:#000}
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow:0 2px 12px #0007;
+}
+.intro-dots{position:relative; z-index:2; display:flex; gap:9px}
+.intro-dots span{width:8px; height:8px; border-radius:50%; background:#ffffff30; transition:background .4s, transform .4s}
+.intro-dots span.on{background:var(--gold2); transform:scale(1.3)}
 
 /* ---------- Partículas de celebración ---------- */
 .burst-particles{position:absolute; inset:0; pointer-events:none}
@@ -658,10 +648,12 @@ const STR = {
     subtitle: 'Un viaje para descubrir tu propósito',
     yourName: 'Tu nombre (si quieres)',
     play: '¡Comenzar el viaje!',
-    skipIntro: 'Saltar intro ›',
-    introLine1: 'Hay seis islas que guardan un secreto…',
-    introLine2: 'Cada elección tuya enciende una estrella',
-    introLine3: 'Descubre tu propósito',
+    skipIntro: 'Saltar ›',
+    introB1: 'Tu viaje para descubrir tu propósito',
+    introB1sub: 'No es una competencia · nadie gana, te descubrís vos',
+    introB2: 'Viajás por 6 islas y elegís lo que harías TÚ',
+    introB2sub: 'No hay respuestas correctas',
+    introB3: 'Tus elecciones encienden tu constelación: tu propósito, tus superpoderes y una carta a tu yo futuro',
     missionTitle: 'Cómo jugar',
     goalLabel: 'El objetivo',
     goalText: 'Descubrir tu propósito: eso que amas hacer… y que el mundo necesita.',
@@ -773,10 +765,12 @@ const STR = {
     subtitle: 'A journey to discover your purpose',
     yourName: 'Your name (if you want)',
     play: 'Start the journey!',
-    skipIntro: 'Skip intro ›',
-    introLine1: 'Six islands hold a secret…',
-    introLine2: 'Every choice you make lights up a star',
-    introLine3: 'Discover your purpose',
+    skipIntro: 'Skip ›',
+    introB1: 'Your journey to discover your purpose',
+    introB1sub: 'Not a competition · nobody wins, you discover yourself',
+    introB2: 'Travel 6 islands and choose what YOU would do',
+    introB2sub: 'There are no right answers',
+    introB3: 'Your choices light your constellation: your purpose, your superpowers and a letter to your future self',
     missionTitle: 'How to play',
     goalLabel: 'The goal',
     goalText: 'Discover your purpose: what you love to do… and what the world needs.',
@@ -888,10 +882,12 @@ const STR = {
     subtitle: 'Uma viagem para descobrir o seu propósito',
     yourName: 'Seu nome (se quiser)',
     play: 'Começar a viagem!',
-    skipIntro: 'Pular intro ›',
-    introLine1: 'Seis ilhas guardam um segredo…',
-    introLine2: 'Cada escolha sua acende uma estrela',
-    introLine3: 'Descubra o seu propósito',
+    skipIntro: 'Pular ›',
+    introB1: 'Sua jornada para descobrir seu propósito',
+    introB1sub: 'Não é uma competição · ninguém ganha, você se descobre',
+    introB2: 'Você viaja por 6 ilhas e escolhe o que VOCÊ faria',
+    introB2sub: 'Não há respostas certas',
+    introB3: 'Suas escolhas acendem sua constelação: seu propósito, seus superpoderes e uma carta ao seu eu futuro',
     missionTitle: 'Como jogar',
     goalLabel: 'O objetivo',
     goalText: 'Descobrir o seu propósito: o que você ama fazer… e que o mundo precisa.',
@@ -2676,62 +2672,77 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     };
   })();
 
-  /* ---------- Intro: video real (online) o escena narrativa animada (offline) ---------- */
+  /* ---------- Intro: escena nativa sobre el propio cielo del juego (sin video externo) ---------- */
   function makeIntroShell() {
     const intro = document.createElement('div');
     intro.id = 'intro';
     intro.setAttribute('role', 'dialog');
     intro.setAttribute('aria-label', 'Spark');
     document.body.appendChild(intro);
+    // Ocultamos el contenido del juego durante la intro: así detrás del overlay
+    // transparente se ve SOLO el cielo animado (#sky), el mismo fondo que el juego.
+    app.classList.add('intro-hidden');
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
       intro.classList.add('intro-out');
+      app.classList.remove('intro-hidden');
       setTimeout(() => { intro.remove(); const h = app.querySelector('h1, h2'); if (h) h.focus(); }, 420);
     };
     return { intro, finish };
   }
 
-  function playVideoIntro(finishTimeoutMs) {
+  // Intro nativa: sucede sobre el MISMO cielo del juego (#sky se ve por detrás, overlay
+  // transparente). Sin video, sin marcas externas. 3 momentos: el porqué (no es competencia),
+  // cómo se juega, qué aprendés. Skippable y con avance por toque.
+  function playIntroScene() {
     const { intro, finish } = makeIntroShell();
-    intro.classList.add('intro-video');
-    intro.innerHTML = `
-      <video id="intro-vid" src="intro.mp4" autoplay muted playsinline preload="auto"></video>
-      <button type="button" id="intro-skip">${t('skipIntro')}</button>`;
-    const vid = intro.querySelector('#intro-vid');
-    vid.addEventListener('ended', finish);
-    vid.addEventListener('error', finish);
-    intro.querySelector('#intro-skip').addEventListener('click', finish);
-    setTimeout(finish, finishTimeoutMs);
-  }
-
-  function playAnimatedIntro() {
-    const { intro, finish } = makeIntroShell();
+    const beats = [
+      { line: t('introB1'), sub: t('introB1sub') },
+      { line: t('introB2'), sub: t('introB2sub') },
+      { line: t('introB3'), sub: '' },
+    ];
     intro.innerHTML = `
       <div class="intro-scene" aria-hidden="true">
-        <div class="intro-star">${sparkArt('happy', 130)}</div>
-        <svg class="intro-islands" viewBox="0 0 390 120" preserveAspectRatio="xMidYMax slice">
-          <rect x="0" y="78" width="390" height="42" fill="#100d26"/>
-          <path d="M0 84 Q30 76 60 84 Q95 92 130 84 Q165 76 200 84 Q235 92 270 84 Q305 76 340 84 Q365 90 390 84 L390 120 L0 120 Z" fill="#1a1538"/>
-          <g fill="#241d4e">
-            <path d="M20 84 Q38 58 56 84 Z"/><path d="M84 86 Q100 66 116 86 Z"/>
-            <path d="M150 84 Q170 54 190 84 Z"/><path d="M222 86 Q238 68 254 86 Z"/>
-            <path d="M284 84 Q304 58 324 84 Z"/><path d="M348 86 Q362 70 376 86 Z"/>
-          </g>
-          <g fill="#ffce4f" opacity=".9">
-            <circle cx="38" cy="70" r="1.6"/><circle cx="100" cy="76" r="1.3"/><circle cx="170" cy="66" r="1.6"/>
-            <circle cx="238" cy="76" r="1.3"/><circle cx="304" cy="70" r="1.6"/><circle cx="362" cy="78" r="1.2"/>
-          </g>
-        </svg>
-        <p class="intro-line l1">${t('introLine1')}</p>
-        <p class="intro-line l2">${t('introLine2')}</p>
-        <p class="intro-line l3">${t('introLine3')}</p>
+        <div class="intro-star float">${sparkArt('happy', 120)}</div>
+        <div class="intro-beats">
+          ${beats.map((b, i) => `
+            <div class="intro-beat" data-beat="${i}">
+              <p class="intro-beat-line">${esc(b.line)}</p>
+              ${b.sub ? `<p class="intro-beat-sub">${esc(b.sub)}</p>` : ''}
+            </div>`).join('')}
+        </div>
+        <div class="intro-dots">${beats.map((_, i) => `<span data-dot="${i}"></span>`).join('')}</div>
       </div>
       <button type="button" id="intro-skip">${t('skipIntro')}</button>`;
-    intro.querySelector('#intro-skip').addEventListener('click', finish);
-    intro.addEventListener('click', e => { if (e.target === intro) finish(); });
-    setTimeout(finish, 5600);
+
+    const beatEls = intro.querySelectorAll('.intro-beat');
+    const dotEls = intro.querySelectorAll('[data-dot]');
+    const HOLD = 2800;
+    let idx = -1, timer = null;
+    function show(i) {
+      idx = i;
+      beatEls.forEach((el, k) => el.classList.toggle('on', k === i));
+      dotEls.forEach((el, k) => el.classList.toggle('on', k === i));
+    }
+    function advance() {
+      if (idx + 1 >= beats.length) { finish(); return; }
+      show(idx + 1);
+      timer = setTimeout(advance, HOLD);
+    }
+    show(0);
+    timer = setTimeout(advance, HOLD);
+    // Un toque en la escena adelanta al próximo momento (o entra al juego en el último)
+    intro.addEventListener('click', e => {
+      if (e.target.closest('#intro-skip')) return;
+      clearTimeout(timer);
+      if (idx + 1 >= beats.length) finish();
+      else { show(idx + 1); timer = setTimeout(advance, HOLD); }
+    });
+    intro.querySelector('#intro-skip').addEventListener('click', e => {
+      e.stopPropagation(); clearTimeout(timer); finish();
+    });
   }
 
   function playIntro() {
@@ -2742,18 +2753,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     try { seen = localStorage.getItem('spark-intro-seen'); } catch (e) { /* sin storage */ }
     if (seen) return;
     try { localStorage.setItem('spark-intro-seen', '1'); } catch (e) { /* sin storage */ }
-    // Si el host sirve intro.mp4 (versión online), usamos el video real
-    if (location.protocol.indexOf('http') === 0 && typeof window.fetch === 'function') {
-      fetch('intro.mp4', { method: 'HEAD' })
-        .then(r => {
-          const ct = r.headers.get('content-type') || '';
-          if (r.ok && ct.indexOf('video') === 0) playVideoIntro(45000);
-          else playAnimatedIntro();
-        })
-        .catch(playAnimatedIntro);
-    } else {
-      playAnimatedIntro();
-    }
+    playIntroScene();
   }
 
   /* ---------- Inicio ---------- */
