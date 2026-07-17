@@ -210,6 +210,28 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 }
 .age-btn:not(.active):hover{color:var(--text)}
 .age-hint{font-size:.9rem; color:var(--muted); margin:9px 0 20px; min-height:1.1em}
+/* "Tu cielo": bitácora personal que crece entre partidas */
+.sky-card{
+  width:min(340px,100%); margin:2px auto 20px; padding:14px 16px 12px;
+  background:var(--card-inner); border:1px solid #ffce4f33; border-radius:18px;
+  box-shadow:0 2px 14px -6px #ffb34733, 0 1px 0 #fff1 inset;
+}
+.sky-card-title{
+  font-size:.9rem; font-weight:700; color:var(--gold2); letter-spacing:.3px; margin:0 0 8px;
+}
+.sky-mini{display:block; width:100%; height:auto; margin:0 auto 8px}
+.sky-bright{font-size:.92rem; color:var(--text); margin:2px 0 4px}
+.sky-bright strong{color:var(--gold2)}
+.sky-grows{font-size:.82rem; color:var(--muted); margin:0}
+/* En el resultado: estrella sumada al cielo + cielo completo */
+.sky-added{
+  font-size:.92rem; color:var(--gold2); text-align:center; margin:10px 0 0; font-weight:600;
+}
+.all-six{
+  display:inline-block; font-size:.86rem; color:var(--gold2); letter-spacing:.3px;
+  background:#ffce4f14; border:1px solid #ffce4f44; border-radius:999px;
+  padding:6px 14px; margin:12px 0 0;
+}
 
 /* ---------- Botones ---------- */
 .btn{
@@ -739,6 +761,12 @@ const STR = {
     ageTeen: '13 a 16',
     ageKidHint: 'Retos jugados, para descubrir jugando.',
     ageTeenHint: 'Retos más reales, a la altura de tu edad.',
+    skyTitle: 'Tu cielo',
+    skyGrows: 'Cada vez que jugás, tu cielo crece. Volvé cuando quieras.',
+    skyBrightest: 'Tu estrella que más brilla',
+    skyAdded: '✨ Sumaste una estrella a tu cielo',
+    skyCountFn: n => n === 1 ? '1 viaje' : `${n} viajes`,
+    allSixBadge: '🌌 Cielo completo · recorriste las 6 islas',
     mapTitle: 'El mar de las islas',
     mapHint: 'Elige una isla para visitar. Tú decides el camino.',
     visited: 'visitada',
@@ -846,6 +874,12 @@ const STR = {
     ageTeen: '13 to 16',
     ageKidHint: 'Playful challenges, to discover by playing.',
     ageTeenHint: 'More real challenges, right for your age.',
+    skyTitle: 'Your sky',
+    skyGrows: 'Every time you play, your sky grows. Come back whenever you like.',
+    skyBrightest: 'Your brightest star',
+    skyAdded: '✨ You added a star to your sky',
+    skyCountFn: n => n === 1 ? '1 journey' : `${n} journeys`,
+    allSixBadge: '🌌 Full sky · you explored all 6 islands',
     soloNote: 'This journey is yours: you compete with no one here. The only star to outshine is your own from yesterday.',
     mapTitle: 'The sea of islands',
     mapHint: 'Pick an island to visit. You choose the path.',
@@ -954,6 +988,12 @@ const STR = {
     ageTeen: '13 a 16',
     ageKidHint: 'Desafios divertidos, para descobrir brincando.',
     ageTeenHint: 'Desafios mais reais, à altura da sua idade.',
+    skyTitle: 'Seu céu',
+    skyGrows: 'Cada vez que você joga, seu céu cresce. Volte quando quiser.',
+    skyBrightest: 'Sua estrela que mais brilha',
+    skyAdded: '✨ Você somou uma estrela ao seu céu',
+    skyCountFn: n => n === 1 ? '1 viagem' : `${n} viagens`,
+    allSixBadge: '🌌 Céu completo · você percorreu as 6 ilhas',
     soloNote: 'Esta viagem é sua: aqui não se compete com ninguém. A única estrela a superar é a sua de ontem.',
     mapTitle: 'O mar das ilhas',
     mapHint: 'Escolha uma ilha para visitar. Você decide o caminho.',
@@ -1703,6 +1743,51 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       return v === 'teen' || v === 'kid' ? v : 'kid';
     } catch (e) { return 'kid'; }
   }
+  /* ---------- "Tu cielo": colección personal que crece con cada viaje (local, sin competir) ---------- */
+  const SKY_CAP = 24; // guardamos hasta 24 viajes; el cielo no es un ranking, es una bitácora
+  function loadSky() {
+    try {
+      const raw = JSON.parse(localStorage.getItem('spark-sky') || '[]');
+      return Array.isArray(raw) ? raw.filter(r => r && L.DIMS.includes(r.top)) : [];
+    } catch (e) { return []; }
+  }
+  function pushSky(rec) {
+    try {
+      const sky = loadSky();
+      sky.push(rec);
+      localStorage.setItem('spark-sky', JSON.stringify(sky.slice(-SKY_CAP)));
+      return sky.length;
+    } catch (e) { return 0; }
+  }
+  // La estrella que más se repite en el cielo = el don que más brilla en el chico
+  function brightestDim(sky) {
+    if (!sky.length) return null;
+    const tally = {};
+    for (const r of sky) tally[r.top] = (tally[r.top] || 0) + 1;
+    return Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+  }
+  // Mini-cielo: una estrella por viaje, unidas por hilos dorados (mismos tokens que el resultado)
+  function skyMiniSVG(n) {
+    const count = Math.min(n, 12);
+    const pts = [];
+    for (let i = 0; i < count; i++) {
+      const x = 6 + (i / Math.max(1, count - 1)) * 88;
+      const y = 13 + Math.sin(i * 1.7) * 7;
+      pts.push({ x, y: count === 1 ? 13 : y });
+    }
+    const lines = pts.slice(1).map((b, i) => {
+      const a = pts[i];
+      return `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="url(#skyline)" stroke-width="0.7" stroke-linecap="round" opacity=".55"/>`;
+    }).join('');
+    const dots = pts.map((p, i) => `<g>
+        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="#ffce4f" opacity=".16"/>
+        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="1.7" fill="#fff7dd"/>
+      </g>`).join('');
+    return `<svg class="sky-mini" viewBox="0 0 100 26" role="img" aria-hidden="true" focusable="false">
+      <defs><linearGradient id="skyline" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#ffe9a3"/><stop offset="100%" stop-color="#ffb347"/></linearGradient></defs>
+      ${lines}${dots}</svg>`;
+  }
   const state = {
     lang: savedLang(),
     age: savedAge(),        // 'kid' (6–12) | 'teen' (13–16): adapta el plan de entrenamiento
@@ -1955,6 +2040,18 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <h1 class="game-title">${t('title')}</h1>
         <p class="subtitle">${t('subtitle')}</p>
         <p class="solo-badge">🧭 ${t('soloBadge')}</p>
+        ${(() => {
+          const sky = loadSky();
+          if (!sky.length) return '';
+          const bd = brightestDim(sky);
+          const bright = bd ? L.PROFILES[bd].starName[state.lang] : '';
+          return `<section class="sky-card" aria-label="${t('skyTitle')}">
+            <p class="sky-card-title">🌌 ${t('skyTitle')} · ${t('skyCountFn')(sky.length)}</p>
+            ${skyMiniSVG(sky.length)}
+            ${sky.length >= 2 && bright ? `<p class="sky-bright">${t('skyBrightest')}: <strong>${bright}</strong></p>` : ''}
+            <p class="sky-grows">${t('skyGrows')}</p>
+          </section>`;
+        })()}
         <label class="name-label" for="name-input">${t('yourName')}</label>
         <input id="name-input" class="name-input" type="text" maxlength="24" autocomplete="off" value="${esc(state.name)}">
         <p class="age-label">${t('agePrompt')}</p>
@@ -2389,6 +2486,17 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const purpose = L.computePurpose(state.scores);
     const data = L.constellationData(state.scores);
     const topP = L.PROFILES[purpose.top], secP = L.PROFILES[purpose.second];
+    const all6 = state.visited.length === L.ISLANDS.length; // recorrió el mapa entero
+    // Se guarda UN viaje por partida en "tu cielo" (bitácora local, no puntaje)
+    let skyTotal = 0;
+    if (!state.skySaved) {
+      state.skySaved = true;
+      const d = new Date();
+      const stamp = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      skyTotal = pushSky({ d: stamp, top: purpose.top, second: purpose.second, all6 });
+    } else {
+      skyTotal = loadSky().length;
+    }
     // Con nombre, el título va en minúscula tras la coma: "Luna, tu constelación"
     const rawTitle = t('constTitle');
     const title = state.name ? rawTitle.charAt(0).toLowerCase() + rawTitle.slice(1) : rawTitle;
@@ -2415,6 +2523,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       <div class="card">
         <h1>${who}${title} ✨</h1>
         ${constellationSVG(data, purpose, false)}
+        ${all6 ? `<p class="all-six reveal" style="animation-delay:1s">${t('allSixBadge')}</p>` : ''}
+        <p class="sky-added reveal" style="animation-delay:1.1s">${t('skyAdded')} · ${t('skyCountFn')(skyTotal)}</p>
 
         <p class="mission-label reveal" style="animation-delay:1.2s">🧭 ${t('purposeLabel')}</p>
         <div class="purpose-card reveal" style="animation-delay:1.35s">
