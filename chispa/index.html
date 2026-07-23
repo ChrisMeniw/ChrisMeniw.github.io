@@ -762,7 +762,10 @@ const STR = {
     ageKidHint: 'Retos jugados, para descubrir jugando.',
     ageTeenHint: 'Retos más reales, a la altura de tu edad.',
     skyTitle: 'Tu cielo',
-    skyGrows: 'Cada vez que jugás, tu cielo crece. Volvé cuando quieras.',
+    skyStreak: (n, star) => `Hace ${n} viajes seguidos que brilla tu ${star || ''}.`.replace(' .', '.'),
+    skyFull: n => n === 1 ? 'Ya completaste el mapa entero una vez. 🌍' : `Ya completaste el mapa entero ${n} veces. 🌍`,
+    skyVariety: n => `Tu cielo ya reúne ${n} dones distintos.`,
+    skyKeepGoing: n => n <= 1 ? 'Tu primera estrella ya brilla. Volvé y sumá la próxima.' : `Llevás ${n} estrellas. Seguí sumando y mirá cómo cambia tu cielo.`,
     skyBrightest: 'Tu estrella que más brilla',
     skyAdded: '✨ Sumaste una estrella a tu cielo',
     skyCountFn: n => n === 1 ? '1 viaje' : `${n} viajes`,
@@ -875,7 +878,10 @@ const STR = {
     ageKidHint: 'Playful challenges, to discover by playing.',
     ageTeenHint: 'More real challenges, right for your age.',
     skyTitle: 'Your sky',
-    skyGrows: 'Every time you play, your sky grows. Come back whenever you like.',
+    skyStreak: (n, star) => `Your ${star || ''} has been shining ${n} journeys in a row.`.replace('Your  ', 'Your star '),
+    skyFull: n => n === 1 ? 'You’ve completed the whole map once. 🌍' : `You’ve completed the whole map ${n} times. 🌍`,
+    skyVariety: n => `Your sky already holds ${n} different gifts.`,
+    skyKeepGoing: n => n <= 1 ? 'Your first star is shining. Come back and add the next one.' : `You have ${n} stars. Keep adding and watch your sky change.`,
     skyBrightest: 'Your brightest star',
     skyAdded: '✨ You added a star to your sky',
     skyCountFn: n => n === 1 ? '1 journey' : `${n} journeys`,
@@ -989,7 +995,10 @@ const STR = {
     ageKidHint: 'Desafios divertidos, para descobrir brincando.',
     ageTeenHint: 'Desafios mais reais, à altura da sua idade.',
     skyTitle: 'Seu céu',
-    skyGrows: 'Cada vez que você joga, seu céu cresce. Volte quando quiser.',
+    skyStreak: (n, star) => `Faz ${n} viagens seguidas que a sua ${star || ''} brilha.`.replace(' sua  brilha', 'sua estrela brilha'),
+    skyFull: n => n === 1 ? 'Você já completou o mapa inteiro uma vez. 🌍' : `Você já completou o mapa inteiro ${n} vezes. 🌍`,
+    skyVariety: n => `Seu céu já reúne ${n} dons diferentes.`,
+    skyKeepGoing: n => n <= 1 ? 'Sua primeira estrela já brilha. Volte e some a próxima.' : `Você tem ${n} estrelas. Continue somando e veja seu céu mudar.`,
     skyBrightest: 'Sua estrela que mais brilha',
     skyAdded: '✨ Você somou uma estrela ao seu céu',
     skyCountFn: n => n === 1 ? '1 viagem' : `${n} viagens`,
@@ -1766,6 +1775,19 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     for (const r of sky) tally[r.top] = (tally[r.top] || 0) + 1;
     return Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
   }
+  // Micro-historia del cielo: elige el hito de progreso más significativo (sin competir)
+  function skyStory(sky) {
+    const n = sky.length;
+    if (!n) return '';
+    let streak = 1;
+    for (let i = n - 2; i >= 0; i--) { if (sky[i].top === sky[n - 1].top) streak++; else break; }
+    const distinct = new Set(sky.map(r => r.top)).size;
+    const full = sky.filter(r => r.all6).length;
+    if (streak >= 2) return t('skyStreak')(streak, L.PROFILES[sky[n - 1].top].starName[state.lang]);
+    if (full >= 1) return t('skyFull')(full);
+    if (distinct >= 3) return t('skyVariety')(distinct);
+    return t('skyKeepGoing')(n);
+  }
   // Mini-cielo: una estrella por viaje, unidas por hilos dorados (mismos tokens que el resultado)
   function skyMiniSVG(n) {
     const count = Math.min(n, 12);
@@ -2049,7 +2071,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
             <p class="sky-card-title">🌌 ${t('skyTitle')} · ${t('skyCountFn')(sky.length)}</p>
             ${skyMiniSVG(sky.length)}
             ${sky.length >= 2 && bright ? `<p class="sky-bright">${t('skyBrightest')}: <strong>${bright}</strong></p>` : ''}
-            <p class="sky-grows">${t('skyGrows')}</p>
+            <p class="sky-grows">${skyStory(sky)}</p>
           </section>`;
         })()}
         <label class="name-label" for="name-input">${t('yourName')}</label>
