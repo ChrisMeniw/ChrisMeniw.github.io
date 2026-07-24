@@ -1936,6 +1936,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   const Sound = (function () {
     const AC = window.AudioContext || window.webkitAudioContext;
     let ctx = null, master = null, musicGain = null, enabled = false, musicNodes = [];
+    let melodyTimer = null, melodyStep = 0, unlocked = false;
     // Acorde suave por pantalla/isla (tríadas graves, timbre triángulo)
     const CHORDS = {
       title: [220, 277.18, 329.63], colores: [233.08, 293.66, 349.23],
@@ -1949,14 +1950,29 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       try {
         if (!ctx) {
           ctx = new AC();
-          master = ctx.createGain(); master.gain.value = 0.5; master.connect(ctx.destination);
-          musicGain = ctx.createGain(); musicGain.gain.value = 0.14; musicGain.connect(master);
+          master = ctx.createGain(); master.gain.value = 0.7; master.connect(ctx.destination);
+          musicGain = ctx.createGain(); musicGain.gain.value = 0.22; musicGain.connect(master);
+          // Si el navegador suspende el contexto (autoplay / cambio de pestaña), reanudar.
+          ctx.onstatechange = () => { if (ctx.state === 'suspended' && enabled) ctx.resume().catch(() => {}); };
         }
-        if (ctx.state === 'suspended') ctx.resume();
+        if (ctx.state === 'suspended') ctx.resume().catch(() => {});
         return true;
       } catch (e) { return false; }
     }
+    // Desbloqueo para iOS/Safari: en el PRIMER gesto del usuario se crea/reanuda el
+    // contexto y se reproduce un buffer mudo, condición que iOS exige para oír audio.
+    function unlock() {
+      if (unlocked || !ensure()) return;
+      unlocked = true;
+      try {
+        const buf = ctx.createBuffer(1, 1, 22050);
+        const src = ctx.createBufferSource();
+        src.buffer = buf; src.connect(master); src.start(0);
+      } catch (e) { /* no crítico */ }
+      if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    }
     function stopMusic() {
+      if (melodyTimer) { clearInterval(melodyTimer); melodyTimer = null; }
       for (const n of musicNodes) { try { n.stop ? n.stop() : n.disconnect(); } catch (e) { /* ya detenido */ } }
       musicNodes = [];
     }
@@ -1965,14 +1981,30 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       if (!enabled || !ensure()) return;
       stopMusic();
       const freqs = CHORDS[currentKey] || CHORDS.title;
+      // Pad: tríada grave sostenida (colchón armónico)
       freqs.forEach((f, i) => {
         const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = f / 2;
         o.detune.value = i * 3;
         const g = ctx.createGain(); g.gain.value = 0;
-        g.gain.linearRampToValueAtTime(0.5 / (i + 1), ctx.currentTime + 2.2);
+        g.gain.linearRampToValueAtTime(0.55 / (i + 1), ctx.currentTime + 1.6);
         o.connect(g); g.connect(musicGain); o.start();
         musicNodes.push(o, g);
       });
+      // Melodía: arpegio suave que se repite → se OYE claramente como música
+      melodyStep = 0;
+      const notes = freqs.concat([freqs[0] * 2]); // sube una octava al cerrar la frase
+      melodyTimer = setInterval(() => {
+        if (!enabled || !ctx) return;
+        const f = notes[melodyStep % notes.length];
+        melodyStep++;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        const t0 = ctx.currentTime;
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.06);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.9);
+        o.connect(g); g.connect(musicGain); o.start(t0); o.stop(t0 + 0.95);
+      }, 620);
     }
     function blip(freq, dur, type, vol) {
       if (!enabled || !ensure()) return;
@@ -1984,6 +2016,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     }
     let userSet = false;
     return {
+      unlock,
       toggle() {
         userSet = true;
         enabled = !enabled;
@@ -2006,6 +2039,14 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       arpeggio() { [392, 493.88, 587.33, 783.99, 987.77].forEach((f, i) => setTimeout(() => blip(f, 0.5, 'sine', 0.16), i * 160)); },
       get on() { return enabled; },
     };
+  })();
+
+  // Desbloqueo de audio en el primer gesto (clave en iOS/Safari): prime silencioso.
+  (function () {
+    const prime = () => { Sound.unlock(); };
+    for (const ev of ['pointerdown', 'touchend', 'click', 'keydown']) {
+      document.addEventListener(ev, prime, { once: true, passive: true });
+    }
   })();
 
   function syncSoundBtn() {
