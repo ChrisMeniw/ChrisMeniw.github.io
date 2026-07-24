@@ -258,6 +258,27 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   font-size:.95rem; box-shadow:0 3px 0 #241d52, 0 6px 14px -6px #0008;
 }
 .btn-soft:active{transform:translateY(2px); box-shadow:0 1px 0 #241d52}
+/* Enlace discreto (p. ej. "Cómo se juega" en la portada) */
+.btn-link{
+  display:inline-block; background:none; border:none; cursor:pointer;
+  color:var(--gold2); font-family:inherit; font-size:.95rem; font-weight:600;
+  letter-spacing:.2px; padding:10px 14px; margin-top:10px; min-height:44px;
+  border-radius:12px; text-decoration:none;
+}
+.btn-link:hover{color:var(--gold1); text-decoration:underline}
+.btn-link:focus-visible{outline:2px solid var(--gold2); outline-offset:2px}
+/* Toast: confirmación VISIBLE y efímera de acciones (guardar, imprimir) */
+#toast{
+  position:fixed; left:50%; bottom:84px; transform:translate(-50%,14px);
+  z-index:60; max-width:min(340px,86vw); pointer-events:none;
+  background:linear-gradient(180deg,#2a2358,#211b49); color:var(--text);
+  border:1px solid #ffce4f55; border-radius:14px; padding:12px 18px;
+  font-size:.96rem; font-weight:600; text-align:center;
+  box-shadow:0 10px 30px -8px #000a, 0 0 0 1px #0004;
+  opacity:0; transition:opacity .22s ease, transform .22s ease;
+}
+#toast.show{opacity:1; transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){ #toast{transition:opacity .22s ease} }
 .glow{animation:breathe 2.2s ease-in-out infinite}
 @keyframes breathe{
   0%,100%{box-shadow:0 5px 0 var(--gold-deep), 0 0 18px #ffce4f55}
@@ -782,8 +803,9 @@ const STR = {
     sparkIs: 'Tu chispa brilla fuerte en',
     withTouch: 'con un toque de',
     superpower: 'Tu superpoder',
-    readAloud: 'Leer en voz alta',
-    stopReading: 'Dejar de leer',
+    watchIntro: 'Cómo se juega',
+    letterSaved: '💾 Carta guardada',
+    printFail: 'Tu navegador no permite imprimir acá. Probá con “Guardar carta”.',
     writeLetter: 'Escribir mi carta al futuro',
     letterTitle: 'Carta a tu yo del futuro',
     letterHint: 'Puedes cambiar lo que quieras. Es tuya.',
@@ -899,8 +921,9 @@ const STR = {
     sparkIs: 'Your spark shines bright in',
     withTouch: 'with a touch of',
     superpower: 'Your superpower',
-    readAloud: 'Read aloud',
-    stopReading: 'Stop reading',
+    watchIntro: 'How to play',
+    letterSaved: '💾 Letter saved',
+    printFail: 'Your browser can’t print here. Try “Save letter”.',
     writeLetter: 'Write my letter to the future',
     letterTitle: 'Letter to your future self',
     letterHint: 'Change anything you like. It is yours.',
@@ -1016,8 +1039,9 @@ const STR = {
     sparkIs: 'Sua faísca brilha forte em',
     withTouch: 'com um toque de',
     superpower: 'Seu superpoder',
-    readAloud: 'Ler em voz alta',
-    stopReading: 'Parar de ler',
+    watchIntro: 'Como se joga',
+    letterSaved: '💾 Carta salva',
+    printFail: 'Seu navegador não permite imprimir aqui. Tente “Salvar carta”.',
     writeLetter: 'Escrever minha carta para o futuro',
     letterTitle: 'Carta para o seu eu do futuro',
     letterHint: 'Você pode mudar o que quiser. Ela é sua.',
@@ -1820,7 +1844,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     favorite: null,         // índice de la isla que MÁS le gustó
     current: null,          // índice de isla actual
     scene: 0,
-    speaking: false,
   };
 
   const t = key => L.STR[state.lang][key];
@@ -1994,41 +2017,10 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     b.title = Sound.on ? t('soundOn') : t('soundOff');
   }
 
-  /* ---------- Lectura en voz alta ---------- */
-  function canSpeak() { return typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined'; }
-
-  function speak(text) {
-    if (!canSpeak()) return;
-    if (state.speaking) { window.speechSynthesis.cancel(); state.speaking = false; syncSpeakBtns(); return; }
-    const u = new window.SpeechSynthesisUtterance(text);
-    u.lang = { es: 'es-ES', en: 'en-US', pt: 'pt-BR' }[state.lang];
-    u.rate = 0.95;
-    u.onend = () => { state.speaking = false; syncSpeakBtns(); };
-    state.speaking = true; syncSpeakBtns();
-    window.speechSynthesis.speak(u);
-  }
-
-  function syncSpeakBtns() {
-    for (const b of document.querySelectorAll('[data-speak]')) {
-      b.querySelector('.spk-label').textContent = state.speaking ? t('stopReading') : t('readAloud');
-      b.setAttribute('aria-pressed', state.speaking ? 'true' : 'false');
-    }
-  }
-
-  function speakBtn(getText) {
-    if (!canSpeak()) return '';
-    speakBtn._targets.push(getText);
-    return `<button type="button" class="btn btn-soft" data-speak="${speakBtn._targets.length - 1}" aria-pressed="false">🔊 <span class="spk-label">${t('readAloud')}</span></button>`;
-  }
-  speakBtn._targets = [];
-
   /* ---------- Utilidades ---------- */
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
   function render(html, screenName) {
-    speakBtn._targets = [];
-    if (canSpeak()) window.speechSynthesis.cancel();
-    state.speaking = false;
     app.innerHTML = html;
     app.dataset.screen = screenName;
     syncSoundBtn();
@@ -2036,9 +2028,27 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
   }
 
+  // Aviso invisible para lectores de pantalla (accesibilidad)
   function announce(msg) {
     const live = document.getElementById('live');
     if (live) live.textContent = msg;
+  }
+
+  // Aviso VISIBLE y efímero: que ninguna acción (guardar, imprimir) falle en silencio
+  let toastTimer = null;
+  function toast(msg) {
+    announce(msg);
+    let el = document.getElementById('toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'toast';
+      el.setAttribute('role', 'status');
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
   }
 
   function download(filename, text) {
@@ -2083,6 +2093,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         </div>
         <p class="age-hint" id="age-hint">${t(state.age === 'teen' ? 'ageTeenHint' : 'ageKidHint')}</p>
         <button type="button" id="btn-start" class="btn btn-big">${t('play')}</button>
+        <button type="button" id="btn-how" class="btn-link">▶ ${t('watchIntro')}</button>
         <div class="lang-switch" role="group" aria-label="Idioma · Language">
           ${L.LANGS.map(lg => `<button type="button" class="lang-btn ${lg === state.lang ? 'active' : ''}"
             data-lang="${lg}" lang="${lg}" aria-pressed="${lg === state.lang}">${{ es: 'Español', en: 'English', pt: 'Português' }[lg]}</button>`).join('')}
@@ -2106,6 +2117,8 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       Sound.autoStart();
       screenMission();
     });
+    // "Cómo se juega": reproduce la intro cinemática cuando el jugador quiera
+    document.getElementById('btn-how').addEventListener('click', () => playIntroScene());
     for (const b of app.querySelectorAll('[data-age]')) {
       b.addEventListener('click', () => {
         state.age = b.dataset.age;
@@ -2133,7 +2146,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   /* ---------- Cómo jugar: objetivo, pasos, qué se gana y qué se aprende ---------- */
   function screenMission() {
     const steps = t('missionSteps');
-    const readText = `${t('goalLabel')}: ${t('goalText')} ${t('howLabel')}: ${steps.join('. ')}. ${t('winLabel')}: ${t('winText')} ${t('learnText')}`;
     render(`
       <div class="card">
         <div class="row-top">${sparkArt('wow', 64)}
@@ -2157,9 +2169,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <p class="mission-learn">${t('learnText')}</p>
 
         <button type="button" id="btn-go" class="btn btn-big glow">${t('missionGo')} →</button>
-        <div class="toolbar">${speakBtn(() => readText)}</div>
       </div>`, 'mission');
-    wireSpeak();
     document.getElementById('btn-go').addEventListener('click', screenMap);
   }
 
@@ -2315,7 +2325,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <span class="micro-hint" id="micro-hint">👆 ${esc(isl.micro[state.lang])}</span>
         <span class="micro-dots" aria-hidden="true">${'○'.repeat(MICRO_TAPS)}</span>
       </button>` : '';
-    const readText = `${showIntro ? isl.intro[state.lang] + '. ' : ''}${scene.prompt[state.lang]} ${micro ? isl.micro[state.lang] + '. ' : ''}${t('chooseHint')} ${scene.options.map(o => o.text[state.lang]).join('. ')}`;
 
     render(`
       <div class="card">
@@ -2334,12 +2343,10 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           <ul class="option-list" role="list">${options}</ul>
         </div>
         <div class="toolbar">
-          ${speakBtn(() => readText)}
           <button type="button" id="btn-back" class="btn btn-soft">↩ ${t('backToMap')}</button>
         </div>
       </div>`, 'island');
 
-    wireSpeak();
     document.getElementById('btn-back').addEventListener('click', screenMap);
 
     const stage = document.getElementById('micro-stage');
@@ -2466,11 +2473,11 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         a.download = t('pngFile');
         a.href = canvas.toDataURL('image/png');
         document.body.appendChild(a); a.click(); a.remove();
-        announce(t('pngSaved'));
+        toast(t('pngSaved'));
       };
-      img.onerror = () => { URL.revokeObjectURL(url); announce(t('pngFail')); };
+      img.onerror = () => { URL.revokeObjectURL(url); toast(t('pngFail')); };
       img.src = url;
-    } catch (e) { announce(t('pngFail')); }
+    } catch (e) { toast(t('pngFail')); }
   }
 
   /* ---------- Pasión: ¿cuál aventura te gustó MÁS? (pesa doble) ---------- */
@@ -2539,7 +2546,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       [t('weekTag'), topPlan.week[state.lang]],
       [t('monthTag'), topPlan.month[state.lang]],
     ];
-    const readText = `${state.name ? state.name + '. ' : ''}${t('purposeLabel')}: ${topP.starName[state.lang]}. ${sentence} ${topP.desc[state.lang]} ${t('superpower')}: ${topP.power[state.lang]}. ${t('pathsLabel')}: ${paths.join(', ')}. ${t('skillsLabel')}: ${skills.join(', ')}. ${t('trainLabel')}. ${train.map(([tag, txt]) => tag + ': ' + txt).join(' ')} ${t('trainNote')}`;
 
     render(`
       <div class="card">
@@ -2599,7 +2605,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           <p class="train-note">${t('trainNote')}</p>
         </div>
         <div class="toolbar">
-          ${speakBtn(() => readText)}
           ${navigator.share ? `<button type="button" id="btn-share" class="btn btn-soft">📤 ${t('shareBtn')}</button>` : ''}
           <button type="button" id="btn-png" class="btn btn-soft">🖼 ${t('downloadPng')}</button>
           <button type="button" id="btn-family" class="btn btn-soft">👪 ${t('familyGuide')}</button>
@@ -2607,7 +2612,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <button type="button" id="btn-letter" class="btn btn-big">✉ ${t('writeLetter')}</button>
       </div>`, 'constellation');
 
-    wireSpeak();
     for (const b of app.querySelectorAll('[data-res]')) {
       b.addEventListener('click', () => {
         const box = document.getElementById('res-answer');
@@ -2655,11 +2659,9 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           <li>${t('familyQ1')}</li><li>${t('familyQ2')}</li><li>${t('familyQ3')}</li>
         </ul>
         <div class="toolbar">
-          ${speakBtn(() => [t('familyIntro'), t('familyQ1'), t('familyQ2'), t('familyQ3')].join(' '))}
           <button type="button" id="btn-close-family" class="btn btn-big">${t('close')}</button>
         </div>
       </div>`, 'family');
-    wireSpeak();
     document.getElementById('btn-close-family').addEventListener('click', () => screenConstellation());
   }
 
@@ -2671,7 +2673,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         <p class="hint">${t('letterHint')}</p>
         <textarea id="letter-text" class="letter" rows="12" aria-label="${t('letterTitle')}">${esc(letter)}</textarea>
         <div class="toolbar">
-          ${speakBtn(() => document.getElementById('letter-text').value)}
           <button type="button" id="btn-dl-letter" class="btn btn-soft">💾 ${t('downloadLetter')}</button>
           <button type="button" id="btn-print-letter" class="btn btn-soft">🖨 ${t('printLetter')}</button>
         </div>
@@ -2685,13 +2686,13 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         </figure>
       </div>`, 'letter');
 
-    wireSpeak();
     document.getElementById('btn-dl-letter').addEventListener('click', () => {
       download(t('letterFile'), document.getElementById('letter-text').value);
+      toast(t('letterSaved'));
     });
     document.getElementById('btn-print-letter').addEventListener('click', () => {
       // Imprimir solo la carta (con "guardar como PDF" del navegador)
-      if (typeof window.print !== 'function') return;
+      if (typeof window.print !== 'function') { toast(t('printFail')); return; }
       let pa = document.getElementById('print-area');
       if (!pa) { pa = document.createElement('div'); pa.id = 'print-area'; document.body.appendChild(pa); }
       pa.textContent = document.getElementById('letter-text').value;
@@ -2702,15 +2703,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       state.current = null; state.scene = 0;
       screenTitle();
     });
-  }
-
-  function wireSpeak() {
-    for (const b of app.querySelectorAll('[data-speak]')) {
-      b.addEventListener('click', () => {
-        const get = speakBtn._targets[Number(b.dataset.speak)];
-        speak(typeof get === 'function' ? get() : String(get));
-      });
-    }
   }
 
   /* ---------- Botón de sonido flotante (persiste entre pantallas) ---------- */
@@ -2908,11 +2900,12 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   function playIntro() {
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) return;
-    // La intro se muestra UNA sola vez: quien vuelve entra directo a jugar
+    // La intro explica objetivos y cómo jugar ANTES de empezar. Se muestra una vez por
+    // sesión (cada vez que abrís el juego), no en cada re-jugada dentro de la misma visita.
     let seen = null;
-    try { seen = localStorage.getItem('spark-intro-seen'); } catch (e) { /* sin storage */ }
+    try { seen = sessionStorage.getItem('spark-intro-seen'); } catch (e) { /* sin storage */ }
     if (seen) return;
-    try { localStorage.setItem('spark-intro-seen', '1'); } catch (e) { /* sin storage */ }
+    try { sessionStorage.setItem('spark-intro-seen', '1'); } catch (e) { /* sin storage */ }
     playIntroScene();
   }
 
