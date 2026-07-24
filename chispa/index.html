@@ -143,7 +143,6 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
   border-left:3px solid #7fe3ff55; padding-left:12px;
 }
 .hint{color:var(--muted); font-size:1rem; margin-bottom:10px}
-.privacy{color:var(--muted); font-size:.78rem; margin-top:16px; opacity:.75}
 .foundation-credit{
   display:flex; align-items:center; justify-content:center; gap:9px;
   color:var(--muted); opacity:.8; font-size:.78rem; margin-top:14px; letter-spacing:.4px;
@@ -863,7 +862,6 @@ const STR = {
     monthTag: 'Este mes',
     weekLabel: 'Tu primera misión',
     missionGo: '¡A las islas!',
-    privacy: 'Sin internet · Sin publicidad · Sin datos personales',
     memorial: 'En memoria de Gabby Quiroz',
     memorialSub: 'Su luz inspira este juego',
     memorialLogoAlt: 'Fundación Gabby’s Place',
@@ -981,7 +979,6 @@ const STR = {
     monthTag: 'This month',
     weekLabel: 'Your first mission',
     missionGo: 'To the islands!',
-    privacy: 'No internet · No ads · No personal data',
     memorial: 'In memory of Gabby Quiroz',
     memorialSub: 'Her light inspires this game',
     memorialLogoAlt: 'Gabby’s Place Foundation',
@@ -1099,7 +1096,6 @@ const STR = {
     monthTag: 'Este mês',
     weekLabel: 'Sua primeira missão',
     missionGo: 'Para as ilhas!',
-    privacy: 'Sem internet · Sem publicidade · Sem dados pessoais',
     memorial: 'Em memória de Gabby Quiroz',
     memorialSub: 'Sua luz inspira este jogo',
     memorialLogoAlt: 'Fundação Gabby’s Place',
@@ -2230,7 +2226,6 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           ${L.LANGS.map(lg => `<button type="button" class="lang-btn ${lg === state.lang ? 'active' : ''}"
             data-lang="${lg}" lang="${lg}" aria-pressed="${lg === state.lang}">${{ es: 'Español', en: 'English', pt: 'Português' }[lg]}</button>`).join('')}
         </div>
-        <p class="privacy">${t('privacy')}</p>
         <div class="foundation-credit">
           <img class="cmf-logo" src="${CMF_LOGO}" alt="Chris Meniw Foundation" width="84" height="84">
           <span>Chris Meniw Foundation</span>
