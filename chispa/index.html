@@ -144,9 +144,10 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 }
 .hint{color:var(--muted); font-size:1rem; margin-bottom:10px}
 .foundation-credit{
-  display:flex; align-items:center; justify-content:center; gap:9px;
-  color:var(--muted); opacity:.8; font-size:.78rem; margin-top:14px; letter-spacing:.4px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  color:var(--muted); opacity:.8; font-size:.78rem; margin-top:14px; letter-spacing:.3px;
 }
+.foundation-credit span{max-width:230px; text-align:left; line-height:1.35}
 .cmf-logo{
   width:40px; height:40px; border-radius:50%;
   box-shadow:0 3px 10px -3px #000b, 0 0 0 1.5px #ffce4f33;
@@ -865,6 +866,7 @@ const STR = {
     memorial: 'En memoria de Gabby Quiroz',
     memorialSub: 'Su luz inspira este juego',
     memorialLogoAlt: 'Fundación Gabby’s Place',
+    createdBy: 'Creado por Chris Meniw Foundation en colaboración con Gabby’s Place Foundation',
     soloBadge: 'Exploración personal · Sin competencia',
     soloNote: 'Este viaje es tuyo: acá no se compite con nadie. La única estrella a superar es la tuya de ayer.',
     agePrompt: '¿Qué edad tenés?',
@@ -982,6 +984,7 @@ const STR = {
     memorial: 'In memory of Gabby Quiroz',
     memorialSub: 'Her light inspires this game',
     memorialLogoAlt: 'Gabby’s Place Foundation',
+    createdBy: 'Created by Chris Meniw Foundation in collaboration with Gabby’s Place Foundation',
     soloBadge: 'Personal exploration · No competing',
     agePrompt: 'How old are you?',
     ageKid: '6 to 12',
@@ -1099,6 +1102,7 @@ const STR = {
     memorial: 'Em memória de Gabby Quiroz',
     memorialSub: 'Sua luz inspira este jogo',
     memorialLogoAlt: 'Fundação Gabby’s Place',
+    createdBy: 'Criado por Chris Meniw Foundation em colaboração com Gabby’s Place Foundation',
     soloBadge: 'Exploração pessoal · Sem competição',
     agePrompt: 'Quantos anos você tem?',
     ageKid: '6 a 12',
@@ -2228,7 +2232,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         </div>
         <div class="foundation-credit">
           <img class="cmf-logo" src="${CMF_LOGO}" alt="Chris Meniw Foundation" width="84" height="84">
-          <span>Chris Meniw Foundation</span>
+          <span>${t('createdBy')}</span>
         </div>
         <figure class="memorial">
           <img class="memorial-logo" src="${GABBY_LOGO}" alt="${t('memorialLogoAlt')}" width="92" height="71">
