@@ -2029,13 +2029,15 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const AC = window.AudioContext || window.webkitAudioContext;
     let ctx = null, master = null, musicGain = null, enabled = false, musicNodes = [];
     let melodyTimer = null, melodyStep = 0, unlocked = false;
-    // Acorde suave por pantalla/isla (tríadas graves, timbre triángulo)
-    const CHORDS = {
-      title: [220, 277.18, 329.63], colores: [233.08, 293.66, 349.23],
-      faro: [196, 246.94, 293.66], bosque: [174.61, 220, 261.63],
-      taller: [207.65, 261.63, 311.13], historias: [246.94, 311.13, 369.99],
-      mapa: [220, 261.63, 329.63], constellation: [261.63, 329.63, 392],
+    // Raíz alegre por pantalla (todo en pentatónica MAYOR → siempre suena feliz)
+    const ROOTS = {
+      title: 261.63, colores: 293.66, faro: 246.94, bosque: 261.63,
+      taller: 277.18, historias: 293.66, mapa: 261.63, constellation: 329.63,
     };
+    const PENT = [0, 2, 4, 7, 9, 12, 14, 16]; // semitonos: escala pentatónica mayor
+    // Riff saltarín de 16 pasos (índices en PENT; -1 = silencio, da ritmo y aire)
+    const MOTIF = [0, 2, 4, -1, 4, 5, 4, 2, 5, -1, 4, 5, 2, 4, 0, -1];
+    const semi = (root, n) => root * Math.pow(2, n / 12);
     let currentKey = 'title';
     function ensure() {
       if (!AC) return false;
@@ -2043,7 +2045,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         if (!ctx) {
           ctx = new AC();
           master = ctx.createGain(); master.gain.value = 0.7; master.connect(ctx.destination);
-          musicGain = ctx.createGain(); musicGain.gain.value = 0.22; musicGain.connect(master);
+          musicGain = ctx.createGain(); musicGain.gain.value = 0.4; musicGain.connect(master);
           // Si el navegador suspende el contexto (autoplay / cambio de pestaña), reanudar.
           ctx.onstatechange = () => { if (ctx.state === 'suspended' && enabled) ctx.resume().catch(() => {}); };
         }
@@ -2068,35 +2070,32 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       for (const n of musicNodes) { try { n.stop ? n.stop() : n.disconnect(); } catch (e) { /* ya detenido */ } }
       musicNodes = [];
     }
+    // Una nota "pluck": ataque rápido y caída a silencio (SIN sostenido = sin zumbido)
+    function pluck(freq, type, peak, dur) {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type; o.frequency.value = freq;
+      const t0 = ctx.currentTime;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(peak, t0 + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(musicGain); o.start(t0); o.stop(t0 + dur + 0.02);
+    }
     function startMusic(key) {
       if (key) currentKey = key;
       if (!enabled || !ensure()) return;
       stopMusic();
-      const freqs = CHORDS[currentKey] || CHORDS.title;
-      // Pad: tríada grave sostenida (colchón armónico)
-      freqs.forEach((f, i) => {
-        const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = f / 2;
-        o.detune.value = i * 3;
-        const g = ctx.createGain(); g.gain.value = 0;
-        g.gain.linearRampToValueAtTime(0.55 / (i + 1), ctx.currentTime + 1.6);
-        o.connect(g); g.connect(musicGain); o.start();
-        musicNodes.push(o, g);
-      });
-      // Melodía: arpegio suave que se repite → se OYE claramente como música
+      const root = ROOTS[currentKey] || ROOTS.title;
       melodyStep = 0;
-      const notes = freqs.concat([freqs[0] * 2]); // sube una octava al cerrar la frase
+      // Secuenciador alegre: melodía saltarina + bajito suave en los tiempos fuertes.
+      // Todo son notas cortas → música clara y feliz, sin drone de fondo.
       melodyTimer = setInterval(() => {
         if (!enabled || !ctx) return;
-        const f = notes[melodyStep % notes.length];
+        const step = melodyStep % MOTIF.length;
+        const deg = MOTIF[step];
+        if (deg >= 0) pluck(semi(root, PENT[deg]), 'triangle', 0.3, 0.24); // melodía
+        if (step % 4 === 0) pluck(semi(root, -12), 'sine', 0.18, 0.3);      // bajo (downbeat)
         melodyStep++;
-        const o = ctx.createOscillator(), g = ctx.createGain();
-        o.type = 'sine'; o.frequency.value = f;
-        const t0 = ctx.currentTime;
-        g.gain.setValueAtTime(0.0001, t0);
-        g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.06);
-        g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.9);
-        o.connect(g); g.connect(musicGain); o.start(t0); o.stop(t0 + 0.95);
-      }, 620);
+      }, 250);
     }
     function blip(freq, dur, type, vol) {
       if (!enabled || !ensure()) return;
