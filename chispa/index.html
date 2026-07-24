@@ -154,16 +154,15 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 }
 /* Placa memorial — Gabby Quiroz · Fundación Gabby's Place */
 .memorial{
-  margin:20px auto 4px; padding:16px 20px 14px; max-width:340px;
-  display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;
-  background:linear-gradient(180deg,#fbfbf7,#eef1ec);
-  border-radius:20px; border:1px solid #ffffff22;
+  margin:20px auto 4px; padding:14px 20px 12px; max-width:300px;
+  display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+  background:#ffffff;
+  border-radius:18px; border:1px solid #ffffff22;
   box-shadow:0 10px 26px -12px #000a, inset 0 0 0 1px #ffffffcc;
 }
 .memorial-end{ margin-top:26px; }
 .memorial-logo{
-  width:150px; height:auto; display:block;
-  filter:drop-shadow(0 2px 6px #0000001f);
+  width:92px; height:auto; display:block; border-radius:8px;
 }
 .memorial figcaption{ display:flex; flex-direction:column; gap:3px; }
 .memorial-name{
@@ -2145,7 +2144,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
           <span>Chris Meniw Foundation</span>
         </div>
         <figure class="memorial">
-          <img class="memorial-logo" src="${GABBY_LOGO}" alt="${t('memorialLogoAlt')}" width="150" height="116">
+          <img class="memorial-logo" src="${GABBY_LOGO}" alt="${t('memorialLogoAlt')}" width="92" height="71">
           <figcaption>
             <span class="memorial-name">🦋 ${t('memorial')}</span>
             <span class="memorial-sub">${t('memorialSub')}</span>
@@ -2719,7 +2718,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         </div>
         <button type="button" id="btn-replay" class="btn btn-big">🔁 ${t('playAgain')}</button>
         <figure class="memorial memorial-end">
-          <img class="memorial-logo" src="${GABBY_LOGO}" alt="${t('memorialLogoAlt')}" width="132" height="102">
+          <img class="memorial-logo" src="${GABBY_LOGO}" alt="${t('memorialLogoAlt')}" width="92" height="71">
           <figcaption>
             <span class="memorial-name">🦋 ${t('memorial')}</span>
             <span class="memorial-sub">${t('memorialSub')}</span>
