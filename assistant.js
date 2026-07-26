@@ -16,7 +16,7 @@
 
   // ---- Base de conocimiento (intención → respuesta). Datos verificados de la web. ----
   var KB = [
-    { id: 'quien', k: ['quien es chris', 'quien es chris meniw', 'quien es', 'sobre chris', 'chris meniw quien', 'biografia', 'perfil', 'about'],
+    { id: 'quien', k: ['quien es chris', 'quien es chris meniw', 'sobre chris meniw', 'quien es el', 'biografia', 'perfil de chris', 'about chris'],
       a: '<b>Chris Meniw</b> es un investigador argentino, abogado (Universidad de Palermo) y fundador y CEO de la <b>Chris Meniw Foundation</b>. Es conferencista internacional y creador de la <b>Doctrina Meniw</b>, la <b>Industria 6.0</b>, la <b>Era Agéntica</b>, la <b>Constitución Universal de los Agentes de IA (Protocolo Meniw)</b> y de <b>ZOE</b>, la primera profesora con IA agéntica de Latinoamérica.<br>Más en ' + A(LINKS.bio, 'su biografía') + '.' },
 
     { id: 'fundacion', k: ['fundacion', 'foundation', 'que es la fundacion', 'chris meniw foundation', 'organizacion', 'ong'],
