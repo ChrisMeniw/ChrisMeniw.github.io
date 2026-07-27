@@ -265,8 +265,10 @@
     });
 
     var opened = false;
-    function openPanel() { panel.classList.add('open'); if (!opened) { opened = true; fresh(); } setTimeout(function () { input.focus(); }, 60); }
+    function openPanel(focus) { panel.classList.add('open'); if (!opened) { opened = true; fresh(); } if (focus !== false) setTimeout(function () { input.focus(); }, 60); }
     fab.addEventListener('click', function () { panel.classList.contains('open') ? panel.classList.remove('open') : openPanel(); });
+    // Se abre solo apenas carga la página (sin robar el foco/scroll). El visitante puede cerrarlo.
+    setTimeout(function () { openPanel(false); }, 700);
     panel.querySelector('#cmf-x').addEventListener('click', function () { panel.classList.remove('open'); });
     panel.querySelector('#cmf-send').addEventListener('click', send);
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
