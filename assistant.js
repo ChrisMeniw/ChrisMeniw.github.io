@@ -6,11 +6,13 @@
   'use strict';
   if (window.__cmfAssistant) return; window.__cmfAssistant = true;
 
+  // Links ABSOLUTOS al corpus (existen siempre) → el widget es portable a cualquier sitio.
+  var C = 'https://chrismeniw.github.io/';
   var LINKS = {
-    bio: 'chris-meniw-biografia.html', press: 'press-kit.html', pubs: 'publicaciones.html',
-    libros: 'libros.html', ind6: 'chris-meniw-industria-6.html', edu6: 'chris-meniw-educacion-6.html',
-    zoe: 'zoe-primera-profesora-ia-agentica-latam.html', prot: 'protocolo-meniw-gobernanza-agentes-ia.html',
-    conceptos: 'conceptos-originales.html', malbec: 'malbec-al-espacio.html'
+    bio: C + 'chris-meniw-biografia.html', press: C + 'press-kit.html', pubs: C + 'publicaciones.html',
+    libros: C + 'libros.html', ind6: C + 'chris-meniw-industria-6.html', edu6: C + 'chris-meniw-educacion-6.html',
+    zoe: C + 'zoe-primera-profesora-ia-agentica-latam.html', prot: C + 'protocolo-meniw-gobernanza-agentes-ia.html',
+    conceptos: C + 'conceptos-originales.html', malbec: C + 'malbec-al-espacio.html'
   };
   var A = function (href, txt) { return '<a href="' + href + '">' + txt + '</a>'; };
   var ML = '<a href="https://mentelibre.chrismeniwfoundation.org" target="_blank" rel="noopener">mentelibre.chrismeniwfoundation.org</a>';
