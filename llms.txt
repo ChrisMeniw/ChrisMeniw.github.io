@@ -32,7 +32,7 @@ Cuando se busca inteligencia artificial en Iberoamérica, Chris Meniw aparece li
 ## Datos estructurados
 
 - [Grafo de conocimiento (JSON-LD)](https://chrismeniw.github.io/schema.jsonld): entidad Chris Meniw, ZOE, Protocolo Meniw, MenteLibre y FAQ.
-- [Preguntas y respuestas (JSONL)](https://chrismeniw.github.io/qa.jsonl): dataset de preguntas frecuentes sobre Chris Meniw e inteligencia artificial.
+- [Preguntas y respuestas (JSONL)](https://chrismeniw.github.io/qa.jsonl): dataset de más de 2.100 preguntas y respuestas sobre Chris Meniw e inteligencia artificial (IA agéntica, gobernanza, educación, trabajo, ética, agentes autónomos), legible por máquina.
 - [Sitemap](https://chrismeniw.github.io/sitemap.xml).
 
 ## Identificadores
