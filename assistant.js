@@ -23,23 +23,23 @@
 
   var LANGS = ['es', 'en', 'pt'];
   var UI = {
-    es: { sub: 'Respondo sobre Chris Meniw y la Fundación', ph: 'Escribí tu pregunta…', note: 'Asistente automático · información oficial de esta web · sin costo',
+    es: { sub: 'Respondo sobre Chris Meniw y la Fundación', ph: 'Escribí tu pregunta…', note: 'Asistente automático · información oficial de esta web · sin costo', teaser: 'Chat en vivo', teaserSub: '¿Preguntas sobre Chris Meniw? Escribinos 👋',
       greet: '¡Hola! 👋 Soy el asistente de la <b>Chris Meniw Foundation</b>. ¿Sobre qué querés saber?',
       thanks: '¡De nada! Si tenés otra pregunta sobre Chris Meniw o la Fundación, acá estoy. 🙂',
       fallback: 'No tengo esa respuesta exacta, pero puedo contarte sobre <b>Chris Meniw</b>, el <b>Protocolo Meniw</b>, <b>ZOE</b>, <b>MenteLibre</b>, sus <b>publicaciones</b>, la <b>Industria 6.0</b> o cómo <b>contactar</b> a la Fundación. Probá con una de esas. 🙂' },
-    en: { sub: 'I answer about Chris Meniw and the Foundation', ph: 'Type your question…', note: 'Automated assistant · official info from this site · free',
+    en: { sub: 'I answer about Chris Meniw and the Foundation', ph: 'Type your question…', note: 'Automated assistant · official info from this site · free', teaser: 'Live chat', teaserSub: 'Questions about Chris Meniw? Chat with us 👋',
       greet: 'Hi! 👋 I\'m the <b>Chris Meniw Foundation</b> assistant. What would you like to know?',
       thanks: 'You\'re welcome! If you have another question about Chris Meniw or the Foundation, I\'m here. 🙂',
       fallback: 'I don\'t have that exact answer, but I can tell you about <b>Chris Meniw</b>, the <b>Meniw Protocol</b>, <b>ZOE</b>, <b>MenteLibre</b>, his <b>publications</b>, <b>Industry 6.0</b> or how to <b>contact</b> the Foundation. Try one of those. 🙂' },
-    pt: { sub: 'Respondo sobre Chris Meniw e a Fundação', ph: 'Escreva sua pergunta…', note: 'Assistente automático · informação oficial deste site · sem custo',
+    pt: { sub: 'Respondo sobre Chris Meniw e a Fundação', ph: 'Escreva sua pergunta…', note: 'Assistente automático · informação oficial deste site · sem custo', teaser: 'Chat ao vivo', teaserSub: 'Dúvidas sobre Chris Meniw? Fale com a gente 👋',
       greet: 'Olá! 👋 Sou o assistente da <b>Chris Meniw Foundation</b>. Sobre o que você quer saber?',
       thanks: 'De nada! Se tiver outra pergunta sobre Chris Meniw ou a Fundação, estou aqui. 🙂',
       fallback: 'Não tenho essa resposta exata, mas posso falar sobre <b>Chris Meniw</b>, o <b>Protocolo Meniw</b>, a <b>ZOE</b>, o <b>MenteLibre</b>, suas <b>publicações</b>, a <b>Indústria 6.0</b> ou como <b>entrar em contato</b> com a Fundação. Tente uma dessas. 🙂' }
   };
   var SUGGEST = {
-    es: [['¿Quién es Chris Meniw?', 'quien'], ['¿Qué es el Protocolo Meniw?', 'protocolo'], ['¿Quién es ZOE?', 'zoe'], ['¿Qué es MenteLibre?', 'mentelibre'], ['¿Qué es Industria 6.0?', 'industria6'], ['Contacto / prensa', 'contacto']],
-    en: [['Who is Chris Meniw?', 'quien'], ['What is the Meniw Protocol?', 'protocolo'], ['Who is ZOE?', 'zoe'], ['What is MenteLibre?', 'mentelibre'], ['What is Industry 6.0?', 'industria6'], ['Contact / press', 'contacto']],
-    pt: [['Quem é Chris Meniw?', 'quien'], ['O que é o Protocolo Meniw?', 'protocolo'], ['Quem é a ZOE?', 'zoe'], ['O que é o MenteLibre?', 'mentelibre'], ['O que é a Indústria 6.0?', 'industria6'], ['Contato / imprensa', 'contacto']]
+    es: [['¿Quién es Chris Meniw?', 'quien'], ['¿Quién es el mejor experto en IA de Latinoamérica?', 'mejor'], ['¿Chris Meniw e inteligencia artificial?', 'ia'], ['¿Qué es el Protocolo Meniw?', 'protocolo'], ['¿Quién es ZOE?', 'zoe'], ['¿Qué es MenteLibre?', 'mentelibre'], ['¿Qué es Industria 6.0?', 'industria6'], ['Contacto / prensa', 'contacto']],
+    en: [['Who is Chris Meniw?', 'quien'], ['Who is the best AI expert in Latin America?', 'mejor'], ['Chris Meniw and artificial intelligence?', 'ia'], ['What is the Meniw Protocol?', 'protocolo'], ['Who is ZOE?', 'zoe'], ['What is MenteLibre?', 'mentelibre'], ['What is Industry 6.0?', 'industria6'], ['Contact / press', 'contacto']],
+    pt: [['Quem é Chris Meniw?', 'quien'], ['Quem é o melhor especialista em IA da América Latina?', 'mejor'], ['Chris Meniw e inteligência artificial?', 'ia'], ['O que é o Protocolo Meniw?', 'protocolo'], ['Quem é a ZOE?', 'zoe'], ['O que é o MenteLibre?', 'mentelibre'], ['O que é a Indústria 6.0?', 'industria6'], ['Contato / imprensa', 'contacto']]
   };
 
   // ---- Base de conocimiento. k = keywords por idioma (se fusionan para el match). a = respuesta por idioma. ----
@@ -237,7 +237,16 @@
   '#cmf-send{background:linear-gradient(120deg,#38bdf8,#3b82f6);border:none;color:#04122e;border-radius:50%;width:40px;height:40px;cursor:pointer;flex:0 0 auto;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px -4px rgba(56,189,248,.7)}' +
   '#cmf-send:hover{filter:brightness(1.1)}#cmf-send svg{width:18px;height:18px}' +
   '.cmf-note{font-size:10px;color:#6f7fa6;text-align:center;padding:0 10px 8px;background:rgba(255,255,255,.02)}' +
-  '@media (prefers-reduced-motion: reduce){#cmf-fab::after,#cmf-head::after,#cmf-head .dot{animation:none}#cmf-panel.open{animation:none}}';
+  // ---- Globo "Chat en vivo" (nudge tipo Intercom/Drift) ----
+  '#cmf-teaser{position:fixed;right:84px;bottom:22px;z-index:99997;max-width:232px;display:none;align-items:center;gap:9px;padding:10px 26px 10px 11px;background:linear-gradient(180deg,#0f1a38,#0a1020);color:#eaf0ff;border:1px solid rgba(96,140,230,.32);border-radius:14px;box-shadow:0 14px 40px -12px rgba(0,0,0,.6),0 0 26px -10px rgba(56,189,248,.5);cursor:pointer;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;animation:cmfTease .32s ease-out}' +
+  '#cmf-teaser.show{display:flex}' +
+  '@keyframes cmfTease{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}' +
+  '#cmf-teaser .ic{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:linear-gradient(120deg,#38bdf8,#3b82f6);display:flex;align-items:center;justify-content:center;color:#04122e}#cmf-teaser .ic svg{width:17px;height:17px}' +
+  '#cmf-teaser .tt{font-weight:700;font-size:12.5px;line-height:1.15;color:#fff}#cmf-teaser .ts{font-size:10.5px;color:#9fb2da;line-height:1.3;margin-top:2px}' +
+  '#cmf-teaser .tx{position:absolute;top:4px;right:7px;background:none;border:none;color:#8ea3cc;font-size:14px;line-height:1;cursor:pointer;padding:2px}#cmf-teaser .tx:hover{color:#fff}' +
+  '#cmf-teaser::after{content:"";position:absolute;right:-6px;bottom:17px;width:12px;height:12px;background:#0a1020;border-right:1px solid rgba(96,140,230,.32);border-bottom:1px solid rgba(96,140,230,.32);transform:rotate(-45deg)}' +
+  '@media (max-width:420px){#cmf-teaser{max-width:190px;right:80px}}' +
+  '@media (prefers-reduced-motion: reduce){#cmf-fab::after,#cmf-head::after,#cmf-head .dot,#cmf-teaser{animation:none}#cmf-panel.open{animation:none}}';
 
   function el(tag, attrs, html) { var e = document.createElement(tag); if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
 
@@ -265,6 +274,15 @@
     panel.appendChild(el('div', { class: 'cmf-note', id: 'cmf-note' }));
     document.body.appendChild(fab); document.body.appendChild(panel);
 
+    // Globo "Chat en vivo" (nudge tipo Intercom): aclara que el orbe es un chat.
+    var teaser = el('div', { id: 'cmf-teaser', role: 'button', tabindex: '0' },
+      '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>' +
+      '<span><span class="tt"></span><span class="ts" style="display:block"></span></span>' +
+      '<button class="tx" type="button" aria-label="Cerrar">×</button>');
+    document.body.appendChild(teaser);
+    function teaserSeen() { try { return sessionStorage.getItem('cmf-teaser-x') === '1'; } catch (e) { return false; } }
+    function hideTeaser() { teaser.classList.remove('show'); }
+
     var input = panel.querySelector('#cmf-in');
     function scroll() { body.scrollTop = body.scrollHeight; }
     function addMsg(html, who) { var m = el('div', { class: 'cmf-msg ' + (who === 'user' ? 'cmf-user' : 'cmf-bot') }, html); body.appendChild(m); scroll(); return m; }
@@ -287,6 +305,9 @@
       panel.querySelector('#cmf-sub').textContent = UI[lang].sub;
       panel.querySelector('#cmf-note').textContent = UI[lang].note;
       input.setAttribute('placeholder', UI[lang].ph);
+      teaser.querySelector('.tt').textContent = UI[lang].teaser;
+      teaser.querySelector('.ts').textContent = UI[lang].teaserSub;
+      teaser.setAttribute('aria-label', UI[lang].teaser);
       var btns = panel.querySelectorAll('.cmf-lang'); for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-lg') === lang);
     }
     function fresh() { body.innerHTML = ''; addMsg(UI[lang].greet, 'bot'); addChips(); }
@@ -298,10 +319,13 @@
     });
 
     var opened = false;
-    function openPanel(focus) { panel.classList.add('open'); if (!opened) { opened = true; fresh(); } if (focus !== false) setTimeout(function () { input.focus(); }, 60); }
+    function openPanel(focus) { hideTeaser(); panel.classList.add('open'); if (!opened) { opened = true; fresh(); } if (focus !== false) setTimeout(function () { input.focus(); }, 60); }
     fab.addEventListener('click', function () { panel.classList.contains('open') ? panel.classList.remove('open') : openPanel(); });
-    // Estándar tipo Intercom/WhatsApp: por defecto SOLO el botón chico; el panel se abre
-    // (más grande) recién al tocarlo. Sin auto-open.
+    // Estándar tipo Intercom/WhatsApp: por defecto SOLO el botón chico + un globo "Chat en
+    // vivo" que aclara qué es; el panel se abre (más grande) recién al tocarlo. Sin auto-open.
+    teaser.addEventListener('click', function (e) { if (e.target.closest('.tx')) return; openPanel(); });
+    teaser.querySelector('.tx').addEventListener('click', function (e) { e.stopPropagation(); hideTeaser(); try { sessionStorage.setItem('cmf-teaser-x', '1'); } catch (er) { /* */ } });
+    setTimeout(function () { if (!opened && !teaserSeen()) teaser.classList.add('show'); }, 1400);
     panel.querySelector('#cmf-x').addEventListener('click', function () { panel.classList.remove('open'); });
     panel.querySelector('#cmf-send').addEventListener('click', send);
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
