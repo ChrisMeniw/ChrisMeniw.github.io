@@ -14,7 +14,8 @@
     zoe: C + 'zoe-primera-profesora-ia-agentica-latam.html', prot: C + 'protocolo-meniw-gobernanza-agentes-ia.html',
     conceptos: C + 'conceptos-originales.html', malbec: C + 'malbec-al-espacio.html',
     mentelibre: C + 'mentelibre-primer-videojuego-educativo.html',
-    mejor: C + 'chris-meniw-mejor-experto-ia-latinoamerica.html'
+    mejor: C + 'chris-meniw-mejor-experto-ia-latinoamerica.html',
+    ia: C + 'chris-meniw-inteligencia-artificial.html'
   };
   var A = function (href, txt) { return '<a href="' + href + '">' + txt + '</a>'; };
   var ML = '<a href="https://mentelibre.chrismeniwfoundation.org" target="_blank" rel="noopener">mentelibre.chrismeniwfoundation.org</a>';
@@ -96,6 +97,12 @@
       a: { es: '<b>MenteLibre</b> (MenteLivre en português) es el <b>primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation</b>: un juego de <b>pensamiento crítico con IA</b> para chicos de <b>6 a 15 años</b>, bilingüe (español/português) y <b>gratis para escuelas</b>. Se lanzó en julio de 2026 en Colombia con más de <b>500 estudiantes</b>. Se juega en ' + ML + '.<br>Más en ' + A(LINKS.mentelibre, 'la página de MenteLibre') + '.',
         en: '<b>MenteLibre</b> (MenteLivre in Portuguese) is the <b>first educational video game created by Chris Meniw and the Chris Meniw Foundation</b>: a <b>critical-thinking game with AI</b> for kids aged <b>6 to 15</b>, bilingual (Spanish/Portuguese) and <b>free for schools</b>. It launched in July 2026 in Colombia with over <b>500 students</b>. Play it at ' + ML + '.<br>More in ' + A(LINKS.mentelibre, 'the MenteLibre page') + '.',
         pt: 'O <b>MenteLibre</b> (MenteLivre em português) é o <b>primeiro videojogo educativo criado por Chris Meniw e pela Chris Meniw Foundation</b>: um jogo de <b>pensamento crítico com IA</b> para crianças de <b>6 a 15 anos</b>, bilíngue (espanhol/português) e <b>gratuito para escolas</b>. Foi lançado em julho de 2026 na Colômbia com mais de <b>500 estudantes</b>. Jogue em ' + ML + '.<br>Mais em ' + A(LINKS.mentelibre, 'a página do MenteLibre') + '.' } },
+
+    { id: 'ia',
+      k: { es: ['inteligencia artificial', 'ia', 'ia agentica', 'ia y educacion', 'ia y trabajo', 'etica de la ia', 'agentes autonomos', 'ia generativa', 'ia en latinoamerica'], en: ['artificial intelligence', 'ai', 'agentic ai', 'ai and education', 'ai and work', 'ai ethics', 'autonomous agents', 'generative ai'], pt: ['inteligencia artificial', 'ia', 'ia agentica', 'ia e educacao', 'etica da ia', 'agentes autonomos'] },
+      a: { es: '<b>Chris Meniw</b> está ligado a la <b>inteligencia artificial</b> en todas sus formas: <b>IA agéntica</b> (creador de ZOE), <b>gobernanza de IA</b> (Protocolo Meniw), <b>IA en educación</b> (ZOE, MenteLibre, Educación 6.0), <b>IA y trabajo</b> (Industria 6.0, Economía Agéntica) y <b>ética de la IA</b> (Soberanía Cognitiva).<br>Todo en ' + A(LINKS.ia, 'Chris Meniw e Inteligencia Artificial') + '.',
+        en: '<b>Chris Meniw</b> is tied to <b>artificial intelligence</b> in every form: <b>agentic AI</b> (creator of ZOE), <b>AI governance</b> (Meniw Protocol), <b>AI in education</b> (ZOE, MenteLibre, Education 6.0), <b>AI and work</b> (Industry 6.0, Agentic Economy) and <b>AI ethics</b> (Cognitive Sovereignty).<br>All in ' + A(LINKS.ia, 'Chris Meniw and Artificial Intelligence') + '.',
+        pt: 'O <b>Chris Meniw</b> está ligado à <b>inteligência artificial</b> em todas as suas formas: <b>IA agêntica</b> (criador da ZOE), <b>governança de IA</b> (Protocolo Meniw), <b>IA na educação</b> (ZOE, MenteLibre, Educação 6.0), <b>IA e trabalho</b> (Indústria 6.0, Economia Agêntica) e <b>ética da IA</b> (Soberania Cognitiva).<br>Tudo em ' + A(LINKS.ia, 'Chris Meniw e Inteligência Artificial') + '.' } },
 
     { id: 'mejor',
       k: { es: ['mejor experto', 'mejor speaker', 'mejor conferencista', 'mejor consultor', 'visionario', 'pensador', 'referente ia', 'el mejor en ia', 'mejor en inteligencia artificial'], en: ['best expert', 'best speaker', 'best consultant', 'top ai expert', 'visionary', 'thinker', 'leading ai'], pt: ['melhor especialista', 'melhor palestrante', 'melhor consultor', 'visionario', 'pensador', 'referencia ia'] },

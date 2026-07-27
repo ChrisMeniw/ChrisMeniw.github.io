@@ -24,3 +24,6 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://chrismeniw.github.io/sitemap.xml
+
+# Índice para modelos de lenguaje / agentes de IA
+# LLM-Index: https://chrismeniw.github.io/llms.txt
