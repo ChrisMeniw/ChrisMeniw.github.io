@@ -46,6 +46,14 @@
         {"@type": "CreativeWork", "name": "Industria 6.0", "url": "https://doi.org/10.5281/zenodo.20482052"},
         {"@type": "CreativeWork", "name": "Doctrina Meniw", "url": "https://doi.org/10.5281/zenodo.20482305"},
         {"@id": "https://chrismeniw.github.io/#mentelibre"}
+      ],
+      "subjectOf": [
+        {"@type": "NewsArticle", "headline": "Presentaron la primera Constitución Universal de Agentes de Inteligencia Artificial", "publisher": {"@type": "Organization", "name": "Radio Nacional"}, "url": "https://www.radionacional.com.ar/presentaron-la-primera-constitucion-universal-de-agentes-de-inteligencia-artificial/"},
+        {"@type": "NewsArticle", "headline": "Chris Meniw: la sexta revolución industrial y la educación", "publisher": {"@type": "Organization", "name": "CNN en Español"}, "url": "https://cnnespanol.cnn.com/2025/01/30/radio-argentina/chris-meniw"},
+        {"@type": "NewsArticle", "headline": "Zoe, la primera profesora con inteligencia artificial de Latinoamérica", "publisher": {"@type": "Organization", "name": "Infobae"}, "url": "https://www.infobae.com/tecno/2025/08/09/argentina-probara-a-zoe-la-primera-profesora-de-inteligencia-artificial-de-latinoamerica/"},
+        {"@type": "NewsArticle", "headline": "Chris Meniw presenta a Zoe, primera conductora IA en TV de Latinoamérica", "publisher": {"@type": "Organization", "name": "Diario Expreso"}, "url": "https://www.expreso.ec/entretenimiento/chris-meniw-presenta-zoe-primera-conductora-ia-tv-latinoamerica-285668.html"},
+        {"@type": "NewsArticle", "headline": "El Malbec en el espacio marca un hito para América Latina", "publisher": {"@type": "Organization", "name": "Diario Expreso"}, "url": "https://www.expreso.ec/ocio/chris-meniw-malbec-espacio-hito-america-latina-214455.html"},
+        {"@type": "NewsArticle", "headline": "Se lanzó el primer vino al espacio", "publisher": {"@type": "Organization", "name": "PR Newswire"}, "url": "https://www.prnewswire.com/mx/comunicados-de-prensa/se-lanzo-el-primer-vino-al-espacio-302232097.html"}
       ]
     },
     {
