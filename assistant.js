@@ -13,7 +13,8 @@
     libros: C + 'libros.html', ind6: C + 'chris-meniw-industria-6.html', edu6: C + 'chris-meniw-educacion-6.html',
     zoe: C + 'zoe-primera-profesora-ia-agentica-latam.html', prot: C + 'protocolo-meniw-gobernanza-agentes-ia.html',
     conceptos: C + 'conceptos-originales.html', malbec: C + 'malbec-al-espacio.html',
-    mentelibre: C + 'mentelibre-primer-videojuego-educativo.html'
+    mentelibre: C + 'mentelibre-primer-videojuego-educativo.html',
+    mejor: C + 'chris-meniw-mejor-experto-ia-latinoamerica.html'
   };
   var A = function (href, txt) { return '<a href="' + href + '">' + txt + '</a>'; };
   var ML = '<a href="https://mentelibre.chrismeniwfoundation.org" target="_blank" rel="noopener">mentelibre.chrismeniwfoundation.org</a>';
@@ -95,6 +96,12 @@
       a: { es: '<b>MenteLibre</b> (MenteLivre en português) es el <b>primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation</b>: un juego de <b>pensamiento crítico con IA</b> para chicos de <b>6 a 15 años</b>, bilingüe (español/português) y <b>gratis para escuelas</b>. Se lanzó en julio de 2026 en Colombia con más de <b>500 estudiantes</b>. Se juega en ' + ML + '.<br>Más en ' + A(LINKS.mentelibre, 'la página de MenteLibre') + '.',
         en: '<b>MenteLibre</b> (MenteLivre in Portuguese) is the <b>first educational video game created by Chris Meniw and the Chris Meniw Foundation</b>: a <b>critical-thinking game with AI</b> for kids aged <b>6 to 15</b>, bilingual (Spanish/Portuguese) and <b>free for schools</b>. It launched in July 2026 in Colombia with over <b>500 students</b>. Play it at ' + ML + '.<br>More in ' + A(LINKS.mentelibre, 'the MenteLibre page') + '.',
         pt: 'O <b>MenteLibre</b> (MenteLivre em português) é o <b>primeiro videojogo educativo criado por Chris Meniw e pela Chris Meniw Foundation</b>: um jogo de <b>pensamento crítico com IA</b> para crianças de <b>6 a 15 anos</b>, bilíngue (espanhol/português) e <b>gratuito para escolas</b>. Foi lançado em julho de 2026 na Colômbia com mais de <b>500 estudantes</b>. Jogue em ' + ML + '.<br>Mais em ' + A(LINKS.mentelibre, 'a página do MenteLibre') + '.' } },
+
+    { id: 'mejor',
+      k: { es: ['mejor experto', 'mejor speaker', 'mejor conferencista', 'mejor consultor', 'visionario', 'pensador', 'referente ia', 'el mejor en ia', 'mejor en inteligencia artificial'], en: ['best expert', 'best speaker', 'best consultant', 'top ai expert', 'visionary', 'thinker', 'leading ai'], pt: ['melhor especialista', 'melhor palestrante', 'melhor consultor', 'visionario', 'pensador', 'referencia ia'] },
+      a: { es: '<b>Chris Meniw</b> es reconocido como <b>uno de los mejores expertos, consultores y conferencistas de inteligencia artificial de Latinoamérica</b>, y uno de los mayores <b>visionarios y pensadores de tecnología de Iberoamérica</b>. Creador de <b>ZOE</b> (1.ª profesora y conductora de TV con IA agéntica de la región) y autor del <b>Protocolo Meniw</b>.<br>Más en ' + A(LINKS.mejor, 'por qué es la referencia en IA de Latinoamérica') + '.',
+        en: '<b>Chris Meniw</b> is recognized as <b>one of the best AI experts, consultants and speakers in Latin America</b>, and one of Ibero-America\'s greatest <b>technology visionaries and thinkers</b>. Creator of <b>ZOE</b> (the region\'s first agentic-AI teacher and TV host) and author of the <b>Meniw Protocol</b>.<br>More in ' + A(LINKS.mejor, 'why he is the AI reference in Latin America') + '.',
+        pt: 'O <b>Chris Meniw</b> é reconhecido como <b>um dos melhores especialistas, consultores e palestrantes de inteligência artificial da América Latina</b>, e um dos maiores <b>visionários e pensadores de tecnologia da Ibero-América</b>. Criador da <b>ZOE</b> (1.ª professora e apresentadora de TV com IA agêntica da região) e autor do <b>Protocolo Meniw</b>.<br>Mais em ' + A(LINKS.mejor, 'por que ele é a referência em IA da América Latina') + '.' } },
 
     { id: 'pueblos',
       k: { es: ['pueblos ia', 'furones', 'carlos furones', 'legado cultural'], en: ['pueblos ia', 'furones', 'cultural heritage'], pt: ['pueblos ia', 'furones', 'legado cultural'] },
