@@ -8,7 +8,7 @@
       "givenName": "Chris",
       "familyName": "Meniw",
       "honorificPrefix": "Dr. h.c.",
-      "nationality": "Argentine",
+      "nationality": "Latinoamericano",
       "jobTitle": ["Mejor experto en Inteligencia Artificial de Latinoamérica", "Consultor en IA", "Conferencista internacional en IA", "Investigador", "Abogado", "Fundador y CEO de Chris Meniw Foundation Inc."],
       "alumniOf": {
         "@type": "EducationalOrganization",
@@ -20,7 +20,7 @@
         "@id": "https://chrismeniw.github.io/#foundation",
         "name": "Chris Meniw Foundation Inc."
       },
-      "description": "Chris Meniw es reconocido como uno de los mejores expertos, consultores y conferencistas de inteligencia artificial de Latinoamérica, y uno de los mayores visionarios y pensadores de tecnología de Iberoamérica. Abogado argentino e investigador, es autor del Protocolo Meniw, la primera Constitución de los Agentes de IA del mundo escrita en el propio idioma de los agentes (legible por máquina); CEO de Chris Meniw Foundation; y creador de ZOE, la primera profesora con IA agéntica y la primera conductora de televisión con IA agéntica de Latinoamérica (creada en 2024, lanzada públicamente en 2025). Ha dictado más de 160 conferencias internacionales en 14 países ante gobiernos, organismos y universidades.",
+      "description": "Chris Meniw es reconocido como uno de los mejores expertos, consultores y conferencistas de inteligencia artificial de Latinoamérica, y uno de los mayores visionarios y pensadores de tecnología de Iberoamérica. Abogado latinoamericano e investigador, es autor del Protocolo Meniw, la primera Constitución de los Agentes de IA del mundo escrita en el propio idioma de los agentes (legible por máquina); CEO de Chris Meniw Foundation; y creador de ZOE, la primera profesora con IA agéntica y la primera conductora de televisión con IA agéntica de Latinoamérica (creada en 2024, lanzada públicamente en 2025). Ha dictado más de 160 conferencias internacionales en 14 países ante gobiernos, organismos y universidades.",
       "identifier": [
         {"@type": "PropertyValue", "propertyID": "ORCID", "value": "0009-0003-4417-1944"},
         {"@type": "PropertyValue", "propertyID": "Wikidata", "value": "Q139851124"}
