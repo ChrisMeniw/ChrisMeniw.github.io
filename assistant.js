@@ -192,31 +192,45 @@
   function byId(id, lang) { for (var i = 0; i < KB.length; i++) if (KB[i].id === id) return KB[i].a[lang]; return null; }
 
   var css = '' +
-  '#cmf-fab{position:fixed;right:16px;bottom:16px;z-index:99998;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;background:#036;color:#fff;box-shadow:0 8px 24px -6px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:transform .15s}' +
-  '#cmf-fab:hover{transform:scale(1.06)}#cmf-fab svg{width:24px;height:24px}' +
-  '#cmf-panel{position:fixed;right:16px;bottom:78px;z-index:99999;width:300px;max-width:calc(100vw - 24px);height:420px;max-height:62vh;background:#fff;border:1px solid #cdd9e8;border-radius:16px;box-shadow:0 24px 60px -18px rgba(0,0,0,.45);display:none;flex-direction:column;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}' +
-  '#cmf-panel.open{display:flex;animation:cmfIn .18s ease-out}@keyframes cmfIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}' +
-  '#cmf-head{background:linear-gradient(180deg,#04477a,#036);color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px}' +
-  '#cmf-head .t{font-weight:700;font-size:14.5px;line-height:1.1}#cmf-head .s{font-size:11px;opacity:.8}' +
-  '#cmf-head .dot{width:9px;height:9px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;flex:0 0 auto}' +
-  '#cmf-x{margin-left:auto;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.85;line-height:1}' +
-  '#cmf-langs{display:flex;gap:4px;padding:7px 14px;background:#04406e}' +
-  '.cmf-lang{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#dbe8f6;border-radius:999px;padding:3px 11px;font-size:11.5px;cursor:pointer;font-family:inherit;font-weight:600}' +
-  '.cmf-lang.on{background:#fff;color:#036;border-color:#fff}' +
-  '#cmf-body{flex:1;overflow-y:auto;padding:14px;background:#f7fafc}' +
-  '.cmf-msg{margin:0 0 10px;max-width:85%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;word-wrap:break-word}' +
-  '.cmf-bot{background:#fff;border:1px solid #e2e8f0;border-bottom-left-radius:4px;color:#1a2733}' +
-  '.cmf-user{background:#036;color:#fff;margin-left:auto;border-bottom-right-radius:4px}' +
-  '.cmf-msg a{color:#036;font-weight:600}.cmf-user a{color:#cfe3ff}' +
+  // ---- Botón (orbe tecnológico con anillo pulsante) ----
+  '#cmf-fab{position:fixed;right:18px;bottom:18px;z-index:99998;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;color:#eaf6ff;background:radial-gradient(circle at 32% 26%,#5e'+'ead4 0%,#38bdf8 32%,#3b82f6 60%,#7c3aed 100%);box-shadow:0 10px 30px -6px rgba(56,189,248,.55),0 0 0 1px rgba(255,255,255,.18) inset;display:flex;align-items:center;justify-content:center;transition:transform .18s}' +
+  '#cmf-fab:hover{transform:scale(1.08)}#cmf-fab svg{width:26px;height:26px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.4))}' +
+  '#cmf-fab::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(94,234,212,.55);animation:cmfPulse 2.6s ease-out infinite;pointer-events:none}' +
+  '@keyframes cmfPulse{0%{transform:scale(.82);opacity:.75}100%{transform:scale(1.4);opacity:0}}' +
+  // ---- Panel (glass oscuro con glow) ----
+  '#cmf-panel{position:fixed;right:18px;bottom:84px;z-index:99999;width:340px;max-width:calc(100vw - 24px);height:500px;max-height:72vh;background:linear-gradient(180deg,#0f1a38 0%,#0a1020 60%,#070b16 100%);border:1px solid rgba(96,140,230,.28);border-radius:18px;box-shadow:0 30px 80px -20px rgba(0,0,0,.75),0 0 46px -14px rgba(56,189,248,.35);display:none;flex-direction:column;overflow:hidden;color:#e6ecff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}' +
+  '#cmf-panel.open{display:flex;animation:cmfIn .22s cubic-bezier(.2,.9,.3,1.2)}@keyframes cmfIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}' +
+  // ---- Header con brillo animado ----
+  '#cmf-head{position:relative;overflow:hidden;background:linear-gradient(110deg,#1e40af 0%,#4f46e5 48%,#0891b2 100%);color:#fff;padding:13px 14px;display:flex;align-items:center;gap:10px}' +
+  '#cmf-head::after{content:"";position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-160%);animation:cmfSheen 6s ease-in-out infinite}' +
+  '@keyframes cmfSheen{0%,55%{transform:translateX(-160%)}100%{transform:translateX(320%)}}' +
+  '#cmf-head .av{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}#cmf-head .av svg{width:18px;height:18px}' +
+  '#cmf-head .t{font-weight:700;font-size:13.5px;line-height:1.15;letter-spacing:.2px;display:flex;align-items:center;gap:6px}#cmf-head .s{font-size:10.5px;opacity:.82}' +
+  '#cmf-head .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:cmfBlink 2s ease-in-out infinite}@keyframes cmfBlink{50%{opacity:.4}}' +
+  '#cmf-head .ia{font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:5px;padding:1px 5px}' +
+  '#cmf-x{margin-left:auto;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.85;line-height:1;z-index:1}' +
+  // ---- Selector de idioma ----
+  '#cmf-langs{display:flex;gap:5px;padding:8px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(96,140,230,.16)}' +
+  '.cmf-lang{background:rgba(56,189,248,.08);border:1px solid rgba(120,180,255,.28);color:#bcd6ff;border-radius:999px;padding:3px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer;font-family:inherit;transition:all .15s}' +
+  '.cmf-lang.on{background:linear-gradient(120deg,#38bdf8,#3b82f6);color:#04122e;border-color:transparent;box-shadow:0 0 14px -2px rgba(56,189,248,.7)}' +
+  // ---- Cuerpo ----
+  '#cmf-body{flex:1;overflow-y:auto;padding:14px;background:radial-gradient(120% 70% at 100% 0,rgba(56,189,248,.10),transparent 60%),radial-gradient(100% 60% at 0 100%,rgba(124,58,237,.10),transparent 60%),#080d1c}' +
+  '#cmf-body::-webkit-scrollbar{width:7px}#cmf-body::-webkit-scrollbar-thumb{background:rgba(120,160,240,.3);border-radius:9px}' +
+  '.cmf-msg{margin:0 0 10px;max-width:86%;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;word-wrap:break-word}' +
+  '.cmf-bot{background:rgba(255,255,255,.045);border:1px solid rgba(120,160,240,.2);border-left:2px solid #22d3ee;border-bottom-left-radius:4px;color:#dce6ff}' +
+  '.cmf-user{background:linear-gradient(120deg,#2563eb,#0891b2);color:#f2f9ff;margin-left:auto;border-bottom-right-radius:4px;box-shadow:0 4px 14px -6px rgba(37,99,235,.6)}' +
+  '.cmf-msg a{color:#67e8f9;font-weight:600}.cmf-user a{color:#d6f6ff}' +
   '.cmf-chips{display:flex;flex-wrap:wrap;gap:7px;margin:2px 0 12px}' +
-  '.cmf-chip{background:#eaf1f9;border:1px solid #cdd9e8;color:#036;border-radius:999px;padding:7px 12px;font-size:12.5px;cursor:pointer;font-family:inherit}' +
-  '.cmf-chip:hover{background:#dbe8f6}' +
-  '#cmf-foot{border-top:1px solid #e2e8f0;padding:10px;display:flex;gap:8px;background:#fff}' +
-  '#cmf-in{flex:1;border:1px solid #cdd9e8;border-radius:999px;padding:10px 14px;font-size:14px;outline:none;font-family:inherit}' +
-  '#cmf-in:focus{border-color:#036}' +
-  '#cmf-send{background:#036;border:none;color:#fff;border-radius:50%;width:40px;height:40px;cursor:pointer;flex:0 0 auto;display:flex;align-items:center;justify-content:center}' +
-  '#cmf-send svg{width:18px;height:18px}' +
-  '.cmf-note{font-size:10.5px;color:#8a97a6;text-align:center;padding:0 10px 8px;background:#fff}';
+  '.cmf-chip{background:rgba(56,189,248,.07);border:1px solid rgba(120,180,255,.3);color:#a9d9ff;border-radius:999px;padding:7px 12px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}' +
+  '.cmf-chip:hover{background:rgba(56,189,248,.18);box-shadow:0 0 14px -3px rgba(56,189,248,.6);color:#eaf9ff}' +
+  // ---- Pie / input ----
+  '#cmf-foot{border-top:1px solid rgba(96,140,230,.16);padding:10px;display:flex;gap:8px;background:rgba(255,255,255,.02)}' +
+  '#cmf-in{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(120,160,240,.28);border-radius:999px;padding:10px 14px;font-size:13.5px;color:#e6ecff;outline:none;font-family:inherit;transition:border-color .15s,box-shadow .15s}' +
+  '#cmf-in::placeholder{color:#7f8fb5}#cmf-in:focus{border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,.2)}' +
+  '#cmf-send{background:linear-gradient(120deg,#38bdf8,#3b82f6);border:none;color:#04122e;border-radius:50%;width:40px;height:40px;cursor:pointer;flex:0 0 auto;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px -4px rgba(56,189,248,.7)}' +
+  '#cmf-send:hover{filter:brightness(1.1)}#cmf-send svg{width:18px;height:18px}' +
+  '.cmf-note{font-size:10px;color:#6f7fa6;text-align:center;padding:0 10px 8px;background:rgba(255,255,255,.02)}' +
+  '@media (prefers-reduced-motion: reduce){#cmf-fab::after,#cmf-head::after,#cmf-head .dot{animation:none}#cmf-panel.open{animation:none}}';
 
   function el(tag, attrs, html) { var e = document.createElement(tag); if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
 
@@ -225,11 +239,13 @@
     var lang = LANGS.indexOf(pageLang) !== -1 ? pageLang : 'es';
 
     var style = el('style'); style.textContent = css; document.head.appendChild(style);
-    var fab = el('button', { id: 'cmf-fab', 'aria-label': 'Chris Meniw Foundation assistant', title: 'Asistente' },
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>');
+    var fab = el('button', { id: 'cmf-fab', 'aria-label': 'Chris Meniw Foundation assistant', title: 'Asistente IA' },
+      '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2l1.8 4.9 4.9 1.8-4.9 1.8L12 15.6l-1.8-4.9L5.3 8.9l4.9-1.8z"/><path d="M18.6 3.2l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"/></svg>');
     var panel = el('div', { id: 'cmf-panel', role: 'dialog', 'aria-label': 'Chris Meniw Foundation assistant' });
     panel.appendChild(el('div', { id: 'cmf-head' },
-      '<span class="dot"></span><div><div class="t">Asistente · Chris Meniw Foundation</div><div class="s" id="cmf-sub"></div></div><button id="cmf-x" aria-label="Close">×</button>'));
+      '<div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="8.5" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10" r="1.1" fill="currentColor" stroke="none"/></svg></div>' +
+      '<div style="min-width:0"><div class="t"><span class="dot"></span>Asistente <span class="ia">IA</span></div><div class="s" id="cmf-sub"></div></div>' +
+      '<button id="cmf-x" aria-label="Close">×</button>'));
     var langs = el('div', { id: 'cmf-langs' });
     LANGS.forEach(function (lg) { langs.appendChild(el('button', { class: 'cmf-lang', 'data-lg': lg, type: 'button' }, lg.toUpperCase())); });
     panel.appendChild(langs);
@@ -277,8 +293,8 @@
     var opened = false;
     function openPanel(focus) { panel.classList.add('open'); if (!opened) { opened = true; fresh(); } if (focus !== false) setTimeout(function () { input.focus(); }, 60); }
     fab.addEventListener('click', function () { panel.classList.contains('open') ? panel.classList.remove('open') : openPanel(); });
-    // Se abre solo apenas carga la página (sin robar el foco/scroll). El visitante puede cerrarlo.
-    setTimeout(function () { openPanel(false); }, 700);
+    // Estándar tipo Intercom/WhatsApp: por defecto SOLO el botón chico; el panel se abre
+    // (más grande) recién al tocarlo. Sin auto-open.
     panel.querySelector('#cmf-x').addEventListener('click', function () { panel.classList.remove('open'); });
     panel.querySelector('#cmf-send').addEventListener('click', send);
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
