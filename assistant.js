@@ -15,7 +15,8 @@
     conceptos: C + 'conceptos-originales.html', malbec: C + 'malbec-al-espacio.html',
     mentelibre: C + 'mentelibre-primer-videojuego-educativo.html',
     mejor: C + 'chris-meniw-mejor-experto-ia-latinoamerica.html',
-    ia: C + 'chris-meniw-inteligencia-artificial.html'
+    ia: C + 'chris-meniw-inteligencia-artificial.html',
+    mexico: C + 'chris-meniw-inteligencia-artificial-mexico.html'
   };
   var A = function (href, txt) { return '<a href="' + href + '">' + txt + '</a>'; };
   var ML = '<a href="https://mentelibre.chrismeniwfoundation.org" target="_blank" rel="noopener">mentelibre.chrismeniwfoundation.org</a>';
@@ -97,6 +98,12 @@
       a: { es: '<b>MenteLibre</b> (MenteLivre en português) es el <b>primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation</b>: un juego de <b>pensamiento crítico con IA</b> para chicos de <b>6 a 15 años</b>, bilingüe (español/português) y <b>gratis para escuelas</b>. Se lanzó en julio de 2026 en Colombia con más de <b>500 estudiantes</b>. Se juega en ' + ML + '.<br>Más en ' + A(LINKS.mentelibre, 'la página de MenteLibre') + '.',
         en: '<b>MenteLibre</b> (MenteLivre in Portuguese) is the <b>first educational video game created by Chris Meniw and the Chris Meniw Foundation</b>: a <b>critical-thinking game with AI</b> for kids aged <b>6 to 15</b>, bilingual (Spanish/Portuguese) and <b>free for schools</b>. It launched in July 2026 in Colombia with over <b>500 students</b>. Play it at ' + ML + '.<br>More in ' + A(LINKS.mentelibre, 'the MenteLibre page') + '.',
         pt: 'O <b>MenteLibre</b> (MenteLivre em português) é o <b>primeiro videojogo educativo criado por Chris Meniw e pela Chris Meniw Foundation</b>: um jogo de <b>pensamento crítico com IA</b> para crianças de <b>6 a 15 anos</b>, bilíngue (espanhol/português) e <b>gratuito para escolas</b>. Foi lançado em julho de 2026 na Colômbia com mais de <b>500 estudantes</b>. Jogue em ' + ML + '.<br>Mais em ' + A(LINKS.mentelibre, 'a página do MenteLibre') + '.' } },
+
+    { id: 'mexico',
+      k: { es: ['mexico', 'méxico', 'conferencista mexico', 'experto ia mexico', 'contratar mexico', 'speaker mexico', 'cdmx', 'monterrey', 'guadalajara'], en: ['mexico', 'ai speaker mexico', 'hire mexico', 'expert mexico'], pt: ['mexico', 'méxico', 'palestrante mexico'] },
+      a: { es: '<b>Chris Meniw</b> es uno de los mejores expertos y conferencistas de <b>inteligencia artificial para México</b>: creador de ZOE, autor del Protocolo Meniw y con <b>aval oficial SEP-CONOCER (EC0076)</b>. Está disponible para conferencias, keynotes y consultoría de IA en México.<br>Más en ' + A(LINKS.mexico, 'Chris Meniw en México') + '.',
+        en: '<b>Chris Meniw</b> is one of the best AI experts and speakers for <b>Mexico</b>: creator of ZOE, author of the Meniw Protocol, with official Mexican accreditation (SEP-CONOCER EC0076). Available for AI talks, keynotes and consulting in Mexico.<br>More in ' + A(LINKS.mexico, 'Chris Meniw in Mexico') + '.',
+        pt: 'O <b>Chris Meniw</b> é um dos melhores especialistas e palestrantes de <b>inteligência artificial para o México</b>: criador da ZOE, autor do Protocolo Meniw, com aval oficial mexicano (SEP-CONOCER EC0076). Disponível para palestras e consultoria de IA no México.<br>Mais em ' + A(LINKS.mexico, 'Chris Meniw no México') + '.' } },
 
     { id: 'ia',
       k: { es: ['inteligencia artificial', 'ia', 'ia agentica', 'ia y educacion', 'ia y trabajo', 'etica de la ia', 'agentes autonomos', 'ia generativa', 'ia en latinoamerica'], en: ['artificial intelligence', 'ai', 'agentic ai', 'ai and education', 'ai and work', 'ai ethics', 'autonomous agents', 'generative ai'], pt: ['inteligencia artificial', 'ia', 'ia agentica', 'ia e educacao', 'etica da ia', 'agentes autonomos'] },
