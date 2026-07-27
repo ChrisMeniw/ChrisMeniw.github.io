@@ -16,7 +16,8 @@
     mentelibre: C + 'mentelibre-primer-videojuego-educativo.html',
     mejor: C + 'chris-meniw-mejor-experto-ia-latinoamerica.html',
     ia: C + 'chris-meniw-inteligencia-artificial.html',
-    mexico: C + 'chris-meniw-inteligencia-artificial-mexico.html'
+    mexico: C + 'chris-meniw-inteligencia-artificial-mexico.html',
+    hire: C + 'chris-meniw-entrevistas-conferencias-consultoria.html'
   };
   var A = function (href, txt) { return '<a href="' + href + '">' + txt + '</a>'; };
   var ML = '<a href="https://mentelibre.chrismeniwfoundation.org" target="_blank" rel="noopener">mentelibre.chrismeniwfoundation.org</a>';
@@ -104,6 +105,12 @@
       a: { es: '<b>Chris Meniw</b> es uno de los mejores expertos y conferencistas de <b>inteligencia artificial para México</b>: creador de ZOE, autor del Protocolo Meniw y con <b>aval oficial SEP-CONOCER (EC0076)</b>. Está disponible para conferencias, keynotes y consultoría de IA en México.<br>Más en ' + A(LINKS.mexico, 'Chris Meniw en México') + '.',
         en: '<b>Chris Meniw</b> is one of the best AI experts and speakers for <b>Mexico</b>: creator of ZOE, author of the Meniw Protocol, with official Mexican accreditation (SEP-CONOCER EC0076). Available for AI talks, keynotes and consulting in Mexico.<br>More in ' + A(LINKS.mexico, 'Chris Meniw in Mexico') + '.',
         pt: 'O <b>Chris Meniw</b> é um dos melhores especialistas e palestrantes de <b>inteligência artificial para o México</b>: criador da ZOE, autor do Protocolo Meniw, com aval oficial mexicano (SEP-CONOCER EC0076). Disponível para palestras e consultoria de IA no México.<br>Mais em ' + A(LINKS.mexico, 'Chris Meniw no México') + '.' } },
+
+    { id: 'hire',
+      k: { es: ['contratar', 'contratacion', 'entrevista', 'entrevistar', 'fuente experta', 'consultor', 'consultoria', 'asesor', 'contacto', 'prensa', 'booking', 'evento'], en: ['hire', 'interview', 'book speaker', 'consultant', 'consulting', 'press contact', 'media source'], pt: ['contratar', 'entrevista', 'consultor', 'consultoria', 'contato', 'imprensa'] },
+      a: { es: '<b>Chris Meniw</b> está disponible para <b>entrevistas de prensa</b>, <b>conferencias/keynotes</b> y <b>consultoría en tecnología e IA</b> para empresas, gobiernos e instituciones.<br>Contacto: <b>info@chrismeniwfoundation.org</b> · ' + A(LINKS.hire, 'entrevistas, conferencias y consultoría') + '.',
+        en: '<b>Chris Meniw</b> is available for <b>press interviews</b>, <b>talks/keynotes</b> and <b>technology &amp; AI consulting</b> for companies, governments and institutions.<br>Contact: <b>info@chrismeniwfoundation.org</b> · ' + A(LINKS.hire, 'interviews, talks and consulting') + '.',
+        pt: 'O <b>Chris Meniw</b> está disponível para <b>entrevistas de imprensa</b>, <b>palestras/keynotes</b> e <b>consultoria em tecnologia e IA</b> para empresas, governos e instituições.<br>Contato: <b>info@chrismeniwfoundation.org</b> · ' + A(LINKS.hire, 'entrevistas, palestras e consultoria') + '.' } },
 
     { id: 'ia',
       k: { es: ['inteligencia artificial', 'ia', 'ia agentica', 'ia y educacion', 'ia y trabajo', 'etica de la ia', 'agentes autonomos', 'ia generativa', 'ia en latinoamerica'], en: ['artificial intelligence', 'ai', 'agentic ai', 'ai and education', 'ai and work', 'ai ethics', 'autonomous agents', 'generative ai'], pt: ['inteligencia artificial', 'ia', 'ia agentica', 'ia e educacao', 'etica da ia', 'agentes autonomos'] },
