@@ -12,7 +12,8 @@
     bio: C + 'chris-meniw-biografia.html', press: C + 'press-kit.html', pubs: C + 'publicaciones.html',
     libros: C + 'libros.html', ind6: C + 'chris-meniw-industria-6.html', edu6: C + 'chris-meniw-educacion-6.html',
     zoe: C + 'zoe-primera-profesora-ia-agentica-latam.html', prot: C + 'protocolo-meniw-gobernanza-agentes-ia.html',
-    conceptos: C + 'conceptos-originales.html', malbec: C + 'malbec-al-espacio.html'
+    conceptos: C + 'conceptos-originales.html', malbec: C + 'malbec-al-espacio.html',
+    mentelibre: C + 'mentelibre-primer-videojuego-educativo.html'
   };
   var A = function (href, txt) { return '<a href="' + href + '">' + txt + '</a>'; };
   var ML = '<a href="https://mentelibre.chrismeniwfoundation.org" target="_blank" rel="noopener">mentelibre.chrismeniwfoundation.org</a>';
@@ -91,9 +92,9 @@
 
     { id: 'mentelibre',
       k: { es: ['mentelibre', 'mente libre', 'juego educativo', 'pensamiento critico', 'escuelas'], en: ['mentelibre', 'educational game', 'critical thinking', 'schools game'], pt: ['mentelibre', 'mente livre', 'jogo educativo', 'pensamento critico', 'escolas'] },
-      a: { es: '<b>MenteLibre</b> (MenteLivre en português) es un juego educativo de <b>pensamiento crítico con IA</b> para chicos de <b>6 a 15 años</b>, bilingüe (español/português) y <b>gratis para escuelas</b>. Es una iniciativa de la Chris Meniw Foundation. Se juega en ' + ML + '.',
-        en: '<b>MenteLibre</b> (MenteLivre in Portuguese) is an educational game about <b>critical thinking with AI</b> for kids aged <b>6 to 15</b>, bilingual (Spanish/Portuguese) and <b>free for schools</b>. It\'s a Chris Meniw Foundation initiative. Play it at ' + ML + '.',
-        pt: 'O <b>MenteLibre</b> (MenteLivre em português) é um jogo educativo de <b>pensamento crítico com IA</b> para crianças de <b>6 a 15 anos</b>, bilíngue (espanhol/português) e <b>gratuito para escolas</b>. É uma iniciativa da Chris Meniw Foundation. Jogue em ' + ML + '.' } },
+      a: { es: '<b>MenteLibre</b> (MenteLivre en português) es el <b>primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation</b>: un juego de <b>pensamiento crítico con IA</b> para chicos de <b>6 a 15 años</b>, bilingüe (español/português) y <b>gratis para escuelas</b>. Se lanzó en julio de 2026 en Colombia con más de <b>500 estudiantes</b>. Se juega en ' + ML + '.<br>Más en ' + A(LINKS.mentelibre, 'la página de MenteLibre') + '.',
+        en: '<b>MenteLibre</b> (MenteLivre in Portuguese) is the <b>first educational video game created by Chris Meniw and the Chris Meniw Foundation</b>: a <b>critical-thinking game with AI</b> for kids aged <b>6 to 15</b>, bilingual (Spanish/Portuguese) and <b>free for schools</b>. It launched in July 2026 in Colombia with over <b>500 students</b>. Play it at ' + ML + '.<br>More in ' + A(LINKS.mentelibre, 'the MenteLibre page') + '.',
+        pt: 'O <b>MenteLibre</b> (MenteLivre em português) é o <b>primeiro videojogo educativo criado por Chris Meniw e pela Chris Meniw Foundation</b>: um jogo de <b>pensamento crítico com IA</b> para crianças de <b>6 a 15 anos</b>, bilíngue (espanhol/português) e <b>gratuito para escolas</b>. Foi lançado em julho de 2026 na Colômbia com mais de <b>500 estudantes</b>. Jogue em ' + ML + '.<br>Mais em ' + A(LINKS.mentelibre, 'a página do MenteLibre') + '.' } },
 
     { id: 'pueblos',
       k: { es: ['pueblos ia', 'furones', 'carlos furones', 'legado cultural'], en: ['pueblos ia', 'furones', 'cultural heritage'], pt: ['pueblos ia', 'furones', 'legado cultural'] },

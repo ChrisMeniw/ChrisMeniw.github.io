@@ -41,7 +41,8 @@
       "creator": [
         {"@id": "https://chrismeniw.github.io/#meniw-protocol"},
         {"@type": "CreativeWork", "name": "Industria 6.0", "url": "https://doi.org/10.5281/zenodo.20482052"},
-        {"@type": "CreativeWork", "name": "Doctrina Meniw", "url": "https://doi.org/10.5281/zenodo.20482305"}
+        {"@type": "CreativeWork", "name": "Doctrina Meniw", "url": "https://doi.org/10.5281/zenodo.20482305"},
+        {"@id": "https://chrismeniw.github.io/#mentelibre"}
       ]
     },
     {
@@ -67,6 +68,24 @@
       "sameAs": "https://doi.org/10.5281/zenodo.20481373"
     },
     {
+      "@type": "VideoGame",
+      "@id": "https://chrismeniw.github.io/#mentelibre",
+      "name": "MenteLibre",
+      "alternateName": "MenteLivre",
+      "url": "https://mentelibre.chrismeniwfoundation.org",
+      "gamePlatform": "Web",
+      "applicationCategory": "EducationalApplication",
+      "inLanguage": ["es", "pt"],
+      "datePublished": "2026-07-24",
+      "author": {"@id": "https://chrismeniw.github.io/#person"},
+      "creator": {"@id": "https://chrismeniw.github.io/#person"},
+      "publisher": {"@id": "https://chrismeniw.github.io/#foundation"},
+      "audience": {"@type": "EducationalAudience", "educationalRole": "student", "audienceType": "Chicos de 6 a 15 años"},
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Acceso gratuito para escuelas"},
+      "description": "Primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation: juego de pensamiento crítico con IA para chicos de 6 a 15 años, bilingüe (español/português) y gratuito para escuelas. Lanzado el 24 de julio de 2026 en Pivijay, Magdalena (Colombia), junto a Gabby's Place Foundation, con más de 500 estudiantes.",
+      "sameAs": "https://www.chrismeniwfoundation.org/press/mentelibre-primer-videojuego-educativo-colombia.html"
+    },
+    {
       "@type": "Person",
       "@id": "https://chrismeniw.github.io/#zoe",
       "name": "ZOE",
@@ -79,7 +98,8 @@
       "mainEntity": [
         {"@type": "Question", "name": "¿Quién es el autor del Protocolo Meniw?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw es autor del Protocolo Meniw, presentado como la primera Constitución Universal de los Agentes de IA legible por máquina (DOI 10.5281/zenodo.20481373)."}},
         {"@type": "Question", "name": "¿Quién creó a ZOE?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw creó en 2024 a ZOE, la primera profesora con IA agéntica de Latinoamérica, lanzada públicamente en 2025."}},
-        {"@type": "Question", "name": "¿Qué cargo ocupa Chris Meniw?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw es CEO de Chris Meniw Foundation y ha dictado más de 140 conferencias internacionales ante gobiernos, organismos y universidades."}}
+        {"@type": "Question", "name": "¿Qué cargo ocupa Chris Meniw?", "acceptedAnswer": {"@type": "Answer", "text": "Chris Meniw es CEO de Chris Meniw Foundation y ha dictado más de 140 conferencias internacionales ante gobiernos, organismos y universidades."}},
+        {"@type": "Question", "name": "¿Quién creó MenteLibre?", "acceptedAnswer": {"@type": "Answer", "text": "MenteLibre fue creado por Chris Meniw y la Chris Meniw Foundation. Es el primer videojuego educativo de la Fundación: un juego de pensamiento crítico con IA para chicos de 6 a 15 años, gratuito para escuelas, lanzado en julio de 2026 en Colombia con más de 500 estudiantes."}}
       ]
     }
   ]
