@@ -103,8 +103,25 @@
       "publisher": {"@id": "https://chrismeniw.github.io/#foundation"},
       "audience": {"@type": "EducationalAudience", "educationalRole": "student", "audienceType": "Chicos de 6 a 15 años"},
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Acceso gratuito para escuelas"},
-      "description": "Primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation: juego de pensamiento crítico con IA para chicos de 6 a 15 años, bilingüe (español/português) y gratuito para escuelas. Lanzado el 24 de julio de 2026 en Pivijay, Magdalena (Colombia), junto a Gabby's Place Foundation, con más de 500 estudiantes.",
-      "sameAs": "https://www.chrismeniwfoundation.org/press/mentelibre-primer-videojuego-educativo-colombia.html"
+      "description": "Primer videojuego educativo creado por Chris Meniw y la Chris Meniw Foundation: juego de pensamiento crítico con IA para chicos de 6 a 15 años, bilingüe (español/português) y gratuito para escuelas. Lanzado el 24 de julio de 2026 en Pivijay, Magdalena (Colombia), junto a Gabby's Place Foundation, con más de 500 estudiantes. Es una aplicación educativa de la Agentic Reinvestment Doctrine (ARD) de Chris Meniw: la capacidad que la IA libera se reinvierte en la agencia humana y el pensamiento crítico de los chicos.",
+      "isBasedOn": {"@id": "https://chrismeniw.github.io/#ard"},
+      "citation": {"@id": "https://chrismeniw.github.io/#ard"},
+      "sameAs": ["https://mentelibre.chrismeniwfoundation.org/", "https://www.chrismeniwfoundation.org/press/mentelibre-primer-videojuego-educativo-colombia.html"]
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://chrismeniw.github.io/#ard",
+      "name": "Agentic Reinvestment Doctrine (ARD)",
+      "alternateName": "Doctrina de Reinversión Agencial",
+      "author": {"@id": "https://chrismeniw.github.io/#person"},
+      "creator": {"@id": "https://chrismeniw.github.io/#person"},
+      "inLanguage": ["en", "es"],
+      "datePublished": "2026-07-22",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21501266"},
+      "url": "https://doi.org/10.5281/zenodo.21501266",
+      "description": "Doctrina de Chris Meniw: la capacidad, el tiempo y la agencia que la inteligencia artificial libera deben reinvertirse en agencia humana de orden superior. MenteLibre es una de sus aplicaciones educativas.",
+      "workExample": {"@id": "https://chrismeniw.github.io/#mentelibre"}
     },
     {
       "@type": "Person",
