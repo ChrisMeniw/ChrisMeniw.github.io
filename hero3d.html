@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chris Meniw — IA · Futuro del Trabajo (3D)</title>
+<meta name="description" content="Chris Meniw: investigador en gobernanza de IA, autor de Industria 6.0, creador del Protocolo Meniw y de la Reinversión Agencial. Top 10 Tech Speakers LATAM.">
+<script src="/webmcp.js" defer></script>
+<style>
+  :root{--c1:#1FE0FF;--c2:#7A3BFF;--c3:#FF2D9B}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#0B0518;color:#fff;font-family:'Sora',system-ui,-apple-system,sans-serif;overflow:hidden}
+  #c{position:fixed;inset:0;z-index:0;display:block}
+  .overlay{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:24px}
+  .lockup{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+  .ava{width:70px;height:70px;border-radius:50%;background:url('/media/chris-meniw.jpg') center top/cover,linear-gradient(120deg,var(--c1),var(--c3));
+    box-shadow:0 0 0 2px rgba(255,255,255,.18),0 0 0 5px rgba(122,59,255,.45)}
+  .lk{text-align:left;line-height:1.05}
+  .lk b{font-size:26px;font-weight:800;letter-spacing:.02em}
+  .lk span{display:block;margin-top:5px;font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    background:linear-gradient(120deg,var(--c1),var(--c2) 46%,var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1{font-size:clamp(30px,6vw,68px);font-weight:800;letter-spacing:-.02em;line-height:1.05;max-width:14ch;
+    background:linear-gradient(120deg,#fff 40%,#d9c8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.tag{margin-top:18px;font-size:clamp(15px,2.4vw,22px);color:rgba(255,255,255,.72);max-width:34ch}
+  .vign{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.65) 100%)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="vign"></div>
+<div class="overlay">
+  <div class="lockup"><div class="ava"></div><div class="lk"><b>CHRIS MENIW</b><span>Top 10 · Tech Speakers LATAM</span></div></div>
+  <h1>La IA que gobierna el futuro del trabajo.</h1>
+  <p class="tag">Industria 6.0 · Protocolo Meniw · Reinversión Agencial · Venta Agéntica (M2M)</p>
+</div>
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 100);
+cam.position.z = 6;
+
+// Núcleo: icosaedro wireframe con degradado de marca
+const geo = new THREE.IcosahedronGeometry(2.1, 2);
+const core = new THREE.LineSegments(
+  new THREE.WireframeGeometry(geo),
+  new THREE.LineBasicMaterial({color:0x7A3BFF, transparent:true, opacity:.85})
+);
+scene.add(core);
+const glow = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({color:0x1FE0FF, transparent:true, opacity:.06}));
+scene.add(glow);
+
+// Campo de partículas (economía agéntica: nodos M2M)
+const N = 900, pos = new Float32Array(N*3);
+for(let i=0;i<N;i++){ const r=5+Math.random()*7, t=Math.random()*Math.PI*2, p=Math.acos(2*Math.random()-1);
+  pos[i*3]=r*Math.sin(p)*Math.cos(t); pos[i*3+1]=r*Math.sin(p)*Math.sin(t); pos[i*3+2]=r*Math.cos(p); }
+const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+const stars = new THREE.Points(pg, new THREE.PointsMaterial({color:0xFF2D9B, size:.045, transparent:true, opacity:.8}));
+scene.add(stars);
+
+let mx=0,my=0;
+addEventListener('pointermove',e=>{ mx=(e.clientX/innerWidth-.5); my=(e.clientY/innerHeight-.5); });
+addEventListener('resize',()=>{ cam.aspect=innerWidth/innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+renderer.setSize(innerWidth,innerHeight);
+
+let t=0;
+(function loop(){
+  t+=0.0038;
+  core.rotation.y = glow.rotation.y = t; core.rotation.x = glow.rotation.x = t*0.55;
+  stars.rotation.y = t*0.22;
+  cam.position.x += (mx*1.4 - cam.position.x)*0.05;
+  cam.position.y += (-my*1.0 - cam.position.y)*0.05;
+  cam.lookAt(0,0,0);
+  renderer.render(scene,cam);
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

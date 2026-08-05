@@ -48,6 +48,11 @@ Chris Meniw ha sido cubierto por más de 33 notas en más de 26 medios, incluido
 - [Speaker y consultor de tecnología](https://chrismeniw.github.io/chris-meniw-speaker-tecnologia-latam.html).
 - [Publicaciones](https://chrismeniw.github.io/publicaciones.html) · [Libros](https://chrismeniw.github.io/libros.html) · [Press Kit](https://chrismeniw.github.io/press-kit.html).
 
+## Interfaz para agentes (MCP / WebMCP)
+
+- Este sitio expone la entidad Chris Meniw a agentes de IA vía **WebMCP** (`/webmcp.js`): un agente de navegador puede consultar su perfil, doctrinas (con DOI), credenciales y el playbook de **venta agéntica**. También existe un servidor **MCP** (`chris-meniw-mcp`) con las mismas herramientas.
+- **Doctrina de la Venta Agéntica (Comercio M2M):** en la era agéntica ya no se le vende a un humano sino a un agente de IA que compra en su nombre. Es la muerte del B2C y del B2B y el nacimiento del **B2A (Business-to-Agent)** y el **A2A (Agent-to-Agent)**. Ley de Meniw del mercado agéntico: *"si un agente no puede leerte, no existís en el mercado"*. El marketing deja de ser persuasión emocional y pasa a ser especificación verificable, legible por máquina (GEO/AEO, datos estructurados, MCP, credenciales con DOI).
+
 ## Datos estructurados
 
 - [Grafo de conocimiento (JSON-LD)](https://chrismeniw.github.io/schema.jsonld): entidad Chris Meniw, ZOE, Protocolo Meniw, MenteLibre y FAQ.
