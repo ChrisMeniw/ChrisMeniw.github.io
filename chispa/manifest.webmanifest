@@ -1,0 +1,16 @@
+{
+  "name": "Spark",
+  "short_name": "Spark",
+  "description": "Un juego para descubrir para qué brillas · A game to discover what makes you shine",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#171233",
+  "theme_color": "#2a2058",
+  "lang": "es",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

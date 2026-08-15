@@ -55,6 +55,7 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   --focus:#7fe3ff;
   --isl-colores:#ff8fb1; --isl-faro:#7fe3ff; --isl-bosque:#7ddf8e;
   --isl-taller:#a5b4ff; --isl-historias:#c9a2ff; --isl-mapa:#ffce4f;
+  --isl-estadio:#6fe08a; --isl-plaza:#ffcf6b;
   --body:'Nunito',ui-rounded,'Arial Rounded MT Bold','Trebuchet MS',Verdana,sans-serif;
   --display:'Baloo 2','Nunito',ui-rounded,'Arial Rounded MT Bold',sans-serif;
 }
@@ -780,11 +781,11 @@ h1,h2{font-family:var(--display); font-size:1.6rem; line-height:1.25; margin-bot
 /* Chispa / Spark — motor del juego (contenido, idiomas, cálculo del propósito)
    100% offline. Sin dependencias. Funciona en navegador y en Node (tests). */
 
-const DIMS = ['crear', 'ayudar', 'explorar', 'construir', 'expresar', 'naturaleza'];
+const DIMS = ['crear', 'ayudar', 'explorar', 'construir', 'expresar', 'naturaleza', 'liderar', 'mover'];
 
 const LANGS = ['es', 'en', 'pt'];
 
-const MIN_ISLANDS = 4; // islas mínimas para encender la constelación
+const MIN_ISLANDS = 5; // islas mínimas para encender la constelación
 
 /* ---------- Textos de interfaz ---------- */
 const STR = {
@@ -860,7 +861,7 @@ const STR = {
     skyBrightest: 'Tu estrella que más brilla',
     skyAdded: '✨ Sumaste una estrella a tu cielo',
     skyCountFn: n => n === 1 ? '1 viaje' : `${n} viajes`,
-    allSixBadge: '🌌 Cielo completo · recorriste las 6 islas',
+    allSixBadge: '🌌 Cielo completo · recorriste las 8 islas',
     mapTitle: 'El mar de las islas',
     mapHint: 'Elige una isla para visitar. Tú decides el camino.',
     visited: 'visitada',
@@ -974,7 +975,7 @@ const STR = {
     skyBrightest: 'Your brightest star',
     skyAdded: '✨ You added a star to your sky',
     skyCountFn: n => n === 1 ? '1 journey' : `${n} journeys`,
-    allSixBadge: '🌌 Full sky · you explored all 6 islands',
+    allSixBadge: '🌌 Full sky · you explored all 8 islands',
     soloNote: 'This journey is yours: you compete with no one here. The only star to outshine is your own from yesterday.',
     mapTitle: 'The sea of islands',
     mapHint: 'Pick an island to visit. You choose the path.',
@@ -1089,7 +1090,7 @@ const STR = {
     skyBrightest: 'Sua estrela que mais brilha',
     skyAdded: '✨ Você somou uma estrela ao seu céu',
     skyCountFn: n => n === 1 ? '1 viagem' : `${n} viagens`,
-    allSixBadge: '🌌 Céu completo · você percorreu as 6 ilhas',
+    allSixBadge: '🌌 Céu completo · você percorreu as 8 ilhas',
     soloNote: 'Esta viagem é sua: aqui não se compete com ninguém. A única estrela a superar é a sua de ontem.',
     mapTitle: 'O mar das ilhas',
     mapHint: 'Escolha uma ilha para visitar. Você decide o caminho.',
@@ -1467,6 +1468,116 @@ const PROFILES = {
     doing: { es: 'cuidar a los animales y a la naturaleza', en: 'care for animals and nature', pt: 'cuidar dos animais e da natureza' },
     reminder: { es: 'el planeta es la casa de todos', en: 'the planet is everyone’s home', pt: 'o planeta é a casa de todos' },
   },
+  liderar: {
+    skills: {
+      es: ['Liderazgo', 'Iniciativa', 'Organización'],
+      en: ['Leadership', 'Initiative', 'Organization'],
+      pt: ['Liderança', 'Iniciativa', 'Organização'],
+    },
+    today: {
+      es: 'Propón un plan y organiza a tu familia o amigos para hacer algo juntos hoy.',
+      en: 'Suggest a plan and organize your family or friends to do something together today.',
+      pt: 'Proponha um plano e organize sua família ou amigos para fazer algo juntos hoje.',
+    },
+    month: {
+      es: 'Arma un equipo para lograr una meta y reparte las tareas para que todos brillen.',
+      en: 'Build a team to reach a goal and share out the tasks so everyone shines.',
+      pt: 'Monte uma equipe para alcançar uma meta e divida as tarefas para que todos brilhem.',
+    },
+    teen: {
+      today: {
+        es: 'Tomá la iniciativa en un grupo hoy: proponé una idea y coordiná al equipo.',
+        en: 'Take the lead in a group today: pitch an idea and coordinate the team.',
+        pt: 'Tome a iniciativa em um grupo hoje: proponha uma ideia e coordene a equipe.',
+      },
+      week: {
+        es: 'Organizá un evento o proyecto pequeño y guiá a las personas que se sumen.',
+        en: 'Organize a small event or project and guide the people who join.',
+        pt: 'Organize um evento ou projeto pequeno e guie as pessoas que se juntarem.',
+      },
+      month: {
+        es: 'Empezá un emprendimiento o un club propio y hacé crecer al equipo.',
+        en: 'Start your own venture or club and grow the team.',
+        pt: 'Comece um empreendimento ou clube seu e faça a equipe crescer.',
+      },
+    },
+    starName: { es: 'Estrella Guía', en: 'Guide Star', pt: 'Estrela Guia' },
+    service: { es: 'para guiar a las personas hacia una meta común', en: 'to guide people toward a shared goal', pt: 'para guiar as pessoas rumo a um objetivo comum' },
+    paths: {
+      es: ['Emprendedor/a', 'Líder de equipo', 'Director/a', 'Organizador/a de eventos', 'Capitán/a'],
+      en: ['Entrepreneur', 'Team leader', 'Director', 'Event organizer', 'Captain'],
+      pt: ['Empreendedor(a)', 'Líder de equipe', 'Diretor(a)', 'Organizador(a) de eventos', 'Capitão/Capitã'],
+    },
+    week: {
+      es: 'Organiza un plan con tus amigos y guía al equipo hasta lograrlo.',
+      en: 'Organize a plan with your friends and lead the team until you pull it off.',
+      pt: 'Organize um plano com os seus amigos e guie a equipe até conseguir.',
+    },
+    label: { es: 'LIDERAR', en: 'LEAD', pt: 'LIDERAR' },
+    desc: {
+      es: 'Sabes hacia dónde ir y las personas te siguen. Conviertes una idea en un plan y a un grupo en un equipo.',
+      en: 'You know where to go and people follow you. You turn an idea into a plan and a group into a team.',
+      pt: 'Você sabe para onde ir e as pessoas te seguem. Você transforma uma ideia em plano e um grupo em equipe.',
+    },
+    power: { es: 'Guiar y organizar equipos', en: 'Leading and organizing teams', pt: 'Guiar e organizar equipes' },
+    doing: { es: 'guiar y organizar a las personas', en: 'lead and organize people', pt: 'guiar e organizar as pessoas' },
+    reminder: { es: 'un buen líder hace brillar a los demás', en: 'a good leader makes others shine', pt: 'um bom líder faz os outros brilharem' },
+  },
+  mover: {
+    skills: {
+      es: ['Energía', 'Coordinación', 'Constancia'],
+      en: ['Energy', 'Coordination', 'Perseverance'],
+      pt: ['Energia', 'Coordenação', 'Constância'],
+    },
+    today: {
+      es: 'Muévete 15 minutos hoy: baila, corre o inventa un juego con el cuerpo.',
+      en: 'Move for 15 minutes today: dance, run or invent a game with your body.',
+      pt: 'Mexa-se por 15 minutos hoje: dance, corra ou invente um jogo com o corpo.',
+    },
+    month: {
+      es: 'Aprende un movimiento nuevo (un truco, un paso, un deporte) y practícalo hasta lograrlo.',
+      en: 'Learn a new move (a trick, a step, a sport) and practice it until you nail it.',
+      pt: 'Aprenda um movimento novo (um truque, um passo, um esporte) e pratique até conseguir.',
+    },
+    teen: {
+      today: {
+        es: 'Entrená tu cuerpo 20 minutos hoy y anotá cómo te sentís después.',
+        en: 'Train your body for 20 minutes today and note how you feel afterward.',
+        pt: 'Treine o seu corpo por 20 minutos hoje e anote como se sente depois.',
+      },
+      week: {
+        es: 'Sumate a un equipo, una clase o una rutina y sostenela toda la semana.',
+        en: 'Join a team, a class or a routine and keep it up all week.',
+        pt: 'Junte-se a um time, uma aula ou uma rotina e mantenha a semana toda.',
+      },
+      month: {
+        es: 'Ponete una meta física real (una carrera, una coreo, un torneo) y entrená para lograrla.',
+        en: 'Set a real physical goal (a race, a routine, a tournament) and train to reach it.',
+        pt: 'Defina uma meta física real (uma corrida, uma coreografia, um torneio) e treine para alcançá-la.',
+      },
+    },
+    starName: { es: 'Estrella del Movimiento', en: 'Motion Star', pt: 'Estrela do Movimento' },
+    service: { es: 'para inspirar a otros con energía y esfuerzo', en: 'to inspire others with energy and effort', pt: 'para inspirar os outros com energia e esforço' },
+    paths: {
+      es: ['Deportista', 'Bailarín/a', 'Entrenador/a', 'Piloto de carreras', 'Aventurero/a'],
+      en: ['Athlete', 'Dancer', 'Coach', 'Race driver', 'Adventurer'],
+      pt: ['Atleta', 'Bailarino(a)', 'Treinador(a)', 'Piloto de corrida', 'Aventureiro(a)'],
+    },
+    week: {
+      es: 'Aprende un movimiento nuevo y muéstraselo a alguien.',
+      en: 'Learn a new move and show it to someone.',
+      pt: 'Aprenda um movimento novo e mostre para alguém.',
+    },
+    label: { es: 'MOVER', en: 'MOVE', pt: 'MOVER' },
+    desc: {
+      es: 'Tu cuerpo es tu superpoder. La energía, el ritmo y el esfuerzo te hacen sentir vivo/a.',
+      en: 'Your body is your superpower. Energy, rhythm and effort make you feel alive.',
+      pt: 'O seu corpo é o seu superpoder. Energia, ritmo e esforço fazem você se sentir vivo(a).',
+    },
+    power: { es: 'Mover el cuerpo y no rendirse', en: 'Moving your body and never giving up', pt: 'Mover o corpo e não desistir' },
+    doing: { es: 'moverte, hacer deporte y superar retos', en: 'move, play sports and beat challenges', pt: 'se mexer, praticar esportes e superar desafios' },
+    reminder: { es: 'mi esfuerzo de hoy es mi fuerza de mañana', en: 'today’s effort is tomorrow’s strength', pt: 'o meu esforço de hoje é a minha força de amanhã' },
+  },
 };
 
 /* ---------- Islas: cada opción tiene una dimensión primaria (2 pts) y una secundaria (1 pt).
@@ -1506,6 +1617,14 @@ const ISLANDS = [
           { text: { es: 'Le construyo estantes para sus caracoles', en: 'I build shelves for its seashells', pt: 'Construo prateleiras para as conchas dele' }, w: { construir: 2, ayudar: 1 } },
         ],
       },
+      {
+        prompt: { es: 'Todo el pueblo quiere pintar un mural gigante juntos.', en: 'The whole town wants to paint a giant mural together.', pt: 'A cidade inteira quer pintar um mural gigante juntos.' },
+        options: [
+          { text: { es: 'Organizo quién pinta cada parte', en: 'I organize who paints each part', pt: 'Organizo quem pinta cada parte' }, w: { liderar: 2, crear: 1 } },
+          { text: { es: 'Bailo mientras pinto, con música y movimiento', en: 'I dance while I paint, with music and movement', pt: 'Danço enquanto pinto, com música e movimento' }, w: { mover: 2, crear: 1 } },
+          { text: { es: 'Pinto la historia de nuestra isla', en: 'I paint the story of our island', pt: 'Pinto a história da nossa ilha' }, w: { expresar: 2, crear: 1 } },
+        ],
+      },
     ],
   },
   {
@@ -1540,6 +1659,14 @@ const ISLANDS = [
           { text: { es: 'Le canto una canción para animarlo', en: 'I sing him a song to cheer him up', pt: 'Canto uma música para animá-lo' }, w: { expresar: 2, crear: 1 } },
           { text: { es: 'Le preparo comida caliente y lo escucho', en: 'I make him warm food and listen to him', pt: 'Preparo comida quente e escuto a história dele' }, w: { ayudar: 2, naturaleza: 1 } },
           { text: { es: 'Le dibujo un mapa nuevo para volver a casa', en: 'I draw him a new map to get back home', pt: 'Desenho um mapa novo para ele voltar para casa' }, w: { crear: 2, explorar: 1 } },
+        ],
+      },
+      {
+        prompt: { es: 'Viene una tormenta y hay que avisar a todos rápido.', en: 'A storm is coming and everyone must be warned fast.', pt: 'Vem uma tempestade e é preciso avisar todos rápido.' },
+        options: [
+          { text: { es: 'Corro por la costa avisando casa por casa', en: 'I run along the coast warning house by house', pt: 'Corro pela costa avisando casa por casa' }, w: { mover: 2, ayudar: 1 } },
+          { text: { es: 'Guío a la gente hacia un lugar seguro', en: 'I guide people to a safe place', pt: 'Guio as pessoas para um lugar seguro' }, w: { liderar: 2, ayudar: 1 } },
+          { text: { es: 'Construyo una señal más brillante para el faro', en: 'I build a brighter signal for the lighthouse', pt: 'Construo um sinal mais brilhante para o farol' }, w: { construir: 2, crear: 1 } },
         ],
       },
     ],
@@ -1578,6 +1705,14 @@ const ISLANDS = [
           { text: { es: 'Hago carteles para que nadie ensucie más', en: 'I make signs so nobody litters again', pt: 'Faço cartazes para ninguém sujar mais' }, w: { expresar: 2, naturaleza: 1 } },
         ],
       },
+      {
+        prompt: { es: 'Los animales quieren hacer una carrera por el bosque.', en: 'The animals want to hold a race through the forest.', pt: 'Os animais querem fazer uma corrida pela floresta.' },
+        options: [
+          { text: { es: 'Corro con ellos y les marco el ritmo', en: 'I run with them and set the pace', pt: 'Corro com eles e marco o ritmo' }, w: { mover: 2, naturaleza: 1 } },
+          { text: { es: 'Armo los equipos y las reglas de la carrera', en: 'I set up the teams and the rules of the race', pt: 'Monto as equipes e as regras da corrida' }, w: { liderar: 2, mover: 1 } },
+          { text: { es: 'Cuido que ningún animalito se lastime', en: 'I make sure no little animal gets hurt', pt: 'Cuido para que nenhum bichinho se machuque' }, w: { ayudar: 2, naturaleza: 1 } },
+        ],
+      },
     ],
   },
   {
@@ -1612,6 +1747,14 @@ const ISLANDS = [
           { text: { es: 'Diseño un puente nuevo, más fuerte que antes', en: 'I design a new bridge, stronger than before', pt: 'Projeto uma ponte nova, mais forte que antes' }, w: { construir: 2, crear: 1 } },
           { text: { es: 'Busco otro camino cruzando la montaña', en: 'I look for another path across the mountain', pt: 'Procuro outro caminho atravessando a montanha' }, w: { explorar: 2, naturaleza: 1 } },
           { text: { es: 'Aviso a todos y organizo la reparación juntos', en: 'I warn everyone and organize the repair together', pt: 'Aviso todo mundo e organizo o conserto juntos' }, w: { ayudar: 2, construir: 1 } },
+        ],
+      },
+      {
+        prompt: { es: 'Hay que probar los inventos en una gran competencia.', en: 'The inventions must be tested in a big competition.', pt: 'É preciso testar os inventos em uma grande competição.' },
+        options: [
+          { text: { es: 'Piloteo mi invento a toda velocidad', en: 'I pilot my invention at full speed', pt: 'Piloto meu invento a toda velocidade' }, w: { mover: 2, construir: 1 } },
+          { text: { es: 'Coordino el orden y animo a cada equipo', en: 'I coordinate the order and cheer on each team', pt: 'Coordeno a ordem e animo cada equipe' }, w: { liderar: 2, ayudar: 1 } },
+          { text: { es: 'Mejoro mi máquina hasta que sea perfecta', en: 'I improve my machine until it’s perfect', pt: 'Melhoro minha máquina até ficar perfeita' }, w: { construir: 2, crear: 1 } },
         ],
       },
     ],
@@ -1650,6 +1793,14 @@ const ISLANDS = [
           { text: { es: 'Le enseño a otros un truco que sé hacer', en: 'I teach others a trick I know', pt: 'Ensino aos outros um truque que eu sei' }, w: { expresar: 2, ayudar: 1 } },
         ],
       },
+      {
+        prompt: { es: 'La isla prepara una gran obra de teatro.', en: 'The island is putting on a big play.', pt: 'A ilha prepara uma grande peça de teatro.' },
+        options: [
+          { text: { es: 'Actúo y me muevo por todo el escenario', en: 'I act and move all around the stage', pt: 'Atuo e me movo por todo o palco' }, w: { mover: 2, expresar: 1 } },
+          { text: { es: 'Dirijo la obra y guío a los actores', en: 'I direct the play and guide the actors', pt: 'Dirijo a peça e guio os atores' }, w: { liderar: 2, expresar: 1 } },
+          { text: { es: 'Escribo la historia que se va a contar', en: 'I write the story that will be told', pt: 'Escrevo a história que será contada' }, w: { expresar: 2, crear: 1 } },
+        ],
+      },
     ],
   },
   {
@@ -1686,18 +1837,124 @@ const ISLANDS = [
           { text: { es: 'Buceo despacio, cuidando los corales', en: 'I dive down slowly, protecting the corals', pt: 'Mergulho devagar, cuidando dos corais' }, w: { naturaleza: 2, explorar: 1 } },
         ],
       },
+      {
+        prompt: { es: 'Se arma una expedición para cruzar toda la isla.', en: 'An expedition sets out to cross the whole island.', pt: 'Uma expedição se forma para cruzar a ilha inteira.' },
+        options: [
+          { text: { es: 'Marco el camino y guío al grupo', en: 'I mark the path and lead the group', pt: 'Marco o caminho e guio o grupo' }, w: { liderar: 2, explorar: 1 } },
+          { text: { es: 'Trepo y cruzo los obstáculos con energía', en: 'I climb and cross the obstacles with energy', pt: 'Escalo e cruzo os obstáculos com energia' }, w: { mover: 2, explorar: 1 } },
+          { text: { es: 'Investigo cuál es la ruta más segura', en: 'I research which route is safest', pt: 'Investigo qual é a rota mais segura' }, w: { explorar: 2, ayudar: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'estadio',
+    micro: { es: 'Toca la cancha para encender el juego', en: 'Tap the field to kick off the game', pt: 'Toque o campo para começar o jogo' },
+    name: { es: 'Isla del Estadio', en: 'Stadium Island', pt: 'Ilha do Estádio' },
+    intro: {
+      es: 'El gran juego de la isla va a empezar… ¡pero el equipo se desarmó y nadie se pone de acuerdo!',
+      en: 'The island’s big game is about to start… but the team fell apart and no one agrees!',
+      pt: 'O grande jogo da ilha vai começar… mas o time se desfez e ninguém concorda!',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'El partido arranca y todavía no hay un plan.',
+          en: 'The match is starting and there’s still no plan.',
+          pt: 'A partida começa e ainda não há um plano.',
+        },
+        options: [
+          { text: { es: 'Corro y doy todo: mi energía contagia al equipo', en: 'I run and give it all: my energy fires up the team', pt: 'Corro e dou tudo: minha energia contagia o time' }, w: { mover: 2, liderar: 1 } },
+          { text: { es: 'Reúno a todos y armamos la estrategia juntos', en: 'I gather everyone and we build the strategy together', pt: 'Reúno todos e montamos a estratégia juntos' }, w: { liderar: 2, mover: 1 } },
+          { text: { es: 'Animo al que tiene miedo de jugar', en: 'I cheer up the one who’s afraid to play', pt: 'Animo quem tem medo de jogar' }, w: { ayudar: 2, mover: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'Un jugador se cae y se lastima el pie.',
+          en: 'A player falls and hurts their foot.',
+          pt: 'Um jogador cai e machuca o pé.',
+        },
+        options: [
+          { text: { es: 'Paro el juego y lo ayudo a levantarse', en: 'I stop the game and help them up', pt: 'Paro o jogo e ajudo a levantar' }, w: { ayudar: 2, mover: 1 } },
+          { text: { es: 'Invento una forma de que siga jugando desde el banco', en: 'I invent a way for them to keep playing from the bench', pt: 'Invento um jeito de continuar jogando do banco' }, w: { crear: 2, ayudar: 1 } },
+          { text: { es: 'Entreno más fuerte para ganar por los dos', en: 'I train harder to win for both of us', pt: 'Treino mais forte para ganhar pelos dois' }, w: { mover: 2, liderar: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'Nadie sabe qué reglas usar para el juego.',
+          en: 'Nobody knows which rules to use for the game.',
+          pt: 'Ninguém sabe quais regras usar para o jogo.',
+        },
+        options: [
+          { text: { es: 'Propongo reglas nuevas y organizo los equipos', en: 'I suggest new rules and organize the teams', pt: 'Proponho regras novas e organizo os times' }, w: { liderar: 2, construir: 1 } },
+          { text: { es: 'Invento un juego que nunca existió', en: 'I invent a game that never existed', pt: 'Invento um jogo que nunca existiu' }, w: { crear: 2, mover: 1 } },
+          { text: { es: 'Hago una carrera para decidirlo rápido', en: 'I run a race to settle it fast', pt: 'Faço uma corrida para decidir rápido' }, w: { mover: 2, explorar: 1 } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'plaza',
+    micro: { es: 'Toca la plaza para armar la feria', en: 'Tap the square to set up the fair', pt: 'Toque a praça para montar a feira' },
+    name: { es: 'Isla de la Plaza', en: 'Town Square Island', pt: 'Ilha da Praça' },
+    intro: {
+      es: 'La isla quiere hacer una gran feria… pero nadie sabe por dónde empezar.',
+      en: 'The island wants to throw a big fair… but no one knows where to start.',
+      pt: 'A ilha quer fazer uma grande feira… mas ninguém sabe por onde começar.',
+    },
+    scenes: [
+      {
+        prompt: {
+          es: 'Hay que organizar la feria y todos hablan a la vez.',
+          en: 'The fair needs organizing and everyone talks at once.',
+          pt: 'É preciso organizar a feira e todos falam ao mesmo tempo.',
+        },
+        options: [
+          { text: { es: 'Reparto las tareas y guío al equipo', en: 'I share out the tasks and lead the team', pt: 'Divido as tarefas e guio a equipe' }, w: { liderar: 2, ayudar: 1 } },
+          { text: { es: 'Diseño los puestos y toda la decoración', en: 'I design the stalls and all the decorations', pt: 'Desenho as barracas e toda a decoração' }, w: { crear: 2, liderar: 1 } },
+          { text: { es: 'Escucho a cada uno y cuento sus ideas en voz alta', en: 'I listen to everyone and voice their ideas out loud', pt: 'Escuto cada um e conto as ideias em voz alta' }, w: { expresar: 2, liderar: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'La feria necesita algo de dinero para empezar.',
+          en: 'The fair needs a bit of money to get going.',
+          pt: 'A feira precisa de um pouco de dinheiro para começar.',
+        },
+        options: [
+          { text: { es: 'Armo un pequeño negocio para juntarlo', en: 'I set up a small business to raise it', pt: 'Monto um pequeno negócio para juntar' }, w: { liderar: 2, construir: 1 } },
+          { text: { es: 'Hago afiches para invitar a todo el pueblo', en: 'I make posters to invite the whole town', pt: 'Faço cartazes para convidar a cidade toda' }, w: { expresar: 2, crear: 1 } },
+          { text: { es: 'Construyo los puestos con material reciclado', en: 'I build the stalls from recycled materials', pt: 'Construo as barracas com material reciclado' }, w: { construir: 2, naturaleza: 1 } },
+        ],
+      },
+      {
+        prompt: {
+          es: 'Llega el día de la feria y hay muchísima gente.',
+          en: 'Fair day arrives and there’s a huge crowd.',
+          pt: 'Chega o dia da feira e há muitíssima gente.',
+        },
+        options: [
+          { text: { es: 'Coordino a todos para que salga perfecto', en: 'I coordinate everyone so it goes perfectly', pt: 'Coordeno todos para que dê tudo certo' }, w: { liderar: 2, mover: 1 } },
+          { text: { es: 'Cuento la historia de la isla en el escenario', en: 'I tell the island’s story on stage', pt: 'Conto a história da ilha no palco' }, w: { expresar: 2, liderar: 1 } },
+          { text: { es: 'Cuido que nadie se pierda ni se lastime', en: 'I make sure no one gets lost or hurt', pt: 'Cuido para que ninguém se perca ou se machuque' }, w: { ayudar: 2, liderar: 1 } },
+        ],
+      },
     ],
   },
 ];
 
 /* ---------- Posiciones de las estrellas en la constelación (viewBox 100×70) ---------- */
 const STAR_POS = {
-  crear: { x: 50, y: 12 },
-  ayudar: { x: 81, y: 26 },
-  explorar: { x: 74, y: 52 },
-  construir: { x: 26, y: 52 },
-  expresar: { x: 19, y: 26 },
-  naturaleza: { x: 50, y: 38 },
+  crear: { x: 50, y: 9 },
+  ayudar: { x: 77, y: 19 },
+  liderar: { x: 89, y: 39 },
+  explorar: { x: 75, y: 57 },
+  mover: { x: 50, y: 63 },
+  construir: { x: 25, y: 57 },
+  naturaleza: { x: 11, y: 39 },
+  expresar: { x: 23, y: 19 },
 };
 
 /* ---------- Motor ---------- */
@@ -1983,6 +2240,19 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
       <path d="M66 34 l4 4 m0 -4 l-4 4" stroke="#d4553f" stroke-width="2.5" stroke-linecap="round"/>
       <circle cx="31" cy="61" r="3" fill="#3fb68e"/>
       <g transform="translate(50 18)"><circle r="7" fill="#fffbe8" stroke="#b08d45" stroke-width="2"/><path d="M0 -4 L2 0 L0 4 L-2 0 Z" fill="#d4553f"/></g></g>`,
+    estadio: `<g><ellipse cx="50" cy="80" rx="42" ry="13" fill="#6fbf73"/>
+      <rect x="22" y="40" width="56" height="34" rx="3" fill="#5aa85f" stroke="#3f8a45" stroke-width="2"/>
+      <line x1="50" y1="40" x2="50" y2="74" stroke="#eafbe9" stroke-width="1.5"/>
+      <circle cx="50" cy="57" r="7" fill="none" stroke="#eafbe9" stroke-width="1.5"/>
+      <rect x="64" y="34" width="14" height="12" fill="none" stroke="#fff" stroke-width="2"/>
+      <circle cx="37" cy="60" r="6" fill="#fff" stroke="#233" stroke-width="1.2"/><path d="M37 55.5 l2.6 2 -1 3 -3.2 0 -1-3 Z" fill="#233"/>
+      <rect x="19" y="24" width="4" height="16" fill="#9a7b3f"/><path d="M23 25 L34 28 L23 31 Z" fill="#ffd447"/></g>`,
+    plaza: `<g><ellipse cx="50" cy="80" rx="42" ry="13" fill="#e6c98f"/>
+      <rect x="24" y="44" width="52" height="30" rx="3" fill="#f2dfae" stroke="#c2a15a" stroke-width="2"/>
+      <circle cx="50" cy="59" r="9" fill="#7ec8e3" stroke="#4a7fa5" stroke-width="2"/><path d="M46 59 Q50 52 54 59" fill="#bfe6f2"/>
+      <rect x="48" y="30" width="4" height="12" fill="#9a7b3f"/><path d="M52 31 L65 34 L52 38 Z" fill="#e6398b"/>
+      <rect x="29" y="54" width="11" height="10" rx="1" fill="#d4553f"/><path d="M28 54 h13 l-2.5 -5 h-8 Z" fill="#fff"/>
+      <rect x="60" y="54" width="11" height="10" rx="1" fill="#3fb68e"/><path d="M59 54 h13 l-2.5 -5 h-8 Z" fill="#fff"/></g>`,
   };
 
   function islandArt(id, size) {
@@ -1993,6 +2263,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
   const ISLAND_COLOR = {
     colores: 'var(--isl-colores)', faro: 'var(--isl-faro)', bosque: 'var(--isl-bosque)',
     taller: 'var(--isl-taller)', historias: 'var(--isl-historias)', mapa: 'var(--isl-mapa)',
+    estadio: 'var(--isl-estadio)', plaza: 'var(--isl-plaza)',
   };
 
   /* ---------- Sonido (WebAudio, 100% sintetizado, sin archivos) ---------- */
@@ -2004,6 +2275,7 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
     const ROOTS = {
       title: 261.63, colores: 293.66, faro: 246.94, bosque: 261.63,
       taller: 277.18, historias: 293.66, mapa: 261.63, constellation: 329.63,
+      estadio: 220.00, plaza: 233.08,
     };
     const PENT = [0, 2, 4, 7, 9, 12, 14, 16]; // semitonos: escala pentatónica mayor
     // Riff saltarín de 16 pasos (índices en PENT; -1 = silencio, da ritmo y aire)
@@ -2384,6 +2656,26 @@ if (typeof window !== 'undefined') window.ChispaLogic = ChispaLogic;
         `<path d="M108 52 Q126 36 144 40" stroke="#d4553f" stroke-width="3" stroke-dasharray="6 4" fill="none" stroke-linecap="round"/>`,
         `<path d="M144 34 l9 9 m0 -9 l-9 9" stroke="#d4553f" stroke-width="4" stroke-linecap="round"/>
          <circle cx="148.5" cy="38.5" r="12" fill="#ffce4f" opacity=".3"/>`,
+      ],
+    },
+    estadio: {
+      base: `<rect x="20" y="16" width="160" height="76" rx="6" fill="#5aa85f" stroke="#3f8a45" stroke-width="2.5"/>
+        <line x1="100" y1="16" x2="100" y2="92" stroke="#eafbe9" stroke-width="2"/>
+        <circle cx="100" cy="54" r="12" fill="none" stroke="#eafbe9" stroke-width="2"/>`,
+      steps: [
+        `<circle cx="100" cy="54" r="9" fill="#fff" stroke="#233" stroke-width="1.6"/><path d="M100 47 l3.5 2.7 -1.4 4.3 -4.4 0 -1.3 -4.3 Z" fill="#233"/>`,
+        `<circle cx="52" cy="46" r="6" fill="#ffd447"/><rect x="49" y="52" width="6" height="16" rx="2" fill="#d4553f"/>`,
+        `<circle cx="150" cy="46" r="6" fill="#7ec8e3"/><rect x="147" y="52" width="6" height="16" rx="2" fill="#3f7fae"/>`,
+        `<rect x="150" y="24" width="24" height="18" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="162" cy="33" r="14" fill="#ffce4f" opacity=".35"/><circle cx="36" cy="26" r="3" fill="#ffd447"/><circle cx="176" cy="20" r="3" fill="#ffd447"/>`,
+      ],
+    },
+    plaza: {
+      base: `<rect x="20" y="16" width="160" height="76" rx="6" fill="#f2dfae" stroke="#c2a15a" stroke-width="2.5"/>`,
+      steps: [
+        `<circle cx="100" cy="58" r="14" fill="#7ec8e3" stroke="#4a7fa5" stroke-width="2.5"/><path d="M92 58 Q100 44 108 58" fill="#bfe6f2"/>`,
+        `<rect x="34" y="50" width="26" height="22" rx="2" fill="#d4553f"/><path d="M31 50 h32 l-5 -9 h-22 Z" fill="#fff"/>`,
+        `<rect x="140" y="50" width="26" height="22" rx="2" fill="#3fb68e"/><path d="M137 50 h32 l-5 -9 h-22 Z" fill="#fff"/>`,
+        `<rect x="98" y="22" width="4" height="16" fill="#9a7b3f"/><path d="M102 23 L118 27 L102 31 Z" fill="#e6398b"/><circle cx="74" cy="80" r="5" fill="#ffd447"/><circle cx="126" cy="80" r="5" fill="#7ec8e3"/>`,
       ],
     },
   };
