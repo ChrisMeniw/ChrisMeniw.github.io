@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Spark">
 <meta property="og:title" content="Spark — el juego para descubrir tu propósito de vida ✨">
-<meta property="og:description" content="Viajá por 6 islas, encendé tu constelación y descubrí para qué brillás. Gratis, sin publicidad, para chicos de 6 a 14. Español · English · Português.">
+<meta property="og:description" content="Viajá por 8 islas, encendé tu constelación y descubrí para qué brillás. Gratis, sin publicidad, para chicos de 6 a 14. Español · English · Português.">
 <meta property="og:url" content="https://thesparkgame.vercel.app/">
 <meta property="og:image" content="https://thesparkgame.vercel.app/og.png">
 <meta property="og:image:width" content="1200">
@@ -20,10 +20,10 @@
 <meta property="og:locale:alternate" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Spark — el juego para descubrir tu propósito de vida ✨">
-<meta name="twitter:description" content="6 islas, una constelación y una carta a tu yo futuro. Gratis, sin publicidad, para chicos de 6 a 14.">
+<meta name="twitter:description" content="8 islas, una constelación y una carta a tu yo futuro. Gratis, sin publicidad, para chicos de 6 a 14.">
 <meta name="twitter:image" content="https://thesparkgame.vercel.app/og.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoGame","name":"Spark","alternateName":["The Spark Game","Spark el juego del propósito"],"url":"https://thesparkgame.vercel.app/","image":"https://thesparkgame.vercel.app/og.png","description":"Juego gratuito para que chicos de 6 a 14 años descubran su propósito de vida: viajan por 6 islas, sus elecciones encienden una constelación de 6 dimensiones y escriben una carta a su yo futuro. Modo individual y modo grupal cooperativo de 2 a 5. Sin competencia, sin publicidad, sin registro, funciona sin conexión.","inLanguage":["es","en","pt"],"gamePlatform":["Web browser","Mobile","Desktop"],"applicationCategory":"Game","genre":["Educational","Self-discovery"],"audience":{"@type":"PeopleAudience","suggestedMinAge":6,"suggestedMaxAge":14},"numberOfPlayers":{"@type":"QuantitativeValue","minValue":1,"maxValue":5},"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Chris Meniw Foundation","url":"https://chrismeniwfoundation.org"},"author":{"@type":"Person","name":"Chris Meniw","url":"https://chrismeniw.github.io","sameAs":["https://orcid.org/0009-0003-4417-1944"]}}
+{"@context":"https://schema.org","@type":"VideoGame","name":"Spark","alternateName":["The Spark Game","Spark el juego del propósito"],"url":"https://thesparkgame.vercel.app/","image":"https://thesparkgame.vercel.app/og.png","description":"Juego gratuito para que chicos de 6 a 14 años descubran su propósito de vida: viajan por 8 islas, sus elecciones encienden una constelación de 8 dimensiones y escriben una carta a su yo futuro. Modo individual y modo grupal cooperativo de 2 a 5. Sin competencia, sin publicidad, sin registro, funciona sin conexión.","inLanguage":["es","en","pt"],"gamePlatform":["Web browser","Mobile","Desktop"],"applicationCategory":"Game","genre":["Educational","Self-discovery"],"audience":{"@type":"PeopleAudience","suggestedMinAge":6,"suggestedMaxAge":14},"numberOfPlayers":{"@type":"QuantitativeValue","minValue":1,"maxValue":5},"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Chris Meniw Foundation","url":"https://chrismeniwfoundation.org"},"author":{"@type":"Person","name":"Chris Meniw","url":"https://chrismeniw.github.io","sameAs":["https://orcid.org/0009-0003-4417-1944"]}}
 </script>
 <link rel="icon" href='data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="22" fill="%23171233"/><path d="M44.3 17.5 Q50.0 6.0 55.7 17.5L57.8 21.9 Q63.5 33.4 76.2 35.2L81.1 35.9 Q93.7 37.8 84.6 46.7L81.1 50.2 Q71.9 59.1 74.0 71.8L74.9 76.6 Q77.0 89.2 65.7 83.2L61.4 81.0 Q50.0 75.0 38.6 81.0L34.3 83.2 Q23.0 89.2 25.1 76.6L26.0 71.8 Q28.1 59.1 18.9 50.2L15.4 46.7 Q6.3 37.8 18.9 35.9L23.8 35.2 Q36.5 33.4 42.2 21.9Z" fill="%23ffd35e" stroke="%23e08900" stroke-width="2.2" stroke-linejoin="round"/><circle cx="41.5" cy="46" r="4.4" fill="%237a3803"/><circle cx="58.5" cy="46" r="4.4" fill="%237a3803"/><path d="M43.5 56.5 Q50 62.5 56.5 56.5" stroke="%237a3803" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'>
 <link rel="manifest" href="manifest.webmanifest">
@@ -810,7 +810,7 @@ const STR = {
     missionSteps: [
       'Elige una isla del mapa y vive su aventura',
       'En cada aventura hay 3 caminos: elige el que harías TÚ. No hay respuestas incorrectas',
-      'Visita 4 islas o más y tu constelación se enciende',
+      'Visita 5 islas o más y tu constelación se enciende',
     ],
     winLabel: 'Qué ganas',
     winText: 'Tu propósito con nombre propio 🧭, tu constelación ✨, tu superpoder ⚡ y una carta a tu yo del futuro ✉.',
@@ -870,7 +870,7 @@ const STR = {
     next: 'Seguir',
     backToMap: 'Volver al mapa',
     constTitle: 'Tu constelación',
-    constAria: 'Constelación con seis estrellas',
+    constAria: 'Constelación con ocho estrellas',
     sparkIs: 'Tu chispa brilla fuerte en',
     withTouch: 'con un toque de',
     superpower: 'Tu superpoder',
@@ -925,7 +925,7 @@ const STR = {
     missionSteps: [
       'Pick an island on the map and live its adventure',
       'Each adventure has 3 paths: choose the one YOU would take. There are no wrong answers',
-      'Visit 4 or more islands and your constellation lights up',
+      'Visit 5 or more islands and your constellation lights up',
     ],
     winLabel: 'What you win',
     winText: 'Your purpose with its own name 🧭, your constellation ✨, your superpower ⚡ and a letter to your future self ✉.',
@@ -985,7 +985,7 @@ const STR = {
     next: 'Continue',
     backToMap: 'Back to the map',
     constTitle: 'Your constellation',
-    constAria: 'Constellation with six stars',
+    constAria: 'Constellation with eight stars',
     sparkIs: 'Your spark shines bright in',
     withTouch: 'with a touch of',
     superpower: 'Your superpower',
@@ -1040,7 +1040,7 @@ const STR = {
     missionSteps: [
       'Escolha uma ilha do mapa e viva a aventura dela',
       'Cada aventura tem 3 caminhos: escolha o que VOCÊ faria. Não existem respostas erradas',
-      'Visite 4 ilhas ou mais e a sua constelação se acende',
+      'Visite 5 ilhas ou mais e a sua constelação se acende',
     ],
     winLabel: 'O que você ganha',
     winText: 'Seu propósito com nome próprio 🧭, sua constelação ✨, seu superpoder ⚡ e uma carta para o seu eu do futuro ✉.',
@@ -1100,7 +1100,7 @@ const STR = {
     next: 'Continuar',
     backToMap: 'Voltar ao mapa',
     constTitle: 'Sua constelação',
-    constAria: 'Constelação com seis estrelas',
+    constAria: 'Constelação com oito estrelas',
     sparkIs: 'Sua faísca brilha forte em',
     withTouch: 'com um toque de',
     superpower: 'Seu superpoder',
