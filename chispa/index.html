@@ -801,8 +801,8 @@ const STR = {
     introB1: 'Tu viaje para descubrir tu propósito',
     introB1sub: 'No es una competencia · nadie gana, te descubrís vos',
     introB2: 'En cada isla tocás lo que harías TÚ',
-    introB2sub: 'No hay respuestas correctas · elegís con el corazón',
-    introB3: 'Al final te llevás tu propósito, tu superpoder y una carta a tu yo del futuro',
+    introB2sub: 'No hay respuestas correctas · eliges con el corazón',
+    introB3: 'Al final te llevas tu propósito, tu superpoder y una carta a tu yo del futuro',
     missionTitle: 'Cómo jugar',
     goalLabel: 'El objetivo',
     goalText: 'Descubrir tu propósito: eso que amas hacer… y que el mundo necesita.',
@@ -825,14 +825,14 @@ const STR = {
     resMeh: 'Más o menos',
     resNo: 'No tanto',
     resYesMsg: 'Nadie te lo dijo: lo descubriste vos jugando. Ese propósito es tuyo. 🌟',
-    resAltIntro: 'Que lo digas vale más que cualquier resultado. Mirá tu segunda estrella:',
-    resAltNote: 'Tu constelación cambia con vos. Volvé a jugar cuando quieras: no hay una respuesta fija.',
+    resAltIntro: 'Que lo digas vale más que cualquier resultado. Mira tu segunda estrella:',
+    resAltNote: 'Tu constelación cambia con vos. Vuelve a jugar cuando quieras: no hay una respuesta fija.',
     resReplay: 'Jugar de nuevo eligiendo distinto',
     explorerName: 'Estrella Multicolor',
     explorerTagline: 'Tu chispa todavía está eligiendo su color — y eso es una superpotencia.',
     explorerDesc: (a, b) => `Hoy brillás en varias direcciones a la vez: tus estrellas más fuertes son ${a} y ${b || a}. Los grandes propósitos casi siempre empiezan así, probando caminos.`,
-    explorerNext: 'Tu próximo paso: probá esta semana un reto de cada una… y fijate cuál no querías que termine.',
-    explorerMonth: 'Volvé a jugar Spark dentro de un tiempo, eligiendo con el corazón: tu constelación puede cambiar con vos.',
+    explorerNext: 'Tu próximo paso: prueba esta semana un reto de cada una… y fíjate cuál no querías que termine.',
+    explorerMonth: 'Vuelve a jugar Spark dentro de un tiempo, eligiendo con el corazón: tu constelación puede cambiar con vos.',
     resultLabel: 'Tu resultado',
     purposeLabel: 'Tu propósito',
     shareBtn: 'Compartir mi propósito',
@@ -848,7 +848,7 @@ const STR = {
     createdBy: 'Creado por Chris Meniw Foundation en colaboración con Gabby’s Place Foundation',
     soloBadge: 'Exploración personal · Sin competencia',
     soloNote: 'Este viaje es tuyo: acá no se compite con nadie. La única estrella a superar es la tuya de ayer.',
-    agePrompt: '¿Qué edad tenés?',
+    agePrompt: '¿Qué edad tienes?',
     ageKid: '6 a 12',
     ageTeen: '13 a 16',
     ageKidHint: 'Retos jugados, para descubrir jugando.',
@@ -857,7 +857,7 @@ const STR = {
     skyStreak: (n, star) => `Hace ${n} viajes seguidos que brilla tu ${star || ''}.`.replace(' .', '.'),
     skyFull: n => n === 1 ? 'Ya completaste el mapa entero una vez. 🌍' : `Ya completaste el mapa entero ${n} veces. 🌍`,
     skyVariety: n => `Tu cielo ya reúne ${n} dones distintos.`,
-    skyKeepGoing: n => n <= 1 ? 'Tu primera estrella ya brilla. Volvé y sumá la próxima.' : `Llevás ${n} estrellas. Seguí sumando y mirá cómo cambia tu cielo.`,
+    skyKeepGoing: n => n <= 1 ? 'Tu primera estrella ya brilla. Vuelve y suma la próxima.' : `Llevas ${n} estrellas. Sigue sumando y mira cómo cambia tu cielo.`,
     skyBrightest: 'Tu estrella que más brilla',
     skyAdded: '✨ Sumaste una estrella a tu cielo',
     skyCountFn: n => n === 1 ? '1 viaje' : `${n} viajes`,
@@ -876,7 +876,7 @@ const STR = {
     superpower: 'Tu superpoder',
     watchIntro: 'Cómo se juega',
     letterSaved: '💾 Carta guardada',
-    printFail: 'Tu navegador no permite imprimir acá. Probá con “Guardar carta”.',
+    printFail: 'Tu navegador no permite imprimir acá. Prueba con “Guardar carta”.',
     writeLetter: 'Escribir mi carta al futuro',
     letterTitle: 'Carta a tu yo del futuro',
     letterHint: 'Puedes cambiar lo que quieras. Es tuya.',
@@ -1156,17 +1156,17 @@ const PROFILES = {
     },
     teen: {
       today: {
-        es: 'Dedicá 15 minutos a crear algo real (un diseño, una canción, un video) y compartilo.',
+        es: 'Dedicá 15 minutos a crear algo real (un diseño, una canción, un video) y compártelo.',
         en: 'Spend 15 minutes making something real (a design, a song, a video) and share it.',
         pt: 'Dedique 15 minutos a criar algo real (um design, uma música, um vídeo) e compartilhe.',
       },
       week: {
-        es: 'Empezá un proyecto creativo propio y mostráselo a alguien que admires.',
+        es: 'Empieza un proyecto creativo propio y mostráselo a alguien que admires.',
         en: 'Start your own creative project and show it to someone you admire.',
         pt: 'Comece um projeto criativo seu e mostre a alguém que você admira.',
       },
       month: {
-        es: 'Sumate a un concurso o desafío creativo, o armá un mini portfolio de lo que hacés.',
+        es: 'Súmate a un concurso o desafío creativo, o arma un mini portfolio de lo que haces.',
         en: 'Enter a creative contest or challenge, or build a mini portfolio of your work.',
         pt: 'Participe de um concurso ou desafio criativo, ou monte um mini portfólio do que você faz.',
       },
@@ -1221,7 +1221,7 @@ const PROFILES = {
         pt: 'Seja voluntário(a) em algo real: um vizinho, um clube, uma causa que importa para você.',
       },
       month: {
-        es: 'Armá o sumate a un proyecto solidario y llevá la cuenta del impacto que genera.',
+        es: 'Arma o súmate a un proyecto solidario y llevá la cuenta del impacto que genera.',
         en: 'Start or join a volunteer project and track the impact it creates.',
         pt: 'Crie ou participe de um projeto solidário e acompanhe o impacto que ele gera.',
       },
@@ -1266,17 +1266,17 @@ const PROFILES = {
     },
     teen: {
       today: {
-        es: 'Investigá a fondo un tema que te intrigue y anotá lo que descubriste.',
+        es: 'Investigá a fondo un tema que te intrigue y anota lo que descubriste.',
         en: 'Research a topic that intrigues you in depth and write down what you found.',
         pt: 'Pesquise a fundo um tema que te intriga e anote o que você descobriu.',
       },
       week: {
-        es: 'Elegí una pregunta grande y buscá tres fuentes distintas antes de opinar.',
+        es: 'Elige una pregunta grande y busca tres fuentes distintas antes de opinar.',
         en: 'Pick a big question and find three different sources before forming an opinion.',
         pt: 'Escolha uma pergunta grande e busque três fontes diferentes antes de opinar.',
       },
       month: {
-        es: 'Hacé una mini investigación (una encuesta, una entrevista, un experimento) y compartí lo que aprendiste.',
+        es: 'Haz una mini investigación (una encuesta, una entrevista, un experimento) y comparte lo que aprendiste.',
         en: 'Run a mini research project (a survey, an interview, an experiment) and share what you learned.',
         pt: 'Faça uma mini pesquisa (uma enquete, uma entrevista, um experimento) e compartilhe o que aprendeu.',
       },
@@ -1321,12 +1321,12 @@ const PROFILES = {
     },
     teen: {
       today: {
-        es: 'Elegí un problema chico de tu día y diseñá una solución concreta.',
+        es: 'Elige un problema chico de tu día y diseña una solución concreta.',
         en: 'Pick a small everyday problem and design a concrete solution for it.',
         pt: 'Escolha um problema pequeno do seu dia e projete uma solução concreta.',
       },
       week: {
-        es: 'Aprendé una herramienta nueva (código, electrónica, diseño) con un tutorial y armá algo con ella.',
+        es: 'Aprende una herramienta nueva (código, electrónica, diseño) con un tutorial y arma algo con ella.',
         en: 'Learn a new tool (code, electronics, design) from a tutorial and build something with it.',
         pt: 'Aprenda uma ferramenta nova (código, eletrônica, design) com um tutorial e construa algo com ela.',
       },
@@ -1376,12 +1376,12 @@ const PROFILES = {
     },
     teen: {
       today: {
-        es: 'Grabá o escribí tu opinión sobre algo que te importa y compartila.',
+        es: 'Grabá o escribe tu opinión sobre algo que te importa y compartila.',
         en: 'Record or write your take on something you care about and share it.',
         pt: 'Grave ou escreva sua opinião sobre algo que importa para você e compartilhe.',
       },
       week: {
-        es: 'Publicá algo tuyo (un texto, un video, una canción) y bancá lo que sentís al hacerlo.',
+        es: 'Publicá algo tuyo (un texto, un video, una canción) y bancá lo que sientes al hacerlo.',
         en: 'Publish something of yours (a text, a video, a song) and own how it feels to do it.',
         pt: 'Publique algo seu (um texto, um vídeo, uma música) e encare o que você sente ao fazer isso.',
       },
@@ -1436,7 +1436,7 @@ const PROFILES = {
         pt: 'Reduza algo concreto hoje: menos plástico, menos água, menos desperdício.',
       },
       week: {
-        es: 'Sumate a una acción ambiental real de tu barrio o tu escuela.',
+        es: 'Súmate a una acción ambiental real de tu barrio o tu escuela.',
         en: 'Join a real environmental action in your neighborhood or school.',
         pt: 'Participe de uma ação ambiental real do seu bairro ou da sua escola.',
       },
@@ -1486,7 +1486,7 @@ const PROFILES = {
     },
     teen: {
       today: {
-        es: 'Tomá la iniciativa en un grupo hoy: proponé una idea y coordiná al equipo.',
+        es: 'Toma la iniciativa en un grupo hoy: proponé una idea y coordiná al equipo.',
         en: 'Take the lead in a group today: pitch an idea and coordinate the team.',
         pt: 'Tome a iniciativa em um grupo hoje: proponha uma ideia e coordene a equipe.',
       },
@@ -1496,7 +1496,7 @@ const PROFILES = {
         pt: 'Organize um evento ou projeto pequeno e guie as pessoas que se juntarem.',
       },
       month: {
-        es: 'Empezá un emprendimiento o un club propio y hacé crecer al equipo.',
+        es: 'Empieza un emprendimiento o un club propio y haz crecer al equipo.',
         en: 'Start your own venture or club and grow the team.',
         pt: 'Comece um empreendimento ou clube seu e faça a equipe crescer.',
       },
@@ -1541,17 +1541,17 @@ const PROFILES = {
     },
     teen: {
       today: {
-        es: 'Entrená tu cuerpo 20 minutos hoy y anotá cómo te sentís después.',
+        es: 'Entrená tu cuerpo 20 minutos hoy y anota cómo te sientes después.',
         en: 'Train your body for 20 minutes today and note how you feel afterward.',
         pt: 'Treine o seu corpo por 20 minutos hoje e anote como se sente depois.',
       },
       week: {
-        es: 'Sumate a un equipo, una clase o una rutina y sostenela toda la semana.',
+        es: 'Súmate a un equipo, una clase o una rutina y sostenela toda la semana.',
         en: 'Join a team, a class or a routine and keep it up all week.',
         pt: 'Junte-se a um time, uma aula ou uma rotina e mantenha a semana toda.',
       },
       month: {
-        es: 'Ponete una meta física real (una carrera, una coreo, un torneo) y entrená para lograrla.',
+        es: 'Ponte una meta física real (una carrera, una coreo, un torneo) y entrená para lograrla.',
         en: 'Set a real physical goal (a race, a routine, a tournament) and train to reach it.',
         pt: 'Defina uma meta física real (uma corrida, uma coreografia, um torneio) e treine para alcançá-la.',
       },
