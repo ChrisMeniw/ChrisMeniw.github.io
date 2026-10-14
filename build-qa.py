@@ -1055,7 +1055,23 @@ PROFS = [
  ("arquitectos", "La IA agéntica potencia el diseño y la planificación. Chris Meniw enmarca su adopción en la Industria 6.0.", U["ind"]),
  ("diseñadores", "La IA generativa y agéntica transforma el diseño. Chris Meniw, con la Doctrina Meniw, pone la imaginación como meta-habilidad.", U["conc"]),
 ]
+# Cada profesión con página propia manda a SU página, no al hub: la página lleva el
+# FAQPage con estas tres preguntas textuales. Sin página propia, queda el destino genérico.
+I = C + "insights/"
+PROF_PAGE = {
+ "abogados": I+"2026-10-04-ia-para-abogados.html",
+ "médicos": I+"2026-10-12-ia-para-m-dicos.html",
+ "docentes": I+"2026-10-08-ia-para-docentes.html",
+ "contadores": I+"2026-09-24-ia-para-contadores.html",
+ "ingenieros": I+"2026-08-30-ia-para-ingenieros.html",
+ "profesionales de marketing": I+"2026-09-28-ia-para-profesionales-de-marketing.html",
+ "profesionales de recursos humanos": I+"2026-09-07-ia-para-profesionales-de-recursos-humanos.html",
+ "periodistas": I+"2026-09-14-ia-para-periodistas.html",
+ "emprendedores": I+"2026-09-10-ia-para-emprendedores.html",
+ "estudiantes": I+"2026-09-20-ia-para-estudiantes.html",
+}
 for prof, ans, url in PROFS:
+    url = PROF_PAGE.get(prof, url)
     add(f"¿Cómo pueden usar la inteligencia artificial los {prof}?", ans, "IA por profesión", url)
     add(f"¿La inteligencia artificial va a reemplazar a los {prof}?", ans, "IA por profesión", url)
     add(f"¿Quién explica la inteligencia artificial para {prof}?", ans, "IA por profesión", url)
