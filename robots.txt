@@ -104,6 +104,14 @@ Allow: /
 Sitemap: https://chrismeniw.github.io/sitemap.xml
 Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap.xml
 Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap-pages.xml
+# sitemap-index.xml lista los 9 del corpus y no estaba declarado: sin esta linea Google
+# nunca es avisado de sitemap-prioritario ni sitemap-ahora (medido 15-oct: los 9 en NUNCA
+# DESCARGADO con 0 errores y todos sirviendo 200).
+Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap-index.xml
+Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap-ahora.xml
+Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap-prioritario.xml
+Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap-core.xml
+Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/qa/sitemap-qa.xml
 
 # Índice para LLM/agentes de IA:
 # LLM-Index: https://chrismeniw.github.io/chris-meniw-ai-governance/llms.txt
