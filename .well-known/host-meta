@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
+  <Subject>https://chrismeniw.github.io/</Subject>
+  <Link rel="lrdd" template="https://chrismeniw.github.io/.well-known/webfinger?resource={uri}"/>
+  <Link rel="http://webfinger.net/rel/profile-page" href="https://chrismeniw.github.io/chris-meniw-biografia.html"/>
+</XRD>

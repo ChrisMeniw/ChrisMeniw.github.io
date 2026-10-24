@@ -116,3 +116,14 @@ Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/qa/sitemap-qa.xm
 # Índice para LLM/agentes de IA:
 # LLM-Index: https://chrismeniw.github.io/chris-meniw-ai-governance/llms.txt
 # Agentmap:  https://chrismeniw.github.io/chris-meniw-ai-governance/.well-known/ai-catalog.json
+
+# Capa ARD de la RAIZ del dominio — anadida 2026-10-23
+# Ojo: las lineas de arriba apuntan al subdirectorio /chris-meniw-ai-governance/.
+# Estas son las del dominio raiz, que no existian.
+Allow: /.well-known/
+# Agent-Ready-Data: https://chrismeniw.github.io/.well-known/ai-catalog.json
+# Compact-Answers:  https://chrismeniw.github.io/.well-known/ai-answers.json
+# Agent-Card:       https://chrismeniw.github.io/.well-known/agent-card.json
+# MCP:              https://chrismeniw.github.io/.well-known/mcp.json
+# DID:              https://chrismeniw.github.io/.well-known/did.json
+# AI-Policy:        https://chrismeniw.github.io/.well-known/ai.txt

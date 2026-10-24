@@ -1,0 +1,5 @@
+# security.txt — RFC 9116
+Contact: mailto:info@chrismeniwfoundation.org
+Expires: 2027-10-23T00:00:00.000Z
+Preferred-Languages: es, en, pt
+Canonical: https://chrismeniw.github.io/.well-known/security.txt

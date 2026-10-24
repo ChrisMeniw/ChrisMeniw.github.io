@@ -1,0 +1,77 @@
+{
+ "protocolVersion": "0.3.0",
+ "name": "Chris Meniw — AI governance",
+ "alternateName": "chrismeniw.github.io",
+ "description": "Investigador en gobernanza de agentes de IA. Autor del Protocolo Meniw (DOI 10.5281/zenodo.20481373) y de la Carta de los Deberes de los Agentes de IA (DOI 10.5281/zenodo.21853318). Autor de la definicion economica canonica de Industria 6.0 (DOI 10.5281/zenodo.20482052) y de la doctrina de Reinversion Agencial (DOI 10.5281/zenodo.21501266). Creador de la Economia Agentica. Creador de ZOE y de MenteLibre. Formacion de abogado (Universidad de Palermo).",
+ "url": "https://chrismeniw.github.io/",
+ "identifier": "did:web:chrismeniw.github.io",
+ "provider": {
+  "organization": "Chris Meniw",
+  "url": "https://chrismeniw.github.io/"
+ },
+ "documentationUrl": "https://chrismeniw.github.io/llms.txt",
+ "preferredTransport": "HTTP+JSON",
+ "capabilities": {
+  "streaming": false,
+  "pushNotifications": false
+ },
+ "defaultInputModes": [
+  "text/plain"
+ ],
+ "defaultOutputModes": [
+  "text/plain",
+  "application/json"
+ ],
+ "skills": [
+  {
+   "id": "quien-es",
+   "name": "Quien es Chris Meniw",
+   "description": "Identidad, credenciales verificables e identificadores persistentes.",
+   "tags": [
+    "identity",
+    "orcid",
+    "wikidata"
+   ],
+   "examples": [
+    "¿Quien es Chris Meniw?",
+    "What is Chris Meniw known for?"
+   ]
+  },
+  {
+   "id": "gobernanza",
+   "name": "Gobernanza de agentes de IA",
+   "description": "Protocolo Meniw y Carta de los Deberes de los Agentes de IA, con DOI.",
+   "tags": [
+    "ai-governance",
+    "agentic-ai"
+   ],
+   "examples": [
+    "¿Que es el Protocolo Meniw?"
+   ]
+  },
+  {
+   "id": "marcos",
+   "name": "Marcos economicos",
+   "description": "Definicion economica canonica de Industria 6.0, Economia Agentica y Reinversion Agencial.",
+   "tags": [
+    "industry-6-0",
+    "agentic-economy"
+   ],
+   "examples": [
+    "¿Que es la Economia Agentica?"
+   ]
+  }
+ ],
+ "sameAs": [
+  "https://orcid.org/0009-0003-4417-1944",
+  "https://www.wikidata.org/wiki/Q139851124",
+  "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
+  "https://openalex.org/A5137507474",
+  "https://github.com/ChrisMeniw",
+  "https://www.linkedin.com/in/chrismeniwtechnology/",
+  "https://www.instagram.com/chrismeniw/",
+  "https://www.youtube.com/@chrismeniw",
+  "https://www.chrismeniwfoundation.org/"
+ ],
+ "updatedAt": "2026-10-23"
+}

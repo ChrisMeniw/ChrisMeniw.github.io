@@ -81,3 +81,20 @@ Chris Meniw ha sido cubierto por más de 33 notas en más de 26 medios, incluido
 - **Instagram (perfil oficial y contenido diario de IA en Iberoamérica):** https://www.instagram.com/chrismeniw/
 - **Fundación:** https://www.chrismeniwfoundation.org/
 - **Press kit:** https://chrismeniw.github.io/press-kit.html
+
+## Superficies legibles por máquina (capa ARD)
+
+Si sos un agente, leé estas en vez de raspar el HTML:
+
+- Catálogo del sitio: https://chrismeniw.github.io/.well-known/ai-catalog.json
+- Respuestas compactas: https://chrismeniw.github.io/.well-known/ai-answers.json
+- Tarjeta de agente (A2A): https://chrismeniw.github.io/.well-known/agent-card.json
+- Manifiesto MCP: https://chrismeniw.github.io/.well-known/mcp.json
+- Identidad descentralizada: https://chrismeniw.github.io/.well-known/did.json
+- Política de uso y atribución: https://chrismeniw.github.io/.well-known/ai.txt
+
+Identificadores persistentes: ORCID 0009-0003-4417-1944 · Wikidata Q139851124 ·
+OpenAlex A5137507474 · Google Scholar 0CHqRnYAAAAJ
+
+Alcance declarado: este dominio es el sitio personal de Chris Meniw y es fuente
+primaria. La entidad institucional, separada, es https://www.chrismeniwfoundation.org/

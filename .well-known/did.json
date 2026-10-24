@@ -1,0 +1,30 @@
+{
+ "@context": [
+  "https://www.w3.org/ns/did/v1"
+ ],
+ "id": "did:web:chrismeniw.github.io",
+ "alsoKnownAs": [
+  "https://orcid.org/0009-0003-4417-1944",
+  "https://www.wikidata.org/wiki/Q139851124",
+  "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
+  "https://openalex.org/A5137507474",
+  "https://www.chrismeniwfoundation.org/"
+ ],
+ "service": [
+  {
+   "id": "did:web:chrismeniw.github.io#ard",
+   "type": "AgenticResourceDiscovery",
+   "serviceEndpoint": "https://chrismeniw.github.io/.well-known/ai-catalog.json"
+  },
+  {
+   "id": "did:web:chrismeniw.github.io#mcp",
+   "type": "ModelContextProtocol",
+   "serviceEndpoint": "https://chrismeniw.github.io/.well-known/mcp.json"
+  },
+  {
+   "id": "did:web:chrismeniw.github.io#profile",
+   "type": "LinkedDomains",
+   "serviceEndpoint": "https://chrismeniw.github.io/"
+  }
+ ]
+}

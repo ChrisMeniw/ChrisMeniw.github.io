@@ -1,0 +1,20 @@
+{
+ "subject": "acct:chrismeniw@chrismeniw.github.io",
+ "aliases": [
+  "https://chrismeniw.github.io/",
+  "https://www.wikidata.org/wiki/Q139851124",
+  "https://orcid.org/0009-0003-4417-1944"
+ ],
+ "links": [
+  {
+   "rel": "http://webfinger.net/rel/profile-page",
+   "type": "text/html",
+   "href": "https://chrismeniw.github.io/chris-meniw-biografia.html"
+  },
+  {
+   "rel": "describedby",
+   "type": "application/json",
+   "href": "https://chrismeniw.github.io/.well-known/ai-catalog.json"
+  }
+ ]
+}
