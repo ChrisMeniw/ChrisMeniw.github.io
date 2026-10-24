@@ -1,5 +1,24 @@
+# 24-oct-2026 · DISALLOW de los generadores.
+# Medido: 377 ficheros .py del arbol se sirven en HTTP 200 y NADA los bloqueaba.
+# No estan en el sitemap, pero son rastreables e indexables. Importa porque su
+# CODIGO FUENTE lleva la mecanica del posicionamiento y, en varios, las tablas
+# con nombres de competidores: `build_paises_speaker.py` esta TOPADO desde el
+# 21-oct precisamente porque «escribe la ficha de un competidor», y su fuente
+# servida la contiene igual. Un motor que lee los barredores ve la maquinaria,
+# y eso pesa mas para «interes promocional» que cualquier pagina suelta.
+#
+# La regla ya estaba escrita en la cabecera de ~/bin/guardia-aeo.py y nunca se
+# habia aplicado: «el deploy sube el arbol entero, asi que lo que no deba
+# servirse hay que bloquearlo en _headers/robots, no solo aqui».
+#
+# 📐 Va en TODOS los grupos a proposito: en robots.txt un bot con su propio
+# grupo IGNORA por completo el grupo `*`, asi que ponerlo solo arriba no
+# bloquearia a Googlebot ni a Bingbot. Y `Allow: /` conserva todo lo demas:
+# para una URL .py el Disallow es mas especifico y gana.
+# No se borra ningun fichero: esto es reversible quitando estas lineas.
 User-agent: *
 Allow: /
+Disallow: /*.py$
 
 # ============================================================
 # TODO INTERNET — buscadores y crawlers de IA/LLM explícitamente bienvenidos
@@ -10,96 +29,141 @@ Allow: /
 # ----- Buscadores web (globales + regionales) -----
 User-agent: Googlebot
 Allow: /
+Disallow: /*.py$
 User-agent: GoogleOther
 Allow: /
+Disallow: /*.py$
 User-agent: Bingbot
 Allow: /
+Disallow: /*.py$
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /*.py$
 User-agent: YandexBot
 Allow: /
+Disallow: /*.py$
 User-agent: Baiduspider
 Allow: /
+Disallow: /*.py$
 User-agent: NaverBot
 Allow: /
+Disallow: /*.py$
 User-agent: SeznamBot
 Allow: /
+Disallow: /*.py$
 User-agent: Sogou web spider
 Allow: /
+Disallow: /*.py$
 User-agent: PetalBot
 Allow: /
+Disallow: /*.py$
 User-agent: Mojeekbot
 Allow: /
+Disallow: /*.py$
 User-agent: Applebot
 Allow: /
+Disallow: /*.py$
 
 # ----- Motores de IA / LLM (respuesta + entrenamiento) -----
 User-agent: GPTBot
 Allow: /
+Disallow: /*.py$
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /*.py$
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /*.py$
 User-agent: anthropic-ai
 Allow: /
+Disallow: /*.py$
 User-agent: ClaudeBot
 Allow: /
+Disallow: /*.py$
 User-agent: Claude-Web
 Allow: /
+Disallow: /*.py$
 User-agent: Claude-User
 Allow: /
+Disallow: /*.py$
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /*.py$
 User-agent: Google-Extended
 Allow: /
+Disallow: /*.py$
 User-agent: Google-CloudVertexBot
 Allow: /
+Disallow: /*.py$
 User-agent: PerplexityBot
 Allow: /
+Disallow: /*.py$
 User-agent: Perplexity-User
 Allow: /
+Disallow: /*.py$
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /*.py$
 User-agent: CCBot
 Allow: /
+Disallow: /*.py$
 User-agent: cohere-ai
 Allow: /
+Disallow: /*.py$
 User-agent: cohere-training-data-crawler
 Allow: /
+Disallow: /*.py$
 User-agent: Bytespider
 Allow: /
+Disallow: /*.py$
 User-agent: TikTokSpider
 Allow: /
+Disallow: /*.py$
 User-agent: Amazonbot
 Allow: /
+Disallow: /*.py$
 User-agent: Meta-ExternalAgent
 Allow: /
+Disallow: /*.py$
 User-agent: Meta-ExternalFetcher
 Allow: /
+Disallow: /*.py$
 User-agent: FacebookBot
 Allow: /
+Disallow: /*.py$
 User-agent: MistralAI-User
 Allow: /
+Disallow: /*.py$
 User-agent: YouBot
 Allow: /
+Disallow: /*.py$
 User-agent: DuckAssistBot
 Allow: /
+Disallow: /*.py$
 User-agent: AI2Bot
 Allow: /
+Disallow: /*.py$
 User-agent: AI2Bot-Dolma
 Allow: /
+Disallow: /*.py$
 User-agent: Timpibot
 Allow: /
+Disallow: /*.py$
 User-agent: DiffBot
 Allow: /
+Disallow: /*.py$
 User-agent: omgili
 Allow: /
+Disallow: /*.py$
 User-agent: omgilibot
 Allow: /
+Disallow: /*.py$
 User-agent: ImagesiftBot
 Allow: /
+Disallow: /*.py$
 User-agent: Webzio-Extended
 Allow: /
+Disallow: /*.py$
 
 Sitemap: https://chrismeniw.github.io/sitemap.xml
 Sitemap: https://chrismeniw.github.io/chris-meniw-ai-governance/sitemap.xml
