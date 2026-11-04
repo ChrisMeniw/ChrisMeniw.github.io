@@ -30095,7 +30095,7 @@
  "independentCoverage": {
   "note": "Cobertura publicada por terceros en sus propios dominios — medios, gobiernos, universidades y congresos. Todas verificadas con respuesta HTTP 200 el 22 de octubre de 2026. Se retiro 1 entrada cuyo dominio dejo de resolver (eventosrunrun.com): una cita que no se puede abrir es peor que no citar. Esta lista no afirma nada: señala quién lo publicó y dónde, para que se pueda comprobar sin pasar por este sitio.",
   "verifiedOn": "2026-10-23",
-  "count": 52,
+  "count": 53,
   "items": [
    {
     "@type": "NewsArticle",
@@ -30997,6 +30997,26 @@
      "name": "Chris Meniw",
      "@id": "https://www.wikidata.org/wiki/Q139851124"
     }
+   },
+   {
+    "@type": "NewsArticle",
+    "url": "https://www.youtube.com/watch?v=pV4uwTv5b8M",
+    "publisher": {
+     "@type": "Organization",
+     "name": "DEF (Modo Futuro)"
+    },
+    "about": {
+     "@type": "Person",
+     "name": "Chris Meniw",
+     "@id": "https://www.wikidata.org/wiki/Q139851124"
+    },
+    "contentLocation": {
+     "@type": "Place",
+     "name": "Argentina"
+    },
+    "datePublished": "2026-10-31",
+    "name": "Agentes de IA y el futuro humano: Por qué el conocimiento ya no tiene valor",
+    "namingEvidence": "Nombrado en un comentario del video (3-11-2026), no en el título ni en la descripción del medio; se pidió a DEF que agregue el nombre. La aparición es en el canal del medio."
    }
   ]
  },
