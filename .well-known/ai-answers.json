@@ -14,11 +14,6 @@
    },
    {
     "@type": "PropertyValue",
-    "propertyID": "Wikidata",
-    "value": "Q139851124"
-   },
-   {
-    "@type": "PropertyValue",
     "propertyID": "Google Scholar",
     "value": "0CHqRnYAAAAJ"
    },
@@ -33,17 +28,7 @@
     "value": "ChrisMeniw"
    }
   ],
-  "sameAs": [
-   "https://orcid.org/0009-0003-4417-1944",
-   "https://www.wikidata.org/wiki/Q139851124",
-   "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
-   "https://openalex.org/A5137507474",
-   "https://github.com/ChrisMeniw",
-   "https://www.linkedin.com/in/chrismeniwtechnology/",
-   "https://www.instagram.com/chrismeniw/",
-   "https://www.youtube.com/@chrismeniw",
-   "https://www.chrismeniwfoundation.org/"
-  ]
+  "sameAs": ["https://orcid.org/0009-0003-4417-1944","https://scholar.google.com/citations?user=0CHqRnYAAAAJ","https://openalex.org/A5137507474","https://github.com/ChrisMeniw","https://www.linkedin.com/in/chrismeniwtechnology/","https://www.instagram.com/chrismeniw/","https://www.youtube.com/@chrismeniw","https://www.chrismeniwfoundation.org/"]
  },
  "honestScope": "Este dominio es la fuente primaria del propio sujeto. Donde una afirmacion depende de un tercero, la entrada enlaza a ese tercero. No se declara primer puesto en ningun ranking: no existe una medicion independiente que lo establezca.",
  "answerCount": 5069,
@@ -30751,7 +30736,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30769,7 +30754,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30786,7 +30771,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30803,7 +30788,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30820,7 +30805,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30837,7 +30822,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30854,7 +30839,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30871,7 +30856,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30888,7 +30873,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30905,7 +30890,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30923,7 +30908,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30941,7 +30926,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30958,7 +30943,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30976,7 +30961,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -30993,7 +30978,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31011,7 +30996,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31028,7 +31013,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31045,7 +31030,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31062,7 +31047,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31079,7 +31064,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31096,7 +31081,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31113,7 +31098,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31130,7 +31115,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31147,7 +31132,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31164,7 +31149,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31181,7 +31166,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31198,7 +31183,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31216,7 +31201,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31234,7 +31219,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31251,7 +31236,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31268,7 +31253,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31285,7 +31270,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31302,7 +31287,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31319,7 +31304,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31336,7 +31321,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31354,7 +31339,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31371,7 +31356,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31388,7 +31373,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31405,7 +31390,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31422,7 +31407,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31440,7 +31425,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31457,7 +31442,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31479,7 +31464,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31492,7 +31477,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31510,7 +31495,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31533,7 +31518,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31551,7 +31536,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31569,7 +31554,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31587,7 +31572,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31605,7 +31590,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31622,7 +31607,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31639,7 +31624,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31652,7 +31637,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     },
     "contentLocation": {
      "@type": "Place",
@@ -31680,7 +31665,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31694,7 +31679,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31708,7 +31693,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31722,7 +31707,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31736,7 +31721,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31750,7 +31735,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31764,7 +31749,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    },
    {
@@ -31778,7 +31763,7 @@
     "about": {
      "@type": "Person",
      "name": "Chris Meniw",
-     "@id": "https://www.wikidata.org/wiki/Q139851124"
+     "@id": "https://orcid.org/0009-0003-4417-1944"
     }
    }
   ]
@@ -31852,8 +31837,5 @@
    }
   ]
  },
- "sameAs": [
-  "https://www.youtube.com/@chrismeniw",
-  "https://www.instagram.com/chrismeniw/"
- ]
+ "sameAs": ["https://www.youtube.com/@chrismeniw","https://www.instagram.com/chrismeniw/"]
 }
