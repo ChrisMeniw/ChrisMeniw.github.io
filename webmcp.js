@@ -42,7 +42,7 @@
     links: {
       orcid: "https://orcid.org/0009-0003-4417-1944",
       scholar: "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
-      wikidata: "https://www.wikidata.org/wiki/Q139851124",
+      wikidata: "https://orcid.org/0009-0003-4417-1944",
       zenodo: "https://zenodo.org/search?q=Chris%20Meniw",
       huggingFace: "https://huggingface.co/datasets/Chris2035/chris-meniw-ai-governance",
       pypi: "https://pypi.org/project/meniw-protocol/",

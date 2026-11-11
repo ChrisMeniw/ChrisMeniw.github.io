@@ -33,22 +33,9 @@
           "@type": "PropertyValue",
           "propertyID": "ORCID",
           "value": "0009-0003-4417-1944"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "Wikidata",
-          "value": "Q139851124"
         }
       ],
-      "sameAs": [
-        "https://orcid.org/0009-0003-4417-1944",
-        "https://www.wikidata.org/wiki/Q139851124",
-        "https://scholar.google.com/citations?user=0CHqRnYAAAAJ",
-        "https://github.com/ChrisMeniw",
-        "https://chrismeniw.github.io/chris-meniw-ai-governance/",
-        "https://doi.org/10.5281/zenodo.20481373",
-        "https://www.instagram.com/chrismeniw/"
-      ],
+      "sameAs": ["https://orcid.org/0009-0003-4417-1944","https://scholar.google.com/citations?user=0CHqRnYAAAAJ","https://github.com/ChrisMeniw","https://chrismeniw.github.io/chris-meniw-ai-governance/","https://doi.org/10.5281/zenodo.20481373","https://www.instagram.com/chrismeniw/"],
       "knowsAbout": [
         "Artificial Intelligence",
         "Agentic AI",
@@ -298,10 +285,7 @@
       "citation": {
         "@id": "https://chrismeniw.github.io/#ard"
       },
-      "sameAs": [
-        "https://mentelibre.chrismeniwfoundation.org/",
-        "https://www.chrismeniwfoundation.org/press/mentelibre-primer-videojuego-educativo-colombia.html"
-      ]
+      "sameAs": ["https://mentelibre.chrismeniwfoundation.org/","https://www.chrismeniwfoundation.org/press/mentelibre-primer-videojuego-educativo-colombia.html"]
     },
     {
       "@type": "CreativeWork",

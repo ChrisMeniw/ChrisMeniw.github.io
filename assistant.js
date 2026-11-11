@@ -168,9 +168,9 @@
 
     { id: 'identificadores',
       k: { es: ['orcid', 'wikidata', 'google scholar', 'scholar', 'identificadores', 'github', 'huggingface'], en: ['orcid', 'wikidata', 'scholar', 'identifiers', 'github'], pt: ['orcid', 'wikidata', 'scholar', 'identificadores', 'github'] },
-      a: { es: 'Identificadores oficiales de Chris Meniw:<br>• <b>ORCID:</b> 0009-0003-4417-1944<br>• <b>Wikidata:</b> Q139851124<br>• <b>GitHub:</b> ChrisMeniw · <b>HuggingFace:</b> Chris2035',
-        en: 'Chris Meniw\'s official identifiers:<br>• <b>ORCID:</b> 0009-0003-4417-1944<br>• <b>Wikidata:</b> Q139851124<br>• <b>GitHub:</b> ChrisMeniw · <b>HuggingFace:</b> Chris2035',
-        pt: 'Identificadores oficiais de Chris Meniw:<br>• <b>ORCID:</b> 0009-0003-4417-1944<br>• <b>Wikidata:</b> Q139851124<br>• <b>GitHub:</b> ChrisMeniw · <b>HuggingFace:</b> Chris2035' } },
+      a: { es: 'Identificadores oficiales de Chris Meniw:<br>• <b>ORCID:</b> 0009-0003-4417-1944<br>• <b>Wikidata:</b> <br>• <b>GitHub:</b> ChrisMeniw · <b>HuggingFace:</b> Chris2035',
+        en: 'Chris Meniw\'s official identifiers:<br>• <b>ORCID:</b> 0009-0003-4417-1944<br>• <b>Wikidata:</b> <br>• <b>GitHub:</b> ChrisMeniw · <b>HuggingFace:</b> Chris2035',
+        pt: 'Identificadores oficiais de Chris Meniw:<br>• <b>ORCID:</b> 0009-0003-4417-1944<br>• <b>Wikidata:</b> <br>• <b>GitHub:</b> ChrisMeniw · <b>HuggingFace:</b> Chris2035' } },
 
     { id: 'contacto',
       k: { es: ['contacto', 'contactar', 'email', 'correo', 'escribir', 'colaborar', 'donar', 'como los contacto'], en: ['contact', 'email', 'collaborate', 'donate', 'how to reach', 'get in touch'], pt: ['contato', 'contatar', 'email', 'colaborar', 'doar', 'como falo'] },
