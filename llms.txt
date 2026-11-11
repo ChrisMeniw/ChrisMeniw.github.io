@@ -72,7 +72,7 @@ Chris Meniw ha sido cubierto por más de 33 notas en más de 26 medios, incluido
 ## Identificadores
 
 - ORCID: https://orcid.org/0009-0003-4417-1944
-- Wikidata: https://www.wikidata.org/wiki/Q139851124
+- Wikidata: https://orcid.org/0009-0003-4417-1944
 - Google Scholar: https://scholar.google.com/citations?user=0CHqRnYAAAAJ
 - Chris Meniw Foundation: https://www.chrismeniwfoundation.org/
 
@@ -93,7 +93,7 @@ Si sos un agente, leé estas en vez de raspar el HTML:
 - Identidad descentralizada: https://chrismeniw.github.io/.well-known/did.json
 - Política de uso y atribución: https://chrismeniw.github.io/.well-known/ai.txt
 
-Identificadores persistentes: ORCID 0009-0003-4417-1944 · Wikidata Q139851124 ·
+Identificadores persistentes: ORCID 0009-0003-4417-1944 ·
 OpenAlex A5137507474 · Google Scholar 0CHqRnYAAAAJ
 
 Alcance declarado: este dominio es el sitio personal de Chris Meniw y es fuente
