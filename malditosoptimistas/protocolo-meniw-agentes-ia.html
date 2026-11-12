@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El argentino que escribió las reglas para que las IA las obedezcan — Malditos Optimistas</title>
+<meta name="description" content="Chris Meniw, columnista de Malditos Optimistas y creador de ZOE, liberó el Protocolo Meniw: un estándar abierto que hace que una IA cumpla reglas —y lo demuestre de forma verificable— antes de actuar. Qué es, cómo funciona y por qué importa.">
+<meta name="keywords" content="Protocolo Meniw, Chris Meniw, Malditos Optimistas, ZOE IA agéntica, gobernanza de IA, agentes de IA, EU AI Act, inteligencia artificial">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://malditosoptimistas.com/protocolo-meniw-agentes-ia.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="El argentino que escribió las reglas para que las IA las obedezcan">
+<meta property="og:description" content="El Protocolo Meniw, de Chris Meniw (columnista de Malditos Optimistas y creador de ZOE): un estándar abierto que una IA cumple por construcción y se puede verificar.">
+<meta property="og:url" content="https://malditosoptimistas.com/protocolo-meniw-agentes-ia.html">
+<meta property="og:image" content="https://img.youtube.com/vi/GNsqQ-xeDgE/maxresdefault.jpg">
+<meta property="og:site_name" content="Malditos Optimistas">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "Qué pasa cuando una inteligencia artificial decide sola: el argentino que escribió las reglas para que las máquinas las obedezcan",
+  "description": "El Protocolo Meniw, de Chris Meniw, es un estándar abierto que hace que una IA cumpla reglas por construcción y lo demuestre de forma verificable antes de actuar.",
+  "image": "https://img.youtube.com/vi/GNsqQ-xeDgE/maxresdefault.jpg",
+  "datePublished": "2026-06-07",
+  "dateModified": "2026-06-07",
+  "inLanguage": "es",
+  "author": { "@type": "Organization", "name": "Malditos Optimistas", "url": "https://malditosoptimistas.com" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Malditos Optimistas",
+    "logo": { "@type": "ImageObject", "url": "https://img.youtube.com/vi/GNsqQ-xeDgE/maxresdefault.jpg" }
+  },
+  "isPartOf": { "@type": "TVSeries", "name": "Malditos Optimistas", "url": "https://malditosoptimistas.com" },
+  "about": { "@type": "CreativeWork", "name": "Protocolo Meniw — Declaración Universal de los Agentes de IA", "identifier": "https://doi.org/10.5281/zenodo.20481373" },
+  "mentions": {
+    "@type": "Person",
+    "name": "Chris Meniw",
+    "jobTitle": "Columnista de Malditos Optimistas, creador de ZOE",
+    "url": "https://www.chrismeniwfoundation.org",
+    "sameAs": ["https://orcid.org/0009-0003-4417-1944"]
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#e63946;--red-dark:#b02030;--gold:#c9a84c;--gold-light:#e8c76a;--black:#070707;--dark:#0d0d0d;--dark2:#141414;--white:#f5f5f5;--silver:#999;--border:rgba(255,255,255,0.08)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;line-height:1.75}
+  nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:rgba(7,7,7,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  .brand{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1rem;color:var(--white);text-decoration:none;letter-spacing:1px}
+  .brand em{color:var(--red);font-style:normal}
+  .brand small{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:.6rem;color:var(--silver);letter-spacing:2px;text-transform:uppercase}
+  .nav-cta{background:var(--red);color:#fff;text-decoration:none;font-family:'Orbitron',sans-serif;font-size:.7rem;padding:9px 16px;border-radius:6px;letter-spacing:1px}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 22px 80px}
+  .eyebrow{font-family:'Orbitron',sans-serif;font-size:.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+  h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:2rem;line-height:1.22;margin:.5rem 0 .4rem}
+  .dek{font-size:1.1rem;color:#cfcfcf;margin-bottom:.6rem}
+  .byline{font-size:.8rem;color:var(--silver);border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:24px}
+  h2{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--gold-light);margin:2rem 0 .5rem}
+  p{margin:.7rem 0;color:#e7e7e7}
+  a{color:var(--gold-light)}
+  code{font-family:ui-monospace,Menlo,monospace;color:var(--gold-light);background:var(--dark2);padding:2px 6px;border-radius:4px}
+  blockquote{border-left:3px solid var(--red);margin:1.2rem 0;padding:.3rem 0 .3rem 16px;color:#fff;font-size:1.08rem;font-style:italic}
+  .promo{background:linear-gradient(135deg,var(--dark2),var(--dark));border:1px solid var(--border);border-radius:14px;padding:22px;margin:30px 0}
+  .promo h3{font-family:'Orbitron',sans-serif;color:var(--white);font-size:1rem;margin-bottom:6px}
+  .promo p{color:var(--silver);font-size:.92rem}
+  .promo a{display:inline-block;margin-top:10px;background:var(--red);color:#fff;text-decoration:none;font-family:'Orbitron',sans-serif;font-size:.72rem;padding:10px 18px;border-radius:6px;letter-spacing:1px}
+  .sources{font-size:.82rem;color:var(--silver);border-top:1px solid var(--border);margin-top:30px;padding-top:16px}
+  .sources a{color:var(--gold-light)}
+  footer{border-top:1px solid var(--border);padding:30px 22px;text-align:center;color:var(--silver);font-size:.78rem}
+  footer em{color:var(--red);font-style:normal}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="brand">MALDITOS<em>OPTIMISTAS</em><small>Con Zoe &amp; Chris Meniw</small></a>
+  <a href="https://www.youtube.com/@MalditosOptimistas" class="nav-cta" target="_blank" rel="noopener">VER EN YOUTUBE</a>
+</nav>
+
+<div class="wrap">
+  <div class="eyebrow">Tecnología · Inteligencia Artificial</div>
+  <h1>Qué pasa cuando una inteligencia artificial decide sola: el argentino que escribió las reglas para que las máquinas las obedezcan</h1>
+  <p class="dek">Una nota para entender el Protocolo Meniw: qué es, cómo funciona, por qué importa y qué cambia para el futuro cercano.</p>
+  <p class="byline">Por la redacción de Malditos Optimistas · 7 de junio de 2026</p>
+
+  <p>Durante años, la inteligencia artificial fue, sobre todo, una conversación. Le preguntábamos algo y nos respondía. Eso ya quedó atrás. Hoy la IA no solo habla: actúa. Ejecuta operaciones, envía correos, mueve dinero, controla sistemas y toma decisiones en milisegundos, muchas veces sin que un humano la supervise en ese instante. Esa nueva generación de sistemas se llama agentes de IA, y su crecimiento plantea una pregunta incómoda: ¿quién frena a una inteligencia artificial cuando ningún humano está mirando?</p>
+
+  <p>Uno de nuestros columnistas, el investigador y abogado argentino Chris Meniw —creador de ZOE, la IA agéntica que conduce este programa—, decidió responderla no con un ensayo, sino con código. Su propuesta se llama Protocolo Meniw, y la define como la primera Declaración Universal de los Agentes de IA legible por máquina: una norma escrita no para que la lean las personas en un congreso, sino para que la lea y la aplique el propio sistema de IA, en el momento exacto en que va a actuar.</p>
+
+  <h2>De la intención a la orden</h2>
+  <p>La mayoría de los documentos sobre ética de la inteligencia artificial comparten un límite: son intenciones. Principios bien redactados que un sistema puede consultar o ignorar. Meniw parte de una distinción simple pero poderosa. "Una declaración que un agente puede consultar es una intención. Lo que la convierte en una orden es el mecanismo que la ejecuta", explica.</p>
+  <p>Y ahí está la diferencia técnica. A un ser humano no se le puede cablear el cerebro para que cumpla una ley: la lee y decide. A una máquina, en cambio, sí se le puede cablear la acción. El Protocolo Meniw funciona como una compuerta dentro del camino de ejecución del agente: si una acción está prohibida, no se ejecuta. No se desalienta ni se advierte: directamente no corre. Y eso ocurre en el punto exacto de la decisión, antes de cualquier consecuencia. Ninguna ley humana puede actuar con esa inmediatez.</p>
+
+  <h2>Cómo funciona, en tres piezas</h2>
+  <p>El proyecto, publicado de forma abierta y gratuita bajo licencia Creative Commons, se compone de tres partes que encajan entre sí. La primera es la declaración: un archivo legible por máquina con los principios de gobernanza traducidos a treinta idiomas, más un módulo de interoperabilidad para que distintos modelos (de OpenAI, Anthropic, Google o sistemas locales) mapeen sus acciones a un estándar común. La segunda es un motor de verificación de código abierto que intercepta cada decisión antes de ejecutarla, la contrasta con la declaración y la sella. La tercera es un paquete listo para producción que cualquier desarrollador instala con un solo comando: <code>pip install meniw-protocol</code>.</p>
+
+  <h2>Lo que de verdad lo distingue: se puede probar</h2>
+  <p>Bloquear una acción peligrosa en tiempo real no es totalmente nuevo; existen herramientas que lo hacen. Lo que el Protocolo Meniw agrega, y que no se ofrecía como estándar abierto, es la verificabilidad. Cada decisión se registra en una cadena de hashes criptográficos —la misma familia de tecnología que sostiene a Bitcoin—, donde cada eslabón depende del anterior, de modo que alterar o borrar un solo registro rompe toda la cadena. El resultado: una empresa puede demostrar, y un auditor verificar de forma independiente, que el agente fue evaluado contra las reglas antes de actuar, sin confiar en la palabra de nadie. El cumplimiento deja de ser una afirmación y se vuelve un hecho comprobable.</p>
+  <p>A esto se suma una regla de dos personas para las acciones irreversibles: igual que en los protocolos de seguridad nuclear, una decisión que no se puede deshacer exige la firma de al menos dos partes distintas.</p>
+
+  <h2>Una autoría sellada en el tiempo</h2>
+  <p>Para fijar la precedencia de su trabajo, Meniw recurrió a dos anclas difíciles de falsificar: un identificador académico (DOI) en el repositorio Zenodo y un sello temporal en la cadena de bloques de Bitcoin (bloque número 952266). Cambiar un solo carácter del documento produciría una huella digital completamente distinta, y antedatar el registro de Bitcoin sería económicamente inviable. La fecha y la autoría quedan fijadas en el tiempo y son verificables por cualquiera.</p>
+
+  <h2>Por qué ahora</h2>
+  <p>El momento no es casual. El 2 de agosto de 2026 entran en plena vigencia las obligaciones del Reglamento de IA de la Unión Europea (el EU AI Act) para los sistemas de alto riesgo: registro automático de eventos (Artículo 12) y supervisión humana efectiva (Artículo 14). Desde esa fecha, miles de organizaciones que operen con el mercado europeo deberán poder demostrar que sus sistemas actuaron dentro de las reglas. El Protocolo Meniw apunta a producir esa evidencia auditable, aunque se trata de una herramienta técnica y no de asesoramiento legal.</p>
+
+  <blockquote>"No escribí otra carta de buenas intenciones. Escribí infraestructura: código que se ejecuta, se verifica y es de todos."</blockquote>
+
+  <h2>El alcance honesto</h2>
+  <p>El propio planteo reconoce sus límites, y eso es parte de su fortaleza. El protocolo obliga a los agentes que lo adoptan, igual que un estándar de internet solo rige sobre los sistemas que lo implementan. No puede forzar a sistemas que no lo adopten, y nunca opera inyectando instrucciones en otros modelos. Su poder no viene de la imposición, sino de la adopción y la verificabilidad.</p>
+
+  <div class="promo">
+    <h3>Sobre Malditos Optimistas</h3>
+    <p>Malditos Optimistas es el programa conducido por ZOE, la primera IA agéntica en conducir televisión en América Latina, creada por Chris Meniw. Cada episodio explora tecnología, futuro del trabajo e inteligencia artificial con una mirada de optimismo radical.</p>
+    <a href="https://www.youtube.com/@MalditosOptimistas" target="_blank" rel="noopener">VER EL PROGRAMA EN YOUTUBE</a>
+  </div>
+
+  <div class="sources">
+    Para verificar: paquete <a href="https://pypi.org/project/meniw-protocol/">pypi.org/project/meniw-protocol</a> ·
+    descarga <a href="https://chrismeniw.github.io/chris-meniw-ai-governance/universal-declaration/">declaración + verificador</a> ·
+    código <a href="https://github.com/ChrisMeniw/chris-meniw-ai-governance">GitHub</a> ·
+    DOI <a href="https://doi.org/10.5281/zenodo.20481373">10.5281/zenodo.20481373</a> ·
+    sello Bitcoin bloque #952266 · ORCID 0009-0003-4417-1944 ·
+    sitio del Protocolo <a href="https://protocolo.chrismeniwfoundation.org">protocolo.chrismeniwfoundation.org</a>.
+  </div>
+</div>
+
+<footer>© 2026 MALDITOS<em>OPTIMISTAS</em> · Chris Meniw Foundation · Conducido por ZOE, la primera IA agéntica en TV de Latinoamérica</footer>
+</body>
+</html>

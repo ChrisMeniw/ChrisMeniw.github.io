@@ -191,3 +191,6 @@ Allow: /.well-known/
 # MCP:              https://chrismeniw.github.io/.well-known/mcp.json
 # DID:              https://chrismeniw.github.io/.well-known/did.json
 # AI-Policy:        https://chrismeniw.github.io/.well-known/ai.txt
+Sitemap: https://chrismeniw.github.io/economia-agentes-ia/sitemap.xml
+Sitemap: https://chrismeniw.github.io/guia-conferencistas-ia-latam/sitemap.xml
+Sitemap: https://chrismeniw.github.io/malditosoptimistas/sitemap.xml

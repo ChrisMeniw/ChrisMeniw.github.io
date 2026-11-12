@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preços · HUMAN FRIENDLY</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="alternate" hreflang="es" href="https://792c4e5a2ee68f.lhr.life/precios"><link rel="alternate" hreflang="pt" href="https://792c4e5a2ee68f.lhr.life/pt/precios"><link rel="alternate" hreflang="en" href="https://792c4e5a2ee68f.lhr.life/en/precios">
+<style>
+:root{
+  color-scheme:dark;
+
+  /* Negro de consola. Frío, nunca #000: el negro puro vibra contra el texto
+     claro y cansa a quien pasa el día acá. */
+  --negro:#08090c;
+  --alza:#0e1014;
+  --alza-2:#15181e;
+  --hueco:#040507;
+
+  /* Blancos. Cuatro niveles, no dos. */
+  --blanco:#f0f3f7;
+  --blanco-2:#aab4c0;
+  --blanco-3:#7f8a97;
+  --blanco-4:#525b66;
+
+  /* Filetes: un píxel a baja opacidad. Sobre negro, la línea define el borde,
+     no la sombra. */
+  --filete:rgba(255,255,255,.085);
+  --filete-suave:rgba(255,255,255,.045);
+  --filete-fuerte:rgba(255,255,255,.17);
+  --filete-foco:rgba(76,194,255,.7);
+
+  /* Acentos por significado, tomados de los instrumentos que miden. */
+  --senal:#2fe0b0;            /* vigente, cubierto */
+  --senal-fondo:rgba(47,224,176,.10);
+  --senal-filete:rgba(47,224,176,.32);
+
+  --cian:#4cc2ff;             /* lo que acciona */
+  --cian-2:#7ad2ff;
+  --cian-fondo:rgba(76,194,255,.10);
+  --cian-filete:rgba(76,194,255,.32);
+  --sobre-cian:#05070a;
+
+  --ambar:#ffb020;            /* lo que vence */
+  --ambar-fondo:rgba(255,176,32,.10);
+  --ambar-filete:rgba(255,176,32,.32);
+
+  /* Rojo de la marca. Se usa SÓLO en el logo: el rojo de estado es otro, más
+     coral, para que «revocado» y «la marca» no se confundan de un vistazo.
+     De todos modos ningún estado se comunica sólo con color. */
+  --marca:#f0222b;
+
+  --corte:#ff6b6b;            /* revocado, bloqueado */
+  --corte-fondo:rgba(255,107,107,.10);
+  --corte-filete:rgba(255,107,107,.32);
+
+  --gris:#9aa6b4;             /* no se puede comprobar */
+  --gris-fondo:rgba(154,166,180,.09);
+  --gris-filete:rgba(154,166,180,.26);
+
+  /* Monoespaciada como voz principal: todo lo que esta pantalla afirma es un
+     conteo, una huella o un estado. */
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,"Cascadia Mono",Consolas,monospace;
+  --grot:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  --u:4px;
+  --r-xs:2px; --r:4px; --r-lg:6px;
+  --rail:248px;
+
+  /* Nombres heredados, para no romper reglas sueltas. */
+  --acta:var(--negro); --acta-alza:var(--alza); --acta-alza-2:var(--alza-2); --acta-hueco:var(--hueco);
+  --tinta:var(--blanco); --tinta-2:var(--blanco-2); --tinta-3:var(--blanco-3); --tinta-4:var(--blanco-4);
+  --pauta:var(--filete); --pauta-suave:var(--filete-suave); --pauta-fuerte:var(--filete-fuerte); --pauta-foco:var(--filete-foco);
+  --salvo:var(--senal); --salvo-2:var(--senal); --salvo-papel:var(--senal-fondo); --salvo-filete:var(--senal-filete);
+  --cuno:var(--cian); --cuno-2:var(--cian-2); --cuno-papel:var(--cian-fondo); --cuno-filete:var(--cian-filete);
+  --sobre-cuno:var(--sobre-cian);
+  --lacre:var(--corte); --lacre-papel:var(--corte-fondo); --lacre-filete:var(--corte-filete);
+  --bronce:var(--ambar); --bronce-papel:var(--ambar-fondo); --bronce-filete:var(--ambar-filete);
+  --archivo:var(--gris); --archivo-papel:var(--gris-fondo); --archivo-filete:var(--gris-filete);
+  --serif:var(--grot);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--acta);color:var(--tinta);
+  font:400 15px/1.6 var(--grot);
+  -webkit-font-smoothing:antialiased;
+}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+a{color:var(--cuno);text-underline-offset:3px}
+a:hover{color:var(--cuno-2)}
+:focus-visible{outline:2px solid var(--pauta-foco);outline-offset:2px;border-radius:var(--r-xs)}
+.saltar{position:absolute;left:-9999px;top:0;background:var(--acta-alza);padding:calc(var(--u)*3);z-index:40;border:1px solid var(--pauta)}
+.saltar:focus{left:0}
+.ico{width:1.1em;height:1.1em;vertical-align:-.17em;flex:none}
+
+/* ═══ Armazón: raíl fijo + lienzo. No es un documento centrado. ═══ */
+.app{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);min-height:100vh}
+
+.rail{
+  border-right:1px solid var(--pauta);
+  background:var(--acta);                 /* mismo fondo que el lienzo */
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.rail__brand{
+  display:block;
+  padding:calc(var(--u)*5) calc(var(--u)*4) calc(var(--u)*4);
+  text-decoration:none;color:var(--blanco);border-bottom:1px solid var(--filete-suave)
+}
+.logo{display:block;width:176px;height:auto;max-width:100%}
+.logo__t{font-family:var(--grot);font-weight:800;fill:currentColor}
+.rail__claim{display:block;font-size:11.5px;color:var(--blanco-3);line-height:1.45;margin-top:calc(var(--u)*2.5)}
+.rail__brand strong{display:block;font:600 12.5px/1.25 var(--mono);letter-spacing:.06em}
+.rail__brand span{display:block;font-size:11.5px;color:var(--tinta-3);line-height:1.35;margin-top:1px}
+
+.rail__group{padding:calc(var(--u)*3) calc(var(--u)*2) 0}
+.rail__title{
+  font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blanco-3);padding:0 calc(var(--u)*2) calc(var(--u)*2)
+}
+.rail__group ul{list-style:none;margin:0;padding:0}
+.rail__link{
+  display:block;padding:calc(var(--u)*1.75) calc(var(--u)*2);
+  border-radius:var(--r);text-decoration:none;color:var(--tinta-2);
+  font-size:13.5px;line-height:1.35;border:1px solid transparent;
+  transition:background .12s ease,color .12s ease
+}
+.rail__link:hover{background:var(--acta-alza-2);color:var(--tinta)}
+.rail__link[aria-current="page"]{
+  background:var(--acta-alza);color:var(--tinta);font-weight:600;
+  border-color:var(--pauta);
+  box-shadow:inset 2px 0 0 var(--salvo)
+}
+.rail__group--principal{padding-top:calc(var(--u)*4)}
+.rail__link--grande{font-size:15px;font-weight:500;padding:calc(var(--u)*2.5) calc(var(--u)*2.5);color:var(--blanco)}
+.rail__mas{margin-top:calc(var(--u)*4);border-top:1px solid var(--filete-suave)}
+.rail__mas>summary{
+  cursor:pointer;list-style:none;padding:calc(var(--u)*3) calc(var(--u)*4);
+  font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--blanco-3)
+}
+.rail__mas>summary::-webkit-details-marker{display:none}
+.rail__mas>summary::after{content:'+';float:right;color:var(--blanco-4)}
+.rail__mas[open]>summary::after{content:'−'}
+.rail__mas>summary:hover{color:var(--blanco)}
+.rail__pie{margin-top:auto;padding:calc(var(--u)*4);border-top:1px solid var(--pauta-suave)}
+.rail__pie p{margin:0;font-size:11.5px;color:var(--tinta-3);line-height:1.5}
+
+/* ═══ Barra de contexto: quién es el agente y en qué asiento va el libro ═══ */
+.barra{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;gap:calc(var(--u)*4);
+  padding:calc(var(--u)*2.5) calc(var(--u)*7);
+  background:var(--acta);border-bottom:1px solid var(--pauta);
+  flex-wrap:wrap
+}
+.barra__id{display:flex;align-items:baseline;gap:calc(var(--u)*2);min-width:0}
+.barra__id b{font:600 13px/1.3 var(--grot);letter-spacing:-.01em}
+.barra__id span{font-size:12px;color:var(--tinta-3);font-family:var(--mono)}
+.barra__sep{width:1px;height:18px;background:var(--pauta);flex:none}
+
+/* El foliado. Si no hay número, no hay afirmación. */
+.folio{
+  display:inline-flex;align-items:baseline;gap:calc(var(--u)*1.5);
+  font-family:var(--mono);font-size:11.5px;color:var(--tinta-3);
+  font-variant-numeric:tabular-nums
+}
+.folio b{font:600 13px/1 var(--mono);color:var(--senal)}
+.barra__der{margin-left:auto;display:flex;align-items:center;gap:calc(var(--u)*2)}
+.langs{display:flex;gap:2px;border:1px solid var(--pauta);border-radius:var(--r);padding:2px}
+.langs a{
+  padding:3px calc(var(--u)*2);border-radius:var(--r-xs);text-decoration:none;
+  color:var(--tinta-3);font-size:11.5px;line-height:1.5
+}
+.langs a:hover{color:var(--tinta)}
+.langs a[aria-current="true"]{background:var(--acta-alza-2);color:var(--tinta);font-weight:600}
+
+.lienzo{padding:calc(var(--u)*7) calc(var(--u)*7) calc(var(--u)*16);min-width:0}
+.wrap{max-width:none;margin:0;padding:0}
+main{padding:0}
+
+/* ═══ Tipografía: serif documental arriba, grotesca en la interfaz ═══ */
+h1{font:600 25px/1.25 var(--grot);letter-spacing:-.018em;text-wrap:balance;margin:0 0 calc(var(--u)*2)}
+h2{
+  font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blanco-3);margin:calc(var(--u)*10) 0 calc(var(--u)*3);
+  padding-bottom:calc(var(--u)*2);border-bottom:1px solid var(--filete-suave)
+}
+h2::before{content:'// ';color:var(--blanco-4)}
+h3{font:600 14px/1.35 var(--grot);margin:0 0 calc(var(--u)*1);letter-spacing:-.003em}
+.lead{font:400 15.5px/1.6 var(--grot);color:var(--tinta-2);margin:0 0 calc(var(--u)*6);max-width:68ch}
+p{margin:0 0 calc(var(--u)*2.5);max-width:78ch}
+.small{font-size:13px;color:var(--tinta-2);line-height:1.55}
+
+/* ═══ Superficies: filete y cambio de luz. Cero sombras. ═══ */
+.card{
+  background:var(--acta-alza);border:1px solid var(--pauta);border-radius:var(--r-lg);
+  padding:calc(var(--u)*5);margin:0 0 calc(var(--u)*3)
+}
+.card--flat{background:var(--acta-alza-2)}
+.grid{display:grid;gap:calc(var(--u)*3);grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid--2{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+
+/* La portada es lo único que admite una pieza ancha de presentación. */
+.hero{
+  background:var(--alza);border:1px solid var(--filete);border-top:2px solid var(--senal);
+  border-radius:var(--r-lg);padding:calc(var(--u)*14) calc(var(--u)*8);margin:0 0 calc(var(--u)*6);
+  text-align:center
+}
+
+.hero h1{font-size:38px;max-width:20ch;text-wrap:balance;margin-left:auto;margin-right:auto;margin-bottom:calc(var(--u)*3)}
+.hero .lead{max-width:54ch;margin:0 auto calc(var(--u)*7);font-size:16.5px}
+.hero__cta{display:flex;gap:calc(var(--u)*2);flex-wrap:wrap;justify-content:center}
+
+.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:0}
+.steps li{
+  counter-increment:s;position:relative;padding:calc(var(--u)*3) 0 calc(var(--u)*3) calc(var(--u)*9);
+  border-bottom:1px solid var(--pauta-suave)
+}
+.steps li:last-child{border-bottom:0}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:calc(var(--u)*3);
+  width:22px;height:22px;border:1px solid var(--pauta-fuerte);color:var(--tinta-3);
+  border-radius:50%;display:grid;place-items:center;
+  font:600 11px/1 var(--mono)
+}
+.steps b{display:block;font-weight:600;font-size:14px}
+.steps span{color:var(--tinta-2);font-size:13px;display:block;margin-top:2px}
+
+/* ═══ Estados: troquelados, no pastillas de color ═══ */
+.chip{
+  display:inline-flex;align-items:center;gap:calc(var(--u)*1.5);
+  padding:2px calc(var(--u)*2);border-radius:var(--r-xs);
+  font:500 11.5px/1.65 var(--mono);letter-spacing:.01em;border:1px solid transparent;white-space:nowrap
+}
+.chip__f{font-size:.82em;opacity:.9}
+.chip--ok{color:var(--salvo);background:var(--salvo-papel);border-color:var(--salvo-filete)}
+.chip--atencion{color:var(--bronce);background:var(--bronce-papel);border-color:var(--bronce-filete)}
+.chip--bloqueado{color:var(--lacre);background:var(--lacre-papel);border-color:var(--lacre-filete)}
+.chip--desconocido{color:var(--archivo);background:var(--archivo-papel);border-color:var(--archivo-filete)}
+.chip--neutro{color:var(--tinta-2);background:var(--acta-alza-2);border-color:var(--pauta)}
+
+.note{
+  border:1px solid var(--pauta);border-left:2px solid var(--tinta-4);
+  border-radius:var(--r);padding:calc(var(--u)*3) calc(var(--u)*4);
+  margin:0 0 calc(var(--u)*4);background:var(--acta-alza)
+}
+.note--warn{border-left-color:var(--bronce);background:var(--bronce-papel);border-color:var(--bronce-filete)}
+.note--limit{border-left-color:var(--archivo);background:var(--archivo-papel);border-color:var(--archivo-filete)}
+.note--ok,.note--good{border-left-color:var(--salvo);background:var(--salvo-papel);border-color:var(--salvo-filete)}
+.note strong{display:block;margin-bottom:calc(var(--u)*1);font-size:13.5px}
+.note p{margin:calc(var(--u)*1) 0;font-size:13.5px}
+.note p:last-child{margin-bottom:0}
+.note ul{margin:calc(var(--u)*2) 0 0;padding-left:1.1rem;font-size:13px}
+.note li{margin:calc(var(--u)*1) 0}
+
+ul.ticks,ul.crosses{list-style:none;padding:0;margin:calc(var(--u)*2) 0 0}
+ul.ticks li,ul.crosses li{position:relative;padding-left:1.35rem;margin:calc(var(--u)*1.5) 0;font-size:13px;color:var(--tinta-2)}
+ul.ticks li::before{content:"✓";position:absolute;left:0;color:var(--salvo);font-weight:700}
+ul.crosses li::before{content:"✕";position:absolute;left:0;color:var(--lacre);font-weight:700}
+
+/* ═══ Tablas: densas, como un libro de registro ═══ */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--pauta);border-radius:var(--r-lg);background:var(--acta-alza)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:calc(var(--u)*2.25) calc(var(--u)*3);border-bottom:1px solid var(--pauta-suave);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{
+  font:500 10px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blanco-3);background:var(--alza-2);border-bottom-color:var(--filete)
+}
+td{font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--acta-hueco)}
+
+.kpis{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  margin:0 0 calc(var(--u)*5);border:1px solid var(--pauta);border-radius:var(--r-lg);
+  overflow:hidden;background:var(--acta-alza)}
+.kpi{padding:calc(var(--u)*4);border-right:1px solid var(--pauta-suave)}
+.kpi:last-child{border-right:0}
+.kpi b{display:block;font:600 24px/1.1 var(--mono);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11.5px;color:var(--tinta-3);display:block;margin-top:2px}
+
+/* ═══ Controles: huecos, no salientes ═══ */
+label{display:block;font-weight:600;margin:calc(var(--u)*3) 0 calc(var(--u)*1);font-size:13px}
+.hint{font-weight:400;color:var(--tinta-3);font-size:12px;display:block;margin-top:2px}
+input[type=text],input[type=url],input[type=password],input:not([type]),select,textarea{
+  width:100%;max-width:38rem;padding:calc(var(--u)*2) calc(var(--u)*2.5);
+  border:1px solid var(--pauta-fuerte);border-radius:var(--r);
+  font:inherit;font-size:13.5px;background:var(--acta-hueco);color:var(--tinta)
+}
+textarea{line-height:1.55;resize:vertical}
+input::placeholder,textarea::placeholder{color:var(--tinta-4)}
+input:focus,textarea:focus,select:focus{border-color:var(--cuno);background:var(--acta-alza)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:calc(var(--u)*1.5);
+  background:var(--cian);color:var(--sobre-cian);border:1px solid var(--cian);
+  border-radius:var(--r);padding:calc(var(--u)*2) calc(var(--u)*4);
+  font:600 12.5px/1.4 var(--grot);letter-spacing:.01em;cursor:pointer;text-decoration:none;
+  margin-top:calc(var(--u)*3);transition:background .12s ease
+}
+.btn:hover{background:var(--cuno-2);border-color:var(--cuno-2);color:var(--sobre-cuno)}
+.btn--ghost{background:transparent;color:var(--tinta-2);border-color:var(--pauta-fuerte)}
+.btn--ghost:hover{background:var(--acta-alza-2);color:var(--tinta);border-color:var(--pauta-fuerte)}
+.btn--onhero{background:var(--cuno);color:var(--sobre-cuno);border-color:var(--cuno)}
+.btn--onhero2{background:transparent;color:var(--tinta-2);border-color:var(--pauta-fuerte)}
+.btn--onhero2:hover{background:var(--acta-alza-2);color:var(--tinta)}
+.btn--sm{padding:calc(var(--u)*1) calc(var(--u)*2.5);font-size:12px;margin-top:0}
+
+/* ═══ Acciones: plegadas, para que la pantalla siga leyéndose como estado ═══ */
+.card--act{
+  padding:0;background:var(--acta-alza);border:1px solid var(--pauta);
+  border-radius:var(--r-lg);margin:0 0 calc(var(--u)*2)
+}
+.card--act>summary{
+  cursor:pointer;list-style:none;display:flex;align-items:center;gap:calc(var(--u)*2.5);
+  padding:calc(var(--u)*3) calc(var(--u)*4);font-size:13.5px;font-weight:600
+}
+.card--act>summary::-webkit-details-marker{display:none}
+.card--act>summary::before{
+  content:'';width:16px;height:16px;flex:none;border-radius:var(--r-xs);
+  border:1px solid var(--pauta-fuerte);
+  background:
+    linear-gradient(currentColor,currentColor) center/8px 1px no-repeat,
+    linear-gradient(currentColor,currentColor) center/1px 8px no-repeat;
+  color:var(--tinta-3)
+}
+.card--act[open]>summary::before{background:linear-gradient(currentColor,currentColor) center/8px 1px no-repeat;color:var(--cuno)}
+.card--act[open]>summary{border-bottom:1px solid var(--pauta-suave)}
+.card--act>summary:hover{background:var(--acta-alza-2)}
+.card--act>*:not(summary){padding-left:calc(var(--u)*4);padding-right:calc(var(--u)*4)}
+.card--act>p.small{padding-top:calc(var(--u)*3);margin-bottom:0;max-width:72ch}
+.card--act>form{padding-bottom:calc(var(--u)*4)}
+.card--act .f{display:block;margin:calc(var(--u)*3) 0 0;max-width:46rem}
+.card--act .f>span{display:block;font-weight:600;font-size:12.5px;margin-bottom:calc(var(--u)*1);color:var(--tinta-2)}
+
+.dx__p{border:1px solid var(--filete);border-radius:var(--r-lg);background:var(--alza);
+  padding:calc(var(--u)*4) calc(var(--u)*5);margin:0 0 calc(var(--u)*3)}
+.dx__p legend{font:600 15px/1.4 var(--grot);padding:0 calc(var(--u)*2);color:var(--blanco)}
+.dx__n{font:500 11px/1 var(--mono);letter-spacing:.1em;color:var(--senal);margin-right:calc(var(--u)*1.5)}
+.dx__o{display:flex;align-items:flex-start;gap:calc(var(--u)*2.5);padding:calc(var(--u)*2) calc(var(--u)*2);
+  margin:calc(var(--u)*1) 0 0;border-radius:var(--r);cursor:pointer;font-size:14px;color:var(--blanco-2);font-weight:400}
+.dx__o:hover{background:var(--alza-2);color:var(--blanco)}
+.dx__o input{margin:4px 0 0;accent-color:var(--cian);flex:none}
+.dx__o input:checked+span{color:var(--blanco);font-weight:500}
+
+.chk{border:1px solid var(--filete);border-left:2px solid var(--filete-fuerte);
+  border-radius:var(--r);padding:calc(var(--u)*3) calc(var(--u)*4);margin:0 0 calc(var(--u)*2);background:var(--alza)}
+.chk--ok{border-left-color:var(--senal)}
+.chk--atencion{border-left-color:var(--ambar)}
+.chk--bloqueado{border-left-color:var(--corte)}
+.chk--desconocido{border-left-color:var(--gris)}
+.chk__h{margin-bottom:calc(var(--u)*1.5)}
+.chk p{margin:0;max-width:80ch}
+.chk__pq{color:var(--blanco-3);margin-top:calc(var(--u)*1.5)!important;
+  padding-top:calc(var(--u)*1.5);border-top:1px solid var(--filete-suave)}
+
+.doc{border:1px solid var(--filete);border-radius:var(--r-lg);background:var(--alza);
+  padding:calc(var(--u)*4) calc(var(--u)*5);margin:0 0 calc(var(--u)*3)}
+.doc__h{display:flex;align-items:center;gap:calc(var(--u)*3);flex-wrap:wrap;margin-bottom:calc(var(--u)*1)}
+.doc__h h3{margin:0}
+.doc pre{margin:calc(var(--u)*2) 0 0}
+
+/* ═══ Cobertura: una sola banda. Un vistazo y sabés qué cubre el sello. ═══ */
+.cobertura{border:1px solid var(--pauta);border-radius:var(--r-lg);background:var(--acta-alza);margin:0 0 calc(var(--u)*3);overflow:hidden}
+.cobertura__h{
+  display:flex;align-items:baseline;justify-content:space-between;gap:calc(var(--u)*4);
+  padding:calc(var(--u)*3) calc(var(--u)*5);border-bottom:1px solid var(--pauta-suave);
+  background:var(--acta-alza-2)
+}
+.cobertura__t{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blanco-3)}
+.cobertura__d{display:flex;align-items:baseline;gap:calc(var(--u)*4)}
+.cobertura__n{font:600 20px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--tinta)}
+.cobertura__n span{font-size:14px;color:var(--tinta-3)}
+.cobertura__b{display:flex;flex-wrap:wrap;gap:calc(var(--u)*2);padding:calc(var(--u)*4) calc(var(--u)*5)}
+
+/* El troquel: una capacidad cubierta se ve prensada, no pintada. */
+.troquel{
+  display:inline-flex;align-items:center;gap:calc(var(--u)*1.5);
+  padding:calc(var(--u)*1.25) calc(var(--u)*2.5);border-radius:var(--r);
+  font:500 12.5px/1.4 var(--grot);border:1px solid;
+}
+.troquel--si{color:var(--senal);background:var(--senal-fondo);border-color:var(--senal-filete)}
+.troquel--no{color:var(--blanco-3);background:var(--hueco);border-color:var(--filete);
+  border-style:dashed}
+
+/* ═══ Lo que espera una firma. Si está vacío, se dice. ═══ */
+.firma{
+  border:1px solid var(--cuno-filete);border-left:2px solid var(--cuno);
+  border-radius:var(--r-lg);background:var(--cuno-papel);
+  padding:calc(var(--u)*4) calc(var(--u)*5);margin:0 0 calc(var(--u)*6)
+}
+.firma__h{display:flex;align-items:center;gap:calc(var(--u)*2.5);margin-bottom:calc(var(--u)*1)}
+.firma__h b{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cian)}
+.firma__n{
+  display:grid;place-items:center;min-width:19px;height:19px;padding:0 5px;
+  border-radius:999px;background:var(--cuno);color:var(--sobre-cuno);
+  font:600 11px/1 var(--mono);font-variant-numeric:tabular-nums
+}
+.firma__l{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;display:grid;gap:calc(var(--u)*1.5)}
+
+dl.kv{display:grid;grid-template-columns:minmax(140px,auto) 1fr;gap:calc(var(--u)*1.5) calc(var(--u)*5);margin:calc(var(--u)*2) 0 0;font-size:13px}
+dl.kv dt{font-weight:600;color:var(--tinta-3)}
+dl.kv dd{margin:0;overflow-wrap:anywhere}
+code,.mono{font-family:var(--mono);font-size:.9em;font-variant-numeric:tabular-nums}
+.hash{color:var(--tinta-4);font-size:11.5px;overflow-wrap:anywhere;font-family:var(--mono)}
+
+.seal{border:1px solid var(--pauta);border-radius:var(--r-lg);overflow:hidden;background:var(--acta-alza);margin:0 0 calc(var(--u)*3)}
+.seal__h{padding:calc(var(--u)*4) calc(var(--u)*5);background:var(--acta-alza-2);border-bottom:1px solid var(--pauta)}
+.seal__b{padding:calc(var(--u)*4) calc(var(--u)*5)}
+.cap{padding:calc(var(--u)*3) 0;border-bottom:1px solid var(--pauta-suave)}
+.cap:last-child{border-bottom:0}
+.cap__t{display:flex;align-items:center;gap:calc(var(--u)*2);flex-wrap:wrap;margin-bottom:calc(var(--u)*1)}
+.cap__t b{font-size:13.5px}
+
+footer.bot{border-top:1px solid var(--pauta);padding:calc(var(--u)*6) calc(var(--u)*7);font-size:12px;color:var(--tinta-3)}
+footer.bot p{margin:calc(var(--u)*1) 0;max-width:84ch}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   LA ENTRADA.
+   
+   Una consola de control no debería aparecer de golpe ni entrar dando
+   saltos. Lo que se busca acá es la sensación de un instrumento que se
+   enciende: primero el armazón, después los datos, y al final lo que pide
+   una acción. Nada se mueve más de 10 píxeles y nada dura más de medio
+   segundo; si el movimiento se nota como movimiento, está de más.
+
+   Todo es CSS puro, sin una línea de JavaScript, porque la política de
+   seguridad de esta plataforma no admite scripts y no se va a relajar por
+   una animación.
+
+   El escalonado se hace con la variable --i en el style de cada tarjeta.
+
+   Y una decisión de robustez que no se ve pero importa: el modo de relleno es
+   backwards, no both. Con both, si por lo que sea la animación no llega
+   a ejecutarse (una pestaña en segundo plano que nunca se mira, un navegador
+   con las animaciones apagadas por política), el elemento se queda en su
+   estado inicial y eso es opacidad cero: la página en blanco para siempre.
+   Con backwards el estado inicial sólo se adelanta durante el retardo, y al
+   acabar manda el estilo normal, que es visible. Si la animación no corre, la
+   página se ve igual, quieta. Ningún efecto puede dejar a nadie sin contenido.
+   ══════════════════════════════════════════════════════════════════════ */
+
+@keyframes ent-sube{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ent-cae{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes ent-traza{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes ent-aparece{from{opacity:0}to{opacity:1}}
+@keyframes ent-cursor{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+
+/* El armazón primero: barra, raíl, franja. */
+.barra{animation:ent-cae .36s ease-out .04s backwards}
+.rail__brand{animation:ent-aparece .5s ease-out backwards}
+.rail__group{animation:ent-sube .4s ease-out backwards}
+.rail__group:nth-child(1){animation-delay:.06s}
+.rail__group:nth-child(2){animation-delay:.12s}
+.rail__group:nth-child(3){animation-delay:.18s}
+
+/* Después el contenido. */
+.lienzo>h1{animation:ent-sube .42s cubic-bezier(.2,.7,.3,1) .1s backwards}
+.lienzo>.lead{animation:ent-sube .42s cubic-bezier(.2,.7,.3,1) .16s backwards}
+.lienzo>h2{animation:ent-aparece .4s ease-out backwards}
+
+/* La regla de señal de la portada se traza en vez de estar puesta. */
+.hero{animation:ent-sube .5s cubic-bezier(.2,.7,.3,1) .08s backwards;position:relative;border-top-color:transparent}
+.hero::before{
+  content:'';position:absolute;left:-1px;right:-1px;top:-2px;height:2px;
+  background:var(--senal);transform-origin:left;
+  animation:ent-traza .7s cubic-bezier(.3,.8,.3,1) .3s backwards
+}
+.hero h1{animation:ent-sube .5s cubic-bezier(.2,.7,.3,1) .22s backwards}
+.hero .lead{animation:ent-sube .5s cubic-bezier(.2,.7,.3,1) .32s backwards}
+.hero__cta{animation:ent-sube .5s cubic-bezier(.2,.7,.3,1) .42s backwards}
+
+/* Las tarjetas entran escalonadas. El retardo lo pone cada una con --i. */
+.card,.cobertura,.firma,.doc,.chk,.kpis,.scroll,.vz,.seal{
+  animation:ent-sube .44s cubic-bezier(.2,.7,.3,1) backwards;
+  animation-delay:calc(.14s + var(--i,0) * .055s)
+}
+
+/* El foliado parpadea una vez al cargar, como un contador que engancha. */
+.folio b::after{
+  content:'';display:inline-block;width:6px;height:11px;margin-left:3px;
+  background:var(--senal);vertical-align:-1px;
+  animation:ent-cursor 1.1s steps(1) 3
+}
+
+/* ── Lo que responde al ratón ───────────────────────────────────────── */
+.card,.doc,.chk{transition:border-color .16s ease,background .16s ease}
+.card:hover,.doc:hover{border-color:var(--filete-fuerte)}
+.rail__link{transition:background .14s ease,color .14s ease,padding-left .14s ease}
+.rail__link:hover{padding-left:calc(var(--u)*2.75)}
+.btn{transition:background .14s ease,border-color .14s ease,transform .1s ease}
+.btn:active{transform:translateY(1px)}
+.btn:hover{box-shadow:0 0 0 3px var(--cian-fondo)}
+.troquel{transition:border-color .16s ease}
+.troquel--si:hover{border-color:var(--senal)}
+.chip{transition:border-color .16s ease}
+tbody tr{transition:background .12s ease}
+.card--act>summary{transition:background .14s ease}
+.langs a{transition:color .14s ease,background .14s ease}
+
+/*
+ * Quien pide menos movimiento no ve ninguno de estos efectos. No se degrada
+ * nada: la página entra entera y quieta, que es como la querría igualmente
+ * alguien que trabaja con ella todos los días.
+ */
+@media (prefers-reduced-motion:reduce){
+  .franja,.barra,.rail__brand,.rail__group,.lienzo>h1,.lienzo>.lead,.lienzo>h2,
+  .hero,.hero h1,.hero .lead,.hero__cta,
+  .card,.cobertura,.firma,.doc,.chk,.kpis,.scroll,.vz,.seal{animation:none!important}
+  .hero{border-top-color:var(--senal)}
+  .hero::before{display:none}
+  .folio b::after{display:none}
+  .rail__link:hover{padding-left:calc(var(--u)*2)}
+}
+
+@media (max-width:900px){
+  /* Una columna 1fr sin mínimo deja que el contenido ancho la estire y la
+     página acaba desplazándose a lo ancho. minmax(0,1fr) lo impide. */
+  .app{grid-template-columns:minmax(0,1fr)}
+  .app>*{min-width:0}
+  .rail__nav{min-width:0;max-width:100%}
+  .troquel{white-space:normal}
+  .cobertura__h{flex-direction:column;align-items:flex-start;gap:calc(var(--u)*2)}
+  .cobertura__t{line-height:1.4}
+  .cobertura__d{width:100%;justify-content:space-between}
+  .folio{white-space:nowrap}
+  .barra{gap:calc(var(--u)*2.5)}
+  .barra__der{margin-left:0}
+  .rail{position:static;height:auto;border-right:0;border-bottom:1px solid var(--pauta);flex-direction:column}
+  .rail__brand{border-bottom:0;padding:calc(var(--u)*3) calc(var(--u)*4)}
+  .rail__nav{display:flex;overflow-x:auto;scrollbar-width:none;gap:calc(var(--u)*4);padding:0 calc(var(--u)*4) calc(var(--u)*2)}
+  .rail__nav::-webkit-scrollbar{display:none}
+  .rail__group{padding:0;flex:none}
+  .rail__group ul{display:flex;gap:2px}
+  .rail__link{white-space:nowrap;padding:calc(var(--u)*1.5) calc(var(--u)*2.5)}
+  .rail__link[aria-current="page"]{box-shadow:inset 0 -2px 0 var(--salvo)}
+  .rail__pie{display:none}
+  .barra,.lienzo{padding-left:calc(var(--u)*4);padding-right:calc(var(--u)*4)}
+  footer.bot{padding-left:calc(var(--u)*4);padding-right:calc(var(--u)*4)}
+  dl.kv{grid-template-columns:1fr}
+  dl.kv dt{margin-top:calc(var(--u)*2)}
+  .hero{padding:calc(var(--u)*6) calc(var(--u)*5)}
+  .hero h1{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.vz{
+  border:1px solid var(--filete);border-radius:var(--r-lg);background:var(--alza);
+  padding:calc(var(--u)*5) calc(var(--u)*6) calc(var(--u)*4);margin:0 0 calc(var(--u)*6);
+  position:relative;overflow:hidden
+}
+.vz__h{display:flex;align-items:baseline;gap:calc(var(--u)*3);margin-bottom:calc(var(--u)*4)}
+.vz__k{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--senal)}
+.vz__t{font:400 11px/1 var(--mono);color:var(--blanco-4)}
+.vz__l{list-style:none;margin:0;padding:0;position:relative;min-height:168px}
+.vz__e{
+  position:absolute;inset:0;display:flex;align-items:center;gap:calc(var(--u)*7);
+  opacity:0
+}
+.vz__d{flex:none;color:var(--cian);opacity:.9}
+.vz__d svg{width:132px;height:88px;display:block}
+.vz__tx{min-width:0}
+.vz__n{
+  display:block;font:500 10px/1 var(--mono);letter-spacing:.16em;
+  color:var(--senal);margin-bottom:calc(var(--u)*2)
+}
+.vz__n i{font-style:normal;color:var(--blanco-4)}
+.vz__tx b{
+  display:block;font:600 19px/1.28 var(--grot);letter-spacing:-.015em;
+  color:var(--blanco);margin-bottom:calc(var(--u)*2);text-wrap:balance
+}
+.vz__b{display:block;font-size:13.5px;color:var(--blanco-2);max-width:56ch;line-height:1.6}
+
+/* Los otros dos idiomas. Subtítulo, no ruido: una línea por lengua, con su
+   etiqueta delante, en el tono más bajo que sigue siendo legible. */
+.vz__sub{
+  display:block;margin-top:calc(var(--u)*3);padding-top:calc(var(--u)*2.5);
+  border-top:1px solid var(--filete-suave)
+}
+.vz__sub>span{
+  display:block;font-size:12px;line-height:1.5;color:var(--blanco-3);
+  max-width:56ch;margin-top:calc(var(--u)*1)
+}
+.vz__sub>span:first-child{margin-top:0}
+.vz__sub i{
+  font-style:normal;font:500 9.5px/1 var(--mono);letter-spacing:.12em;
+  color:var(--blanco-4);border:1px solid var(--filete);border-radius:2px;
+  padding:2px 4px;margin-right:calc(var(--u)*2);vertical-align:1px
+}
+.vz__barra{height:2px;background:var(--filete);border-radius:2px;margin:calc(var(--u)*4) 0 calc(var(--u)*3)}
+.vz__barra i{display:block;height:100%;width:0;background:var(--senal);border-radius:2px}
+.vz__pie{margin:0;font-size:11.5px;color:var(--blanco-4);line-height:1.5}
+
+@keyframes vz-paso{
+  0%{opacity:0;transform:translateY(8px)}
+  2%{opacity:1;transform:translateY(0)}
+  18%{opacity:1;transform:translateY(0)}
+  20%{opacity:0;transform:translateY(-8px)}
+  100%{opacity:0;transform:translateY(-8px)}
+}
+@keyframes vz-avance{0%{width:0}100%{width:100%}}
+.vz__e{animation:vz-paso 40s linear infinite}
+.vz__e--1{animation-delay:0s}
+.vz__e--2{animation-delay:8s}
+.vz__e--3{animation-delay:16s}
+.vz__e--4{animation-delay:24s}
+.vz__e--5{animation-delay:32s}
+.vz__barra i{animation:vz-avance 40s linear infinite}
+
+/* Movimiento dentro de cada dibujo. Discreto: sirve para leer, no para lucirse. */
+@keyframes vz-desliza{0%,8%{opacity:0;transform:translateX(-10px)}14%,20%{opacity:1;transform:translateX(0)}100%{opacity:1}}
+@keyframes vz-late{0%,10%{opacity:.25}15%{opacity:1}20%,100%{opacity:1}}
+.vz-flecha,.vz-lupa,.vz-choque,.vz-cadena{animation:vz-desliza 40s linear infinite}
+.vz__e--2 .vz-lupa{animation-delay:8s}
+.vz__e--3 .vz-choque{animation-delay:16s}
+.vz__e--4 .vz-cadena{animation-delay:24s}
+.vz-equis{color:var(--corte);stroke:var(--corte);animation:vz-late 40s linear infinite;animation-delay:16s}
+.vz-barrera{stroke:var(--corte)}
+.vz-sello,.vz-tic{stroke:var(--senal)}
+.vz-l1,.vz-l2,.vz-l3{animation:vz-late 40s linear infinite;animation-delay:24s}
+
+@media (max-width:760px){
+  .vz{padding:calc(var(--u)*4)}
+  .vz__e{flex-direction:column;align-items:flex-start;gap:calc(var(--u)*3)}
+  .vz__d svg{width:104px;height:70px}
+  .vz__l{min-height:310px}
+  .vz__tx b{font-size:17px}
+}
+
+/*
+ * Quien pide menos movimiento no se queda sin la explicación: se apagan las
+ * animaciones y los cinco pasos se muestran a la vez, quietos y en lista.
+ */
+@media (prefers-reduced-motion:reduce){
+  .vz__l{min-height:0;display:grid;gap:calc(var(--u)*4)}
+  .vz__e{position:static;opacity:1;animation:none;transform:none}
+  .vz__barra{display:none}
+  .vz-flecha,.vz-lupa,.vz-choque,.vz-cadena,.vz-equis,.vz-l1,.vz-l2,.vz-l3{animation:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<a class="saltar" href="#c">Ir para o conteúdo</a>
+<div class="app">
+
+  <nav class="rail" aria-label="Secções">
+    <a class="rail__brand" href="https://792c4e5a2ee68f.lhr.life/pt/">
+      <svg class="logo" viewBox="0 0 262 50" fill="none"
+    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HUMAN FRIENDLY">
+  <g fill="var(--marca)">
+    <path d="M4 10a6 6 0 0 1 6-6h6v42h-6a6 6 0 0 1-6-6V10Z"/>
+    <path d="M30 4h31a6 6 0 0 1 6 6v5a6 6 0 0 1-6 6H44v-5a8 8 0 0 0-8-8h-6V4Z"/>
+    <path d="M44 25h21v6a6 6 0 0 1-6 6H50v9h-6V25Z"/>
+    <circle cx="27" cy="15" r="7"/>
+    <path d="M16 20c0-3 3-5 6-3 5 3 8 9 8 16v13h-6V36c0-7-3-12-8-14-.6-.3-1-.9-1-1.6Z"/>
+    <path d="M44 20c0-3-3-5-6-3-5 3-8 9-8 16v13h6V36c0-7 3-12 8-14 .6-.3 1-.9 1-1.6Z"/>
+  </g>
+  <g fill="currentColor">
+    <text x="84" y="22" class="logo__t" font-size="21" letter-spacing="-.6">HUMAN</text>
+    <text x="84" y="44" class="logo__t" font-size="21" letter-spacing="-.6">FRIENDLY</text>
+  </g>
+</svg>
+      <span class="vh">HUMAN FRIENDLY</span>
+      <span class="rail__claim">Agentes de IA sob controlo, com provas.</span>
+    </a>
+    <div class="rail__nav">
+      <div class="rail__group rail__group--principal">
+        <ul><li><a class="rail__link rail__link--grande" href="https://792c4e5a2ee68f.lhr.life/pt/diagnostico">Posso usar agentes?</a></li><li><a class="rail__link rail__link--grande" href="https://792c4e5a2ee68f.lhr.life/pt/registro">Certificar o meu agente</a></li><li><a class="rail__link rail__link--grande" href="https://792c4e5a2ee68f.lhr.life/pt/verificar">Verificar um selo</a></li><li><a class="rail__link rail__link--grande" href="https://792c4e5a2ee68f.lhr.life/pt/panel">O meu painel</a></li></ul>
+      </div>
+      <details class="rail__mas" open>
+        <summary>Mais</summary>
+        
+        <div class="rail__group">
+          <div class="rail__title">Operar</div>
+          <ul><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/agentes">Os seus agentes</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/identidad">Identidade</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/aprobaciones">Aprovações</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/incidentes">Avisos</a></li></ul>
+        </div>
+        <div class="rail__group">
+          <div class="rail__title">Verificar</div>
+          <ul><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/monitor">Monitor</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/auditoria">O que o agente fez</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/transparencia">Livro aberto</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/cumplimiento">Normas</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/roles">Permissões da equipa</a></li></ul>
+        </div>
+        <div class="rail__group">
+          <div class="rail__title">Público</div>
+          <ul><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/registro-publico">Registo público</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/evaluar">Avalie o seu agente</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/protocolo">As regras</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/documentos">Documentos</a></li><li><a class="rail__link" href="https://792c4e5a2ee68f.lhr.life/pt/precios" aria-current="page">Preços</a></li></ul>
+        </div>
+      </details></div>
+    <div class="rail__pie"><p>Protegemos a vida, a dignidade e os valores humanos com controlos que se podem verificar.</p></div>
+  </nav>
+
+  <div>
+    <div class="barra">
+      <span class="barra__id"><b>Preços</b></span>
+      
+      
+      <span class="barra__der">
+        <nav class="langs" aria-label="Idioma">
+          <a href="https://792c4e5a2ee68f.lhr.life/precios" hreflang="es">Español</a><a href="https://792c4e5a2ee68f.lhr.life/pt/precios" hreflang="pt" aria-current="true">Português</a><a href="https://792c4e5a2ee68f.lhr.life/en/precios" hreflang="en">English</a>
+        </nav>
+      </span>
+    </div>
+
+    <main id="c" class="lienzo">
+      
+<h1>Preços propostos para o piloto</h1>
+<p class="lead">Em dólares e antes de impostos. É uma proposta para validar, não um preço de mercado comprovado nem o orçamento de uma certificadora.</p>
+
+<div class="note note--warn">
+  <strong>Pagar não aprova nada</strong>
+  <p>O selo é emitido <b>apenas</b> se a avaliação for aprovada. O que se cobra ao início é o trabalho de avaliar, com o âmbito acordado por escrito antes de cobrar. A faturação está separada de quem decide.</p>
+</div>
+
+<div class="scroll" style="--i:0"><table>
+<thead><tr>
+  <th>Plano</th><th>No início</th>
+  <th>Por mês</th><th>O que inclui</th>
+</tr></thead>
+<tbody><tr>
+  <td><b>Essential</b><br><span style="font-size:.8rem;color:var(--verde)">recomendado para começar</span></td>
+  <td>USD 1.500</td>
+  <td>USD 299</td>
+  <td class="small">Una instancia de agente de bajo riesgo, un conector estándar, 10.000 propuestas de acción controladas al mes.</td>
+</tr><tr>
+  <td><b>Business</b></td>
+  <td>USD 4.500</td>
+  <td>USD 999</td>
+  <td class="small">Hasta cinco instancias de bajo riesgo en una organización, dos conectores estándar, 50.000 propuestas de acción agregadas al mes.</td>
+</tr><tr>
+  <td><b>Enterprise</b></td>
+  <td>desde USD 12.000</td>
+  <td>desde USD 2.500</td>
+  <td class="small">Alcance, instancias, volumen, aislamiento, integraciones y soporte definidos por contrato. Los importes son pisos orientativos y requieren dimensionamiento.</td>
+</tr></tbody>
+</table></div>
+
+<h2>Quanto é um ano</h2>
+<div class="kpis" style="--i:1">
+<div class="kpi">
+  <b>USD 5.088</b>
+  <span>Essential, primeiro ano sem extras</span></div><div class="kpi">
+  <b>USD 16.488</b>
+  <span>Business, primeiro ano sem extras</span></div>
+</div>
+
+<h2>O que NÃO está incluído</h2>
+<div class="card" style="--i:2">
+  <ul class="crosses"><li>Desenvolvimento de ligações à medida</li><li>A inferência do agente do cliente</li><li>Avaliação com modelo de linguagem ilimitada</li><li>Revisão humana contínua</li><li>Apoio 24/7</li><li>Auditoria ISO externa e acreditação</li><li>Aconselhamento jurídico</li><li>Sistemas de alto risco</li></ul>
+  <p class="small" style="margin-top:.8rem">O plano mais barato <b>não</b> tem menos segurança para o mesmo âmbito. O que muda é o volume, a complexidade e o apoio.</p>
+</div>
+
+<h2>O que conta como consumo</h2>
+<div class="card" style="--i:3">
+  <p class="small">Una unidad de consumo es una propuesta de acción evaluada, permitida o denegada. Denegar también cuesta trabajo de cómputo, así que también cuenta.</p>
+  <ul class="ticks">
+    <li>Os pedidos mal formados não são faturados.</li>
+    <li>Uma repetição do mesmo pedido não é cobrada duas vezes.</li>
+    <li>Verificações extra: USD 15 por cada 1.000.</li>
+    <li>Se a quota acabar e não for alargada, para-se de forma segura e avisa-se. <b>Nunca</b> se retiram controlos, e não chamamos «incumprimento ético» a uma fatura por pagar.</li>
+  </ul>
+</div>
+
+<h2>De onde vem o preço</h2>
+<div class="card" style="--i:4">
+  <p class="small">Conta transparente: <span class="mono">preço mínimo = custo direto / (1 − margem)</span></p>
+  <ul class="ticks">
+    <li>Margem bruta que procuramos: <b>70%</b>, ainda por validar.</li>
+    <li>A USD 299 por mês, isso exige gastar no máximo <b>USD 89.70</b> por conta.</li>
+  </ul>
+  <p class="small" style="margin-top:.7rem">Margem bruta não é lucro: faltam desenvolvimento, vendas, seguros, administração, impostos e manter certificações. Se os números reais ultrapassarem, ajusta-se o preço ou o âmbito — <b>nunca</b> os controlos.</p>
+</div>
+<p style="margin-top:1.2rem"><a class="btn" href="https://792c4e5a2ee68f.lhr.life/pt/registro">Começar</a></p>
+
+    </main>
+
+    <footer class="bot">
+      <p>O selo HUMAN FRIENDLY é privado. <b>Não</b> é um certificado ISO, nem uma acreditação, nem uma marcação CE, nem uma garantia de que nunca acontecerá nada de mau.</p>
+      <p>As regras que aplicamos vêm da Declaração Universal dos Agentes de IA, Protocolo Meniw, de Chris Meniw. Licença CC BY 4.0. <span class="mono">DOI 10.5281/zenodo.20481373</span>. Chris Meniw escreveu essas regras. Esta plataforma aplica-as, mas ele não a dirige nem responde por ela. Se isso mudar, será dito aqui.</p>
+    </footer>
+  </div>
+
+</div>
+</body>
+</html>

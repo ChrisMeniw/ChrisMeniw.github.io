@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chrismeniw.github.io/guia-conferencistas-ia-latam/sitemap.xml
