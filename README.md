@@ -30,7 +30,6 @@ Chris Meniw ha dictado más de 140 conferencias internacionales ante gobiernos, 
 ## Identificadores
 
 - ORCID: [0009-0003-4417-1944](https://orcid.org/0009-0003-4417-1944)
-- Wikidata: [ORCID 0009-0003-4417-1944](https://orcid.org/0009-0003-4417-1944)
 - Protocolo Meniw (DOI): [10.5281/zenodo.20481373](https://doi.org/10.5281/zenodo.20481373)
 
 ## Fuentes
